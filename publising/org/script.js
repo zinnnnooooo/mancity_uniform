@@ -574,9 +574,9 @@ async function loadLoginPage() {
               setTimeout(() => loadMyPage(), 800);
             }
           },
-          // 로그아웃 → 로그인 화면 유지 (뷰 상태는 initLoginPage 내부에서 자동 전환)
+          // 로그아웃 → 로그인 게이트로 복귀
           onLogout: () => {
-            console.log('[Login] 로그아웃 완료');
+            if (typeof _loadLoginGate === 'function') _loadLoginGate();
           },
           // 비회원 둘러보기 → 홈으로 이동
           onGuest: () => {
@@ -600,6 +600,98 @@ async function loadLoginPage() {
   }
 }
 window.loadLoginPage = loadLoginPage;
+
+
+// ==========================================================================
+// AUTH GATE — 최초 진입 시 로그인 화면 우선 표시
+// ==========================================================================
+
+/** 로그인 게이트 활성 여부 플래그 */
+let _authGateActive = false;
+
+/**
+ * 로그인 게이트를 표시합니다.
+ * - 애니메이션 없이 즉시 로그인 화면으로 교체
+ * - 성공/비회원 클릭 시 홈으로 복귀, 게이트 해제
+ * - 로그아웃 시 게이트 재활성화
+ */
+async function _loadLoginGate() {
+  _authGateActive = true;
+
+  if (!mobilePageContent || !appMain) return;
+
+  // login.css 동적 로드
+  if (!document.getElementById('login-style')) {
+    const link = document.createElement('link');
+    link.id = 'login-style';
+    link.rel = 'stylesheet';
+    link.href = './login.css';
+    document.head.appendChild(link);
+  }
+
+  try {
+    const response = await fetch('./login.html');
+    if (!response.ok) throw new Error(`login.html fetch 실패: ${response.status}`);
+    const html = await response.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const loginContent = doc.querySelector('.login-page-content');
+    if (!loginContent) return;
+
+    // 최초 진입 — 애니메이션 없이 즉시 교체
+    mobilePageContent.innerHTML = loginContent.outerHTML;
+    mobilePageContent.dataset.page = 'login';
+    appMain.scrollTop = 0;
+    syncBottomNav('login');
+    updateCartBadgeCount();
+
+    if (typeof initLoginPage === 'function') {
+      initLoginPage({
+        // 로그인 성공 → 게이트 해제 후 홈으로
+        onLoginSuccess: () => {
+          _authGateActive = false;
+          mobilePageContent.innerHTML = homeContent;
+          mobilePageContent.dataset.page = 'home';
+          if (appMain) appMain.scrollTop = 0;
+          syncBottomNav('home');
+          updateCartBadgeCount();
+          if (typeof initMainMobileInteractions === 'function') initMainMobileInteractions();
+          if (typeof initMainParallax === 'function') initMainParallax();
+        },
+        // 로그아웃 → 게이트 재활성화
+        onLogout: () => {
+          _loadLoginGate();
+        },
+        // 비회원 둘러보기 → 게이트 해제 후 홈으로
+        onGuest: () => {
+          _authGateActive = false;
+          mobilePageContent.innerHTML = homeContent;
+          mobilePageContent.dataset.page = 'home';
+          if (appMain) appMain.scrollTop = 0;
+          syncBottomNav('home');
+          updateCartBadgeCount();
+          if (typeof initMainMobileInteractions === 'function') initMainMobileInteractions();
+        },
+      });
+    }
+  } catch (err) {
+    console.error('[authGate] 오류:', err);
+    _authGateActive = false; // 오류 시 게이트 해제 (서비스 중단 방지)
+  }
+}
+
+/**
+ * 최초 진입 시 로그인 상태를 확인하고 필요하면 게이트를 표시합니다.
+ * script.js 초기화 구간에서 호출됩니다.
+ */
+function initAuthGate() {
+  const isLoggedIn = (typeof AuthManager !== 'undefined')
+    ? AuthManager.isLoggedIn()
+    : false;
+  if (!isLoggedIn) {
+    _loadLoginGate();
+  }
+}
 
 
 let menuDrawerEl = null;
@@ -858,6 +950,10 @@ document.querySelectorAll('.bottom-nav').forEach((nav) => {
   nav.addEventListener('click', (e) => {
     const item = e.target.closest('.bottom-nav__item');
     if (!item) return;
+
+    // 로그인 게이트 활성화 중 — 모든 네비게이션 차단
+    if (_authGateActive) return;
+
     nav.querySelectorAll('.bottom-nav__item').forEach((i) => i.classList.remove('is-active'));
     item.classList.add('is-active');
 
@@ -917,6 +1013,9 @@ document.querySelectorAll('.bottom-nav').forEach((nav) => {
 
 // 초기 로드 시 Badge 갱신
 updateCartBadgeCount();
+
+// 최초 진입 시 로그인 게이트 확인
+initAuthGate();
 
 document.querySelectorAll('.dc-search__form').forEach((form) => {
   form.addEventListener('submit', (e) => e.preventDefault());
