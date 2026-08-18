@@ -84,7 +84,6 @@ async function loadClubPage() {
       mobilePageContent.dataset.page = 'club';
       appMain.scrollTop = 0;
       syncBottomNav('club');
-      updateCartBadgeCount();
 
       mobilePageContent.classList.remove('page-leave');
       mobilePageContent.classList.add('page-enter');
@@ -130,7 +129,6 @@ async function loadUniformListPage(filter) {
       mobilePageContent.dataset.page = 'uni-list';
       appMain.scrollTop = 0;
       syncBottomNav('uni-list');
-      updateCartBadgeCount();
 
       mobilePageContent.classList.remove('page-leave');
       mobilePageContent.classList.add('page-enter');
@@ -184,7 +182,6 @@ async function loadProductDetailPage(productId) {
       mobilePageContent.dataset.page = 'product-detail';
       appMain.scrollTop = 0;
       syncBottomNav('product-detail');
-      updateCartBadgeCount();
 
       mobilePageContent.classList.remove('page-leave');
       mobilePageContent.classList.add('page-enter');
@@ -205,14 +202,6 @@ async function loadProductDetailPage(productId) {
       } else if (typeof window.initProductDetailPage === 'function') {
         window.initProductDetailPage(productId);
       }
-
-      // 장바구니 담기 버튼 클릭 시 Badge 갱신
-      setTimeout(() => {
-        const addToCartBtns = mobilePageContent.querySelectorAll('[id*="btnCart"], [id*="btnAdd"], .btn-add-to-cart, .js-add-to-cart');
-        addToCartBtns.forEach((btn) => {
-          btn.addEventListener('click', () => setTimeout(updateCartBadgeCount, 100));
-        });
-      }, 300);
     }, 220);
   } catch (err) {
     console.error("Error loading product detail page:", err);
@@ -249,7 +238,6 @@ async function loadCartPage() {
       mobilePageContent.dataset.page = 'cart';
       appMain.scrollTop = 0;
       syncBottomNav('cart');
-      updateCartBadgeCount();
 
       mobilePageContent.classList.remove('page-leave');
       mobilePageContent.classList.add('page-enter');
@@ -271,12 +259,6 @@ async function loadCartPage() {
         } else if (typeof window.initCartPage === 'function') {
           window.initCartPage();
         }
-
-        // 장바구니 삭제/수량 변경 시 Badge 갱신
-        setTimeout(() => {
-          const cartListEl = mobilePageContent.querySelector('[id*="cartList"], .cart-list, [class*="cart-item"]')?.closest('ul, div') || mobilePageContent;
-          cartListEl.addEventListener('click', () => setTimeout(updateCartBadgeCount, 50));
-        }, 300);
       });
     }, 220);
   } catch (err) {
@@ -314,7 +296,6 @@ async function loadCheckoutPage() {
       mobilePageContent.dataset.page = 'checkout';
       appMain.scrollTop = 0;
       syncBottomNav('checkout');
-      updateCartBadgeCount();
 
       mobilePageContent.classList.remove('page-leave');
       mobilePageContent.classList.add('page-enter');
@@ -373,7 +354,6 @@ async function loadMarkingGuidePage() {
       mobilePageContent.dataset.page = 'marking-guide';
       appMain.scrollTop = 0;
       syncBottomNav('marking-guide');
-      updateCartBadgeCount();
 
       mobilePageContent.classList.remove('page-leave');
       mobilePageContent.classList.add('page-enter');
@@ -402,31 +382,6 @@ async function loadMarkingGuidePage() {
   }
 }
 window.loadMarkingGuidePage = loadMarkingGuidePage;
-
-// ==========================================================================
-// 장바구니 Badge 수량 갱신
-// ==========================================================================
-function updateCartBadgeCount() {
-  const badgeEl = document.getElementById('cartBadge');
-  if (!badgeEl) return;
-
-  let cart = [];
-  try {
-    cart = JSON.parse(localStorage.getItem('unicity_cart')) || [];
-  } catch (e) {
-    cart = [];
-  }
-
-  const totalCount = cart.reduce((sum, item) => sum + (Number(item.qty) || 0), 0);
-
-  if (totalCount > 0) {
-    badgeEl.textContent = totalCount > 99 ? '99+' : String(totalCount);
-    badgeEl.classList.add('is-active');
-  } else {
-    badgeEl.classList.remove('is-active');
-  }
-}
-window.updateCartBadgeCount = updateCartBadgeCount;
 
 function syncBottomNav(pageName) {
   const bottomNavs = document.querySelectorAll('.bottom-nav');
@@ -484,7 +439,6 @@ async function loadMyPage() {
       mobilePageContent.dataset.page = 'mypage';
       appMain.scrollTop = 0;
       syncBottomNav('mypage');
-      updateCartBadgeCount();
 
       mobilePageContent.classList.remove('page-leave');
       mobilePageContent.classList.add('page-enter');
@@ -775,7 +729,6 @@ document.querySelectorAll('.bottom-nav').forEach((nav) => {
           mobilePageContent.dataset.page = 'home';
           if (appMain) appMain.scrollTop = 0;
           syncBottomNav('home');
-          updateCartBadgeCount();
 
           mobilePageContent.classList.remove('page-leave');
           mobilePageContent.classList.add('page-enter');
@@ -810,9 +763,6 @@ document.querySelectorAll('.bottom-nav').forEach((nav) => {
     }
   });
 });
-
-// 초기 로드 시 Badge 갱신
-updateCartBadgeCount();
 
 document.querySelectorAll('.dc-search__form').forEach((form) => {
   form.addEventListener('submit', (e) => e.preventDefault());

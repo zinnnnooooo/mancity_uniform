@@ -17,32 +17,18 @@
 
 <body>
 
-  <!-- ============================================================
-       DESKTOP WRAPPER
-       - 481px 이상에서만 flex 2단 구조로 동작 (css에서 제어)
-       - 480px 이하에서는 desktop-content가 숨겨지고
-       - mobile-preview가 풀스크린 mobile-app 역할을 함
-  ============================================================ -->
   <div class="desktop-wrapper">
 
-
-    <!-- ============================================================
-         LEFT : DESKTOP ONLY CONTENT
-         - 481px 이상에서만 노출
-         - 이번 단계에서는 구조(뼈대)만 구성
-    ============================================================ -->
     <section class="desktop-content" aria-label="Desktop Only Content">
 
       <div class="desktop-content__inner">
 
-        <!-- Brand Copy -->
         <div class="dc-block dc-brand-copy">
           <p class="dc-brand-copy__eyebrow">영광의 순간을 입는다.</p>
           <p class="dc-brand-copy__sub">GLORY WORN</p>
           <p class="dc-brand-copy__main">UNI:CITY</p>
         </div>
 
-        <!-- Search -->
         <div class="dc-block dc-search">
           <form class="dc-search__form" role="search">
             <input class="dc-search__input" type="text" name="q" placeholder="어떤 유니폼을 찾고 계신가요?">
@@ -52,7 +38,6 @@
           </form>
         </div>
 
-        <!-- Popular Uniform (Desktop) -->
         <div class="dc-block dc-popular-uniform">
           <h2 class="dc-popular-uniform__title">인기 유니폼</h2>
           <ul class="dc-product-grid">
@@ -70,7 +55,7 @@
               </div>
               <p class="dc-product-card__season">23/24 SEASON</p>
               <p class="dc-product-card__name">어웨이 레플리카 유니폼</p>
-              <p class="dc-product-card__price">135,000원</p>
+              <p class="dc-product-card__price">115,000원</p>
             </li>
             <li class="dc-product-card" data-product-id="uniform_19">
               <div class="dc-product-card__image dc-product-card__image--3">
@@ -106,7 +91,6 @@
           </div>
         </div>
 
-        <!-- Desktop Navigation Cards -->
         <div class="dc-block dc-nav-cards">
           <ul class="dc-nav-cards__grid">
             <a href="https://www.mancity.com/" target="_blank" rel="noopener noreferrer"
@@ -133,17 +117,10 @@
 
     </section>
 
-    <!-- ============================================================
-         RIGHT : MOBILE PREVIEW
-         - 기존 .mobile-app 구조를 그대로 감싸는 컨테이너
-         - 데스크톱에서는 고정 폭(420~440px) + 내부 세로 스크롤
-         - 모바일(480px 이하)에서는 이 컨테이너 자체가 풀스크린이 됨
-    ============================================================ -->
     <div class="mobile-preview" aria-label="Mobile Preview">
 
       <div class="mobile-app">
 
-        <!-- ========================= HEADER ========================= -->
         <header class="app-header">
           <button class="app-header__menu" type="button" aria-label="메뉴 열기">
             <span class="icon-placeholder">☰</span>
@@ -159,7 +136,6 @@
         <main class="app-main">
           <div class="mobile-page-content" data-page="home">
 
-            <!-- ========================= HERO ========================= -->
             <section class="hero" aria-label="Hero">
               <div class="hero__media">
                 <img src="../../img/hero.jpg" alt="맨체스터 시티 우승 세레모니" onerror="this.style.display='none'">
@@ -171,7 +147,6 @@
               </div>
             </section>
 
-            <!-- ===================== SCROLL GUIDE ===================== -->
             <section class="scroll-guide" aria-label="Scroll Guide">
               <span class="scroll-guide__icon" aria-hidden="true">↓</span>
               <p class="scroll-guide__text">
@@ -180,12 +155,10 @@
               </p>
             </section>
 
-            <!-- ============== MANCHESTER CITY INTRODUCTION ============== -->
             <section class="club-intro" aria-label="Manchester City Introduction">
 
               <h2 class="club-intro__title">THIS IS MANCHESTER CITY</h2>
 
-              <!-- History / Timeline -->
               <article class="club-history" aria-label="History Timeline">
                 <div class="club-history__content">
                   <h3 class="club-history__label">LEGACY</h3>
@@ -217,12 +190,9 @@
                 </div>
               </article>
 
-              <!-- Editorial Photo Gallery (Mobile View Only) -->
               <article class="club-editorial-gallery" aria-label="Editorial Photo Gallery">
-                <!-- Removable Background Typography -->
                 <div class="club-editorial-bg-type" aria-hidden="true">CITY</div>
 
-                <!-- Left Card: main_1 -->
                 <div class="club-editorial-card-wrapper club-editorial-card-wrapper--left">
                   <div class="club-editorial-card__frame"></div>
                   <div class="club-editorial-card">
@@ -233,14 +203,12 @@
                   </div>
                 </div>
 
-                <!-- Connector Line -->
                 <div class="club-editorial-connector" aria-hidden="true">
                   <svg viewBox="0 0 100 100" preserveAspectRatio="none">
                     <path d="M 0,0 L 50,50 L 100,100" vector-effect="non-scaling-stroke"></path>
                   </svg>
                 </div>
 
-                <!-- Right Card: main_2 -->
                 <div class="club-editorial-card-wrapper club-editorial-card-wrapper--right">
                   <div class="club-editorial-card__frame"></div>
                   <div class="club-editorial-card">
@@ -252,7 +220,6 @@
                 </div>
               </article>
 
-              <!-- Club Image Area (large celebration image) -->
               <article class="club-feature-image-wrapper">
                 <div class="club-feature-accent" aria-hidden="true"></div>
                 <article class="club-feature-image" aria-label="Club Celebration Image">
@@ -260,7 +227,6 @@
                 </article>
               </article>
 
-              <!-- Club Description -->
               <article class="club-description" aria-label="Club Description">
                 <p>
                   1880년 창단 이래 맨체스터의 하늘을 상징해온 맨체스터 시티는
@@ -270,7 +236,6 @@
                 </p>
               </article>
 
-              <!-- Trophy Statistics -->
               <article class="club-stats" aria-label="Trophy Statistics">
                 <div class="club-stats__item">
                   <span class="club-stats__label">LEAGUE TITLES</span>
@@ -300,7 +265,6 @@
 
             </section>
 
-            <!-- ===================== POPULAR UNIFORM ===================== -->
             <section class="popular-uniform" aria-label="Popular Uniform">
               <h2 class="popular-uniform__title">인기 유니폼</h2>
 
@@ -327,7 +291,7 @@
                   </div>
                   <p class="product-card__season">23/24 SEASON</p>
                   <p class="product-card__name">어웨이 레플리카 유니폼</p>
-                  <p class="product-card__price">135,000원</p>
+                  <p class="product-card__price">115,000원</p>
                 </li>
                 <li class="product-card" data-product-id="uniform_19">
                   <div class="product-card__image">
@@ -348,7 +312,6 @@
               </ul>
             </section>
 
-            <!-- ===================== RETRO COLLECTION ===================== -->
             <section class="retro-collection" aria-label="Retro Collection">
               <div class="retro-collection__media">
                 <img src="../../img/model_1.png" alt="레트로 컬렉션" onerror="this.style.display='none'">
@@ -364,17 +327,14 @@
 
         </main>
 
-        <!-- ===================== BOTTOM NAVIGATION ===================== -->
         <footer class="bottom-nav">
           <button class="bottom-nav__item is-active" type="button" aria-label="홈">
             <img src="../../img/home.svg" class="bottom-nav__icon" alt="" aria-hidden="true">
             <span class="bottom-nav__label">Home</span>
           </button>
-          <button class="bottom-nav__item" type="button" aria-label="장바구니">
-            <span class="bottom-nav__icon-wrap">
-              <img src="../../img/poket.svg" class="bottom-nav__icon" alt="" aria-hidden="true">
-              <span class="cart-badge" id="cartBadge" aria-label="장바구니 상품 수"></span>
-            </span>
+          <button class="bottom-nav__item" type="button" aria-label="장바구니" style="position: relative;">
+            <img src="../../img/poket.svg" class="bottom-nav__icon" alt="" aria-hidden="true">
+            <span class="bottom-nav__badge" id="cartBadge">0</span>
             <span class="bottom-nav__label">Cart</span>
           </button>
           <button class="bottom-nav__item" type="button" aria-label="찜">
@@ -387,13 +347,66 @@
           </button>
         </footer>
 
-      </div><!-- /.mobile-app -->
+        <div class="mobile-login-overlay" id="loginOverlay">
+          <div class="mobile-login-container">
+            <div class="mobile-login-header">
+              <div class="mobile-login-emblem">
+                <img src="../../img/logo_5.svg" alt="UNI:CITY" onerror="this.style.display='none'">
+              </div>
+              <h2 class="mobile-login-title">UNI:CITY</h2>
+              <p class="mobile-login-subtitle">맨체스터 시티 공식 유니폼 스토어</p>
+              <p class="mobile-login-desc">로그인 후 나만의 유니폼과 맞춤 마킹을 경험해보세요.</p>
+            </div>
 
-    </div><!-- /.mobile-preview -->
+            <div class="social-login-group">
+              <button type="button" class="social-btn social-btn--kakao js-social-login" data-provider="카카오">
+                <svg class="social-btn__icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 3C6.477 3 2 6.477 2 10.765c0 2.76 1.83 5.184 4.605 6.545-.2.748-.73 2.715-.838 3.14-.132.525.192.518.404.378.167-.11 2.653-1.802 3.73-2.534.708.104 1.442.158 2.099.158 5.523 0 10-3.477 10-7.765C22 6.477 17.523 3 12 3z" />
+                </svg>
+                <span>카카오로 시작하기</span>
+              </button>
 
-  </div><!-- /.desktop-wrapper -->
+              <button type="button" class="social-btn social-btn--google js-social-login" data-provider="Google">
+                <svg class="social-btn__icon" viewBox="0 0 24 24">
+                  <path fill="#EA4335"
+                    d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z" />
+                  <path fill="#4285F4"
+                    d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z" />
+                  <path fill="#FBBC05"
+                    d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3 0-.8.1-1.6.4-2.3L1.9 7.3C.7 9.7 0 12.3 0 15s.7 5.3 1.9 7.7l3.7-2.9z" />
+                  <path fill="#34A853"
+                    d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16c1.8 3.7 5.6 7 10.1 7z" />
+                </svg>
+                <span>Google로 계속하기</span>
+              </button>
 
-  <!-- Neon Energy Cursor (Desktop Only) -->
+              <button type="button" class="social-btn social-btn--apple js-social-login" data-provider="Apple">
+                <svg class="social-btn__icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.93-2.85-.9.04-2 .6-2.65 1.35-.58.67-.99 1.74-.86 2.77 1 .08 1.97-.52 2.58-1.27z" />
+                </svg>
+                <span>Apple로 로그인</span>
+              </button>
+            </div>
+
+            <button type="button" class="mobile-login-guest-btn" id="btnGuestExplore">
+              로그인 없이 둘러보기 →
+            </button>
+          </div>
+        </div>
+
+        <div class="login-welcome-toast" id="loginWelcomeToast">
+          <div class="login-welcome-toast__icon">✓</div>
+          <div class="login-welcome-toast__content">
+            <p class="login-welcome-toast__title"><span id="toastUserName">팬</span>님, 환영합니다!</p>
+            <p class="login-welcome-toast__desc">UNI:CITY에 정상적으로 로그인되었습니다.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
   <div class="neon-cursor" aria-hidden="true">
     <div class="neon-cursor__core"></div>
     <div class="neon-cursor__ring"></div>

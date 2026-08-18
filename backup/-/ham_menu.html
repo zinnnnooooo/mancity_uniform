@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <title>UNI:CITY — Mobile Menu</title>
+  <link rel="stylesheet" href="./ham_menu.css">
+</head>
+
+<body>
+  <div class="menu-panel">
+    <div class="menu-header">
+      <div class="menu-logo">UNI:CITY</div>
+      <button type="button" class="menu-close-btn" id="menuCloseBtn" aria-label="메뉴 닫기">✕</button>
+    </div>
+
+    <div class="menu-auth-box" id="menuAuthBox">
+      <div class="menu-auth-user" id="menuAuthUser" style="display: none;">
+        <div class="menu-auth-avatar">✓</div>
+        <div class="menu-auth-info">
+          <p class="menu-auth-name" id="menuAuthName">CITY FAN</p>
+          <span class="menu-auth-badge" id="menuAuthBadge">카카오 로그인</span>
+        </div>
+      </div>
+      <button type="button" class="menu-auth-btn" id="btnMenuAuthAction">로그인</button>
+    </div>
+
+    <nav class="menu-nav">
+      <ul class="menu-list">
+        <li>
+          <a href="index.html" class="menu-item">
+            <span class="menu-item__text">홈 (Home)</span>
+            <span class="menu-item__arrow">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="club.html" class="menu-item">
+            <span class="menu-item__text">구단 소개 (Club Info)</span>
+            <span class="menu-item__arrow">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="uni_list.html" class="menu-item">
+            <span class="menu-item__text">전체 유니폼 (Shop)</span>
+            <span class="menu-item__arrow">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="uni_list.html?tab=type&val=home" class="menu-item">
+            <span class="menu-item__text">홈 유니폼 (Home Kits)</span>
+            <span class="menu-item__arrow">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="uni_list.html?tab=type&val=away" class="menu-item">
+            <span class="menu-item__text">어웨이 유니폼 (Away Kits)</span>
+            <span class="menu-item__arrow">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="uni_list.html?tab=collection&val=retro" class="menu-item">
+            <span class="menu-item__text">레트로 컬렉션 (Retro)</span>
+            <span class="menu-item__arrow">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="marking_guide.html" class="menu-item">
+            <span class="menu-item__text">마킹 가이드 (Marking Guide)</span>
+            <span class="menu-item__arrow">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="cart.html" class="menu-item">
+            <span class="menu-item__text">장바구니 (Cart)</span>
+            <span class="menu-item__arrow">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="mypage.html" class="menu-item">
+            <span class="menu-item__text">마이페이지 (My Page)</span>
+            <span class="menu-item__arrow">→</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</body>
+
+</html>

@@ -1,10 +1,221 @@
 // ==========================================================================
-// UNI:CITY — script.js
+// UNI:CITY — script.js (모든 페이지 하단 네비게이션 고정 및 동기화 완전판)
 // ==========================================================================
 
 const mobilePageContent = document.querySelector('.mobile-page-content');
 const homeContent = mobilePageContent ? mobilePageContent.innerHTML : '';
 const appMain = document.querySelector('.app-main');
+
+// ==========================================================================
+// 0. AUTH & LOGIN SYSTEM (로그인 세션 / 토스트 / 햄버거 메뉴 동기화)
+// ==========================================================================
+function getLoggedInUser() {
+  try {
+    return JSON.parse(localStorage.getItem('unicity_user')) || null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function setLoggedInUser(userObj) {
+  if (userObj) {
+    localStorage.setItem('unicity_user', JSON.stringify(userObj));
+  } else {
+    localStorage.removeItem('unicity_user');
+  }
+  updateMenuAuthState();
+}
+
+function showWelcomeToast(providerName, isLogout = false) {
+  const toastEl = document.getElementById('loginWelcomeToast');
+  const toastNameEl = document.getElementById('toastUserName');
+  const toastDescEl = toastEl ? toastEl.querySelector('.login-welcome-toast__desc') : null;
+  if (!toastEl) return;
+
+  if (isLogout) {
+    if (toastNameEl) toastNameEl.textContent = "로그아웃 되었습니다";
+    if (toastDescEl) toastDescEl.textContent = "안전하게 로그아웃 처리되었습니다.";
+  } else {
+    if (toastNameEl) toastNameEl.textContent = (providerName || '팬') + "님, 환영합니다!";
+    if (toastDescEl) toastDescEl.textContent = "UNI:CITY에 정상적으로 로그인되었습니다.";
+  }
+
+  toastEl.classList.add('is-active');
+
+  setTimeout(() => {
+    toastEl.classList.remove('is-active');
+  }, 3200);
+}
+
+function dismissLoginOverlay(providerName) {
+  const loginOverlay = document.getElementById('loginOverlay');
+  if (!loginOverlay) return;
+
+  loginOverlay.classList.add('is-hidden');
+
+  if (providerName) {
+    setLoggedInUser({ provider: providerName, loggedInAt: Date.now() });
+    setTimeout(() => {
+      showWelcomeToast(providerName);
+    }, 200);
+  }
+}
+
+function openLoginScreen() {
+  const loginOverlay = document.getElementById('loginOverlay');
+  if (loginOverlay) {
+    loginOverlay.classList.remove('is-hidden');
+  }
+}
+
+function updateMenuAuthState() {
+  if (!menuDrawerEl) return;
+
+  const authUserEl = menuDrawerEl.querySelector('#menuAuthUser');
+  const authBtnEl = menuDrawerEl.querySelector('#btnMenuAuthAction');
+  const authBadgeEl = menuDrawerEl.querySelector('#menuAuthBadge');
+  const user = getLoggedInUser();
+
+  if (!authBtnEl) return;
+
+  if (user && user.provider) {
+    if (authUserEl) authUserEl.style.display = 'flex';
+    if (authBadgeEl) authBadgeEl.textContent = `${user.provider} 계정 연동됨`;
+    authBtnEl.textContent = '로그아웃';
+    authBtnEl.className = 'menu-auth-btn btn-logout';
+    authBtnEl.onclick = function (e) {
+      e.preventDefault();
+      closeMobileMenu();
+      setLoggedInUser(null);
+      showWelcomeToast(null, true);
+    };
+  } else {
+    if (authUserEl) authUserEl.style.display = 'none';
+    authBtnEl.textContent = '로그인하기';
+    authBtnEl.className = 'menu-auth-btn btn-login';
+    authBtnEl.onclick = function (e) {
+      e.preventDefault();
+      closeMobileMenu();
+      openLoginScreen();
+    };
+  }
+}
+
+function initLoginScreen() {
+  const loginOverlay = document.getElementById('loginOverlay');
+  if (!loginOverlay) return;
+
+  // 이미 로그인된 사용자는 처음 접속 시 로그인 화면 숨김
+  const existingUser = getLoggedInUser();
+  if (existingUser) {
+    loginOverlay.classList.add('is-hidden');
+  }
+
+  // 소셜 로그인 버튼 클릭 시
+  document.querySelectorAll('.js-social-login').forEach((btn) => {
+    btn.onclick = function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const provider = btn.dataset.provider || '소셜';
+      dismissLoginOverlay(provider);
+    };
+  });
+
+  // 비회원 둘러보기 클릭 시
+  const btnGuest = document.getElementById('btnGuestExplore');
+  if (btnGuest) {
+    btnGuest.onclick = function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      dismissLoginOverlay(null);
+    };
+  }
+}
+
+// 로컬스토리지 unicity_cart에서 상품 수량을 계산하여 뱃지에 반영하는 함수
+function updateCartBadgeCount() {
+  const badgeEl = document.getElementById('cartBadge');
+  if (!badgeEl) return;
+
+  let cart = [];
+  try {
+    cart = JSON.parse(localStorage.getItem('unicity_cart')) || [];
+  } catch (e) {
+    cart = [];
+  }
+
+  const totalCount = cart.reduce((sum, item) => sum + (Number(item.qty) || 0), 0);
+
+  if (totalCount > 0) {
+    badgeEl.textContent = totalCount > 99 ? '99+' : totalCount;
+    badgeEl.classList.add('is-active');
+  } else {
+    badgeEl.classList.remove('is-active');
+    setTimeout(() => {
+      if (!badgeEl.classList.contains('is-active')) badgeEl.textContent = '0';
+    }, 250);
+  }
+}
+window.updateCartBadgeCount = updateCartBadgeCount;
+
+function updateTopBarButton(pageName) {
+  const hamburgerBtn = document.querySelector('.app-header__menu');
+  if (!hamburgerBtn) return;
+
+  if (pageName === 'home') {
+    hamburgerBtn.innerHTML = '<span class="icon-placeholder">☰</span>';
+    hamburgerBtn.setAttribute('aria-label', '메뉴 열기');
+    hamburgerBtn.onclick = function (e) {
+      e.preventDefault();
+      openMobileMenu();
+    };
+  } else {
+    hamburgerBtn.innerHTML = '<span class="icon-placeholder">←</span>';
+    hamburgerBtn.setAttribute('aria-label', '홈으로 가기');
+    hamburgerBtn.onclick = function (e) {
+      e.preventDefault();
+      goBackToHome();
+    };
+  }
+}
+
+function goBackToHome() {
+  if (!mobilePageContent || !appMain) return;
+  if (mobilePageContent.dataset.page === 'home') return;
+
+  mobilePageContent.classList.add('page-leave');
+
+  setTimeout(() => {
+    mobilePageContent.innerHTML = homeContent;
+    mobilePageContent.dataset.page = 'home';
+    appMain.scrollTop = 0;
+
+    updateTopBarButton('home');
+    syncBottomNav('home');
+    updateCartBadgeCount();
+
+    mobilePageContent.classList.remove('page-leave');
+    mobilePageContent.classList.add('page-enter');
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        mobilePageContent.classList.remove('page-enter');
+        mobilePageContent.classList.add('page-enter-active');
+
+        setTimeout(() => {
+          mobilePageContent.classList.remove('page-enter-active');
+        }, 320);
+      });
+    });
+
+    if (typeof initMainMobileInteractions === 'function') {
+      initMainMobileInteractions();
+    }
+    if (typeof initMainParallax === 'function') {
+      initMainParallax();
+    }
+  }, 220);
+}
 
 function ensureCartScript(callback) {
   if (typeof initCartPage === 'function' || typeof window.initCartPage === 'function') {
@@ -83,6 +294,8 @@ async function loadClubPage() {
       mobilePageContent.innerHTML = clubContent.outerHTML;
       mobilePageContent.dataset.page = 'club';
       appMain.scrollTop = 0;
+
+      updateTopBarButton('club');
       syncBottomNav('club');
       updateCartBadgeCount();
 
@@ -129,6 +342,8 @@ async function loadUniformListPage(filter) {
       mobilePageContent.innerHTML = uniListContent.outerHTML;
       mobilePageContent.dataset.page = 'uni-list';
       appMain.scrollTop = 0;
+
+      updateTopBarButton('uni-list');
       syncBottomNav('uni-list');
       updateCartBadgeCount();
 
@@ -183,6 +398,8 @@ async function loadProductDetailPage(productId) {
       mobilePageContent.innerHTML = detailContent.outerHTML;
       mobilePageContent.dataset.page = 'product-detail';
       appMain.scrollTop = 0;
+
+      updateTopBarButton('product-detail');
       syncBottomNav('product-detail');
       updateCartBadgeCount();
 
@@ -206,13 +423,12 @@ async function loadProductDetailPage(productId) {
         window.initProductDetailPage(productId);
       }
 
-      // 장바구니 담기 버튼 클릭 시 Badge 갱신
-      setTimeout(() => {
-        const addToCartBtns = mobilePageContent.querySelectorAll('[id*="btnCart"], [id*="btnAdd"], .btn-add-to-cart, .js-add-to-cart');
-        addToCartBtns.forEach((btn) => {
-          btn.addEventListener('click', () => setTimeout(updateCartBadgeCount, 100));
+      const finalBtnCartGo = document.getElementById('btnCartGo');
+      if (finalBtnCartGo) {
+        finalBtnCartGo.addEventListener('click', () => {
+          setTimeout(updateCartBadgeCount, 50);
         });
-      }, 300);
+      }
     }, 220);
   } catch (err) {
     console.error("Error loading product detail page:", err);
@@ -248,6 +464,8 @@ async function loadCartPage() {
       mobilePageContent.innerHTML = cartContent.outerHTML;
       mobilePageContent.dataset.page = 'cart';
       appMain.scrollTop = 0;
+
+      updateTopBarButton('cart');
       syncBottomNav('cart');
       updateCartBadgeCount();
 
@@ -272,11 +490,18 @@ async function loadCartPage() {
           window.initCartPage();
         }
 
-        // 장바구니 삭제/수량 변경 시 Badge 갱신
-        setTimeout(() => {
-          const cartListEl = mobilePageContent.querySelector('[id*="cartList"], .cart-list, [class*="cart-item"]')?.closest('ul, div') || mobilePageContent;
-          cartListEl.addEventListener('click', () => setTimeout(updateCartBadgeCount, 50));
-        }, 300);
+        const listEl = document.getElementById('cartList');
+        if (listEl) {
+          listEl.addEventListener('click', () => {
+            setTimeout(updateCartBadgeCount, 20);
+          });
+        }
+        const delSelBtn = document.getElementById('btnDeleteSelected');
+        if (delSelBtn) {
+          delSelBtn.addEventListener('click', () => {
+            setTimeout(updateCartBadgeCount, 20);
+          });
+        }
       });
     }, 220);
   } catch (err) {
@@ -313,6 +538,8 @@ async function loadCheckoutPage() {
       mobilePageContent.innerHTML = checkoutContent.outerHTML;
       mobilePageContent.dataset.page = 'checkout';
       appMain.scrollTop = 0;
+
+      updateTopBarButton('checkout');
       syncBottomNav('checkout');
       updateCartBadgeCount();
 
@@ -372,6 +599,8 @@ async function loadMarkingGuidePage() {
       mobilePageContent.innerHTML = guideContent.outerHTML;
       mobilePageContent.dataset.page = 'marking-guide';
       appMain.scrollTop = 0;
+
+      updateTopBarButton('marking-guide');
       syncBottomNav('marking-guide');
       updateCartBadgeCount();
 
@@ -403,52 +632,23 @@ async function loadMarkingGuidePage() {
 }
 window.loadMarkingGuidePage = loadMarkingGuidePage;
 
-// ==========================================================================
-// 장바구니 Badge 수량 갱신
-// ==========================================================================
-function updateCartBadgeCount() {
-  const badgeEl = document.getElementById('cartBadge');
-  if (!badgeEl) return;
-
-  let cart = [];
-  try {
-    cart = JSON.parse(localStorage.getItem('unicity_cart')) || [];
-  } catch (e) {
-    cart = [];
-  }
-
-  const totalCount = cart.reduce((sum, item) => sum + (Number(item.qty) || 0), 0);
-
-  if (totalCount > 0) {
-    badgeEl.textContent = totalCount > 99 ? '99+' : String(totalCount);
-    badgeEl.classList.add('is-active');
-  } else {
-    badgeEl.classList.remove('is-active');
-  }
-}
-window.updateCartBadgeCount = updateCartBadgeCount;
-
 function syncBottomNav(pageName) {
   const bottomNavs = document.querySelectorAll('.bottom-nav');
   bottomNavs.forEach((nav) => {
-    if (pageName === 'checkout' || pageName === 'cart') {
-      nav.style.display = 'none';
-      return;
-    }
-    nav.style.display = '';
+    nav.style.display = 'grid';
 
     nav.querySelectorAll('.bottom-nav__item').forEach((item) => {
       const label = item.querySelector('.bottom-nav__label');
-      if (!label) return;
-      const text = label.textContent.trim().toLowerCase();
+      const ariaLabel = item.getAttribute('aria-label') || '';
+      const text = label ? label.textContent.trim().toLowerCase() : ariaLabel.trim().toLowerCase();
 
       item.classList.remove('is-active');
 
-      if (pageName === 'home' && text === 'home') {
+      if (pageName === 'home' && (text === 'home' || text === '홈')) {
         item.classList.add('is-active');
-      } else if (pageName === 'cart' && text === 'cart') {
+      } else if (pageName === 'cart' && (text === 'cart' || text === '장바구니')) {
         item.classList.add('is-active');
-      } else if (pageName === 'mypage' && text === 'my page') {
+      } else if (pageName === 'mypage' && (text === 'my page' || text === '마이페이지')) {
         item.classList.add('is-active');
       }
     });
@@ -483,6 +683,8 @@ async function loadMyPage() {
       mobilePageContent.innerHTML = mypageContent.outerHTML;
       mobilePageContent.dataset.page = 'mypage';
       appMain.scrollTop = 0;
+
+      updateTopBarButton('mypage');
       syncBottomNav('mypage');
       updateCartBadgeCount();
 
@@ -619,6 +821,8 @@ async function initMobileMenu() {
       }
     });
 
+    updateMenuAuthState();
+
   } catch (err) {
     console.error("Error loading menu content:", err);
   }
@@ -626,6 +830,8 @@ async function initMobileMenu() {
 
 function openMobileMenu() {
   if (!menuDrawerEl || !menuBackdropEl) return;
+
+  updateMenuAuthState();
 
   const page = mobilePageContent ? mobilePageContent.dataset.page : 'home';
   menuDrawerEl.querySelectorAll('.menu-item').forEach((link) => {
@@ -690,20 +896,11 @@ function closeMobileMenu() {
 
 function setupMobileMenu() {
   initMobileMenu();
+  initLoginScreen();
 
-  const hamburgerBtn = document.querySelector('.app-header__menu');
-  if (hamburgerBtn) {
-    hamburgerBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openMobileMenu();
-    });
-  }
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeMobileMenu();
-    }
-  });
+  const currentPage = mobilePageContent ? mobilePageContent.dataset.page : 'home';
+  updateTopBarButton(currentPage);
+  updateCartBadgeCount();
 }
 
 if (document.readyState === 'loading') {
@@ -766,53 +963,22 @@ document.querySelectorAll('.bottom-nav').forEach((nav) => {
     item.classList.add('is-active');
 
     const label = item.querySelector('.bottom-nav__label');
-    if (label && label.textContent.trim().toLowerCase() === 'home') {
-      if (mobilePageContent && mobilePageContent.dataset.page !== 'home') {
-        mobilePageContent.classList.add('page-leave');
+    const ariaLabel = item.getAttribute('aria-label') || '';
+    const text = label ? label.textContent.trim().toLowerCase() : ariaLabel.trim().toLowerCase();
 
-        setTimeout(() => {
-          mobilePageContent.innerHTML = homeContent;
-          mobilePageContent.dataset.page = 'home';
-          if (appMain) appMain.scrollTop = 0;
-          syncBottomNav('home');
-          updateCartBadgeCount();
-
-          mobilePageContent.classList.remove('page-leave');
-          mobilePageContent.classList.add('page-enter');
-
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              mobilePageContent.classList.remove('page-enter');
-              mobilePageContent.classList.add('page-enter-active');
-
-              setTimeout(() => {
-                mobilePageContent.classList.remove('page-enter-active');
-              }, 320);
-            });
-          });
-
-          if (typeof initMainMobileInteractions === 'function') {
-            initMainMobileInteractions();
-          }
-          if (typeof initMainParallax === 'function') {
-            initMainParallax();
-          }
-        }, 220);
-      }
-    } else if (label && label.textContent.trim().toLowerCase() === 'cart') {
+    if (text === 'home' || text === '홈') {
+      goBackToHome();
+    } else if (text === 'cart' || text === '장바구니') {
       if (mobilePageContent && mobilePageContent.dataset.page !== 'cart') {
         loadCartPage();
       }
-    } else if (label && label.textContent.trim().toLowerCase() === 'my page') {
+    } else if (text === 'my page' || text === '마이페이지') {
       if (mobilePageContent && mobilePageContent.dataset.page !== 'mypage') {
         loadMyPage();
       }
     }
   });
 });
-
-// 초기 로드 시 Badge 갱신
-updateCartBadgeCount();
 
 document.querySelectorAll('.dc-search__form').forEach((form) => {
   form.addEventListener('submit', (e) => e.preventDefault());
@@ -1255,7 +1421,6 @@ function initMainParallax() {
   const dots = document.querySelectorAll('.dc-carousel-indicator__dot');
   if (cards.length === 0) return;
 
-  // products_data.js에 존재하는 유효한 20개 유니폼 1:1 등록[cite: 15]
   const productPages = [
     [
       { id: "uniform_21", img: "../../img/uniform_21.png", alt: "22/23 홈 레플리카 유니폼", season: "22/23 SEASON", name: "홈 레플리카 유니폼", price: "189,000원" },
@@ -1408,7 +1573,6 @@ window.openProductDetail = function (productId) {
   }
 };
 
-// 유니폼 카드 클릭 시 정확한 data-product-id를 읽어 상세페이지로 이동
 document.addEventListener('click', (e) => {
   const card = e.target.closest('.dc-product-card, .popular-card, .product-card, [data-product-id]');
   if (!card) return;

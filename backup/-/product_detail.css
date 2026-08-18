@@ -1,0 +1,577 @@
+:root {
+  --product-info-bg-rgb: 13, 33, 53;
+  --product-info-bg: #0D2135;
+}
+
+/* ============================================================
+   UNI:CITY — product_detail.css
+   ============================================================ */
+
+.product-detail-page-content {
+  background: var(--product-info-bg);
+  min-height: 100%;
+  position: relative;
+}
+
+/* ---------- 히어로 ---------- */
+.pd-hero {
+  position: relative;
+  width: 100%;
+  background: #081220;
+}
+
+.pd-hero__figure {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+  margin: 0;
+}
+
+.pd-hero__figure::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 45%;
+  background: linear-gradient(to bottom,
+      rgba(13, 33, 53, 0) 0%,
+      rgba(13, 33, 53, 0.35) 40%,
+      rgba(13, 33, 53, 0.8) 75%,
+      var(--product-info-bg) 100%);
+  pointer-events: none;
+}
+
+.pd-hero__figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.pd-gallery-tabs {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+  background: rgba(13, 33, 53, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.pd-gallery-tab {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  background: #081220;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.2s ease;
+}
+
+.pd-gallery-tab.is-active {
+  opacity: 1;
+  border-color: #DFFF00;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(223, 255, 0, 0.4);
+}
+
+.pd-gallery-tab img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.topbar--overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: 56px;
+  background: linear-gradient(to bottom, rgba(8, 18, 32, 0.65) 0%, transparent 100%);
+  border: none;
+  box-sizing: border-box;
+}
+
+.topbar__logo {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  color: var(--color-white);
+}
+
+.pd-info {
+  padding: 20px 20px 16px;
+}
+
+.pd-info__badges {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.pd-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pd-badge--season {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.pd-badge--best {
+  background: var(--color-sky-blue);
+  color: var(--color-white);
+}
+
+.pd-info__name {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--color-white);
+  margin: 0 0 12px;
+  letter-spacing: -0.02em;
+}
+
+.pd-info__price {
+  font-size: 24px;
+  font-weight: 900;
+  color: #DFFF00;
+  margin: 0;
+  font-family: 'Pretendard Variable', -apple-system, sans-serif;
+}
+
+.pd-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0 20px;
+}
+
+.pd-option-block {
+  padding: 18px 20px;
+}
+
+.pd-option-block__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.pd-option-block__label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+.pd-option-block__guide {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-sky-blue);
+}
+
+/* 사이즈 버튼 그리드 (곡률 적용) */
+.pd-size-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.pd-size-btn {
+  height: 42px;
+  border-radius: 8px;
+  background: #162a42;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pd-size-btn:hover {
+  border-color: rgba(108, 171, 221, 0.5);
+}
+
+.pd-size-btn.is-active {
+  background: var(--color-sky-blue);
+  border-color: var(--color-sky-blue);
+  color: var(--color-white);
+  box-shadow: 0 0 14px rgba(108, 171, 221, 0.35);
+}
+
+/* 드롭다운 (마킹 / 패치 - 곡률 적용) */
+.pd-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.pd-dropdown__trigger {
+  width: 100%;
+  height: 46px;
+  padding: 0 16px;
+  border-radius: 8px;
+  background: #162a42;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.pd-dropdown.is-open .pd-dropdown__trigger {
+  border-color: var(--color-sky-blue);
+}
+
+.pd-dropdown__icon {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s ease;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.pd-dropdown.is-open .pd-dropdown__icon {
+  transform: rotate(180deg);
+}
+
+.pd-dropdown__menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  background: #162a42;
+  border: 1.5px solid rgba(108, 171, 221, 0.35);
+  border-radius: 8px;
+  overflow-y: auto;
+  max-height: 220px;
+  z-index: 100;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.pd-dropdown.is-open .pd-dropdown__menu {
+  display: block;
+}
+
+.pd-dropdown__item {
+  width: 100%;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition: background 0.15s ease;
+}
+
+.pd-dropdown__item:hover,
+.pd-dropdown__item.is-selected {
+  background: var(--color-sky-blue);
+  color: var(--color-white);
+  font-weight: 700;
+}
+
+/* 수량 스텝퍼 (곡률 적용) */
+.pd-qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  background: #162a42;
+  border-radius: 8px;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.pd-qty-stepper__btn {
+  width: 44px;
+  height: 42px;
+  background: transparent;
+  border: none;
+  color: var(--color-white);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pd-qty-stepper__btn:active {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.pd-qty-stepper__val {
+  min-width: 36px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-white);
+}
+
+/* ---------- 실시간 계산 요약 패널 (곡률 적용) ---------- */
+.pd-calc-panel {
+  margin: 18px 20px 0;
+  padding: 18px 20px;
+  background: #122438;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.pd-calc-panel__title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-white);
+  margin: 0 0 12px;
+  letter-spacing: -0.01em;
+}
+
+.pd-calc-panel__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.pd-calc-panel__val {
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+.pd-calc-panel__val--accent {
+  color: var(--color-sky-blue) !important;
+}
+
+.pd-calc-panel__divider {
+  margin: 10px 0;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pd-calc-panel__row--total {
+  padding-top: 4px;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--color-white);
+}
+
+.pd-calc-panel__total-price {
+  font-size: 19px;
+  font-weight: 900;
+  color: #DFFF00 !important;
+}
+
+.pd-bottom-spacer {
+  height: 120px;
+}
+
+/* 하단 액션바 버튼 (곡률 적용) */
+.pd-action-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-width, 480px);
+  display: flex;
+  gap: 10px;
+  padding: 14px 20px calc(14px + env(safe-area-inset-bottom, 0px));
+  background: rgba(13, 33, 53, 0.92);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.35);
+  box-sizing: border-box;
+  z-index: 100;
+}
+
+.pd-action-bar__cart {
+  flex: 1;
+  height: 52px;
+  font-size: 15px;
+  font-weight: 800;
+  border: 1.5px solid var(--color-sky-blue);
+  color: var(--color-sky-blue);
+  background: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pd-action-bar__cart:active {
+  background: rgba(108, 171, 221, 0.15);
+}
+
+.pd-action-bar__buy {
+  flex: 1.3;
+  height: 52px;
+  font-size: 15px;
+  font-weight: 900;
+  background: #DFFF00 !important;
+  color: #0c1826 !important;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(223, 255, 0, 0.25);
+  transition: transform 0.1s ease;
+}
+
+.pd-action-bar__buy:active {
+  transform: scale(0.98);
+}
+
+/* ---------- 하단 장바구니 담기 완료 팝업 (곡률 적용) ---------- */
+.cart-modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 400;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.cart-modal-backdrop.is-active {
+  display: block !important;
+  opacity: 1;
+}
+
+.cart-popup-sheet {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 100%);
+  width: 100%;
+  max-width: var(--max-width, 480px);
+  background: #142347;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border: 1px solid rgba(108, 171, 221, 0.25);
+  border-bottom: none;
+  padding: 16px 20px calc(24px + env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+  z-index: 450;
+  text-align: center;
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.6);
+  transition: transform 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+}
+
+.cart-popup-sheet.is-active {
+  display: block !important;
+  transform: translate(-50%, 0) !important;
+}
+
+.cart-popup-sheet__handle {
+  width: 40px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  margin: 0 auto 16px;
+}
+
+.cart-popup-sheet__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(223, 255, 0, 0.15);
+  color: #DFFF00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+}
+
+.cart-popup-sheet__icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.cart-popup-sheet__title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 6px;
+}
+
+.cart-popup-sheet__desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0 0 20px;
+}
+
+.cart-popup-sheet__actions {
+  display: flex;
+  gap: 10px;
+}
+
+.cart-popup-sheet__btn-stay {
+  flex: 1;
+  height: 48px;
+  font-size: 14px;
+  font-weight: 700;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.85);
+  background: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.cart-popup-sheet__btn-stay:active {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.cart-popup-sheet__btn-go {
+  flex: 1.2;
+  height: 48px;
+  font-size: 14px;
+  font-weight: 800;
+  background: #DFFF00 !important;
+  color: #10193B !important;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}

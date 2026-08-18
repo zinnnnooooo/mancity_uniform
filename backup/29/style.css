@@ -1365,53 +1365,6 @@ img {
 }
 
 /* ==========================================================================
-   10-1. CART BADGE
-   ========================================================================== */
-
-/* 아이콘 래퍼: 뱃지 기준점 */
-.bottom-nav__icon-wrap {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  z-index: 2;
-}
-
-/* 뱃지 기본 */
-.cart-badge {
-  position: absolute;
-  top: -5px;
-  right: -7px;
-  min-width: 16px;
-  height: 16px;
-  padding: 0 3px;
-  border-radius: 999px;
-  background: #DFFF00;
-  color: #10193B;
-  font-size: 9px;
-  font-weight: 800;
-  line-height: 16px;
-  text-align: center;
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: 10;
-  box-sizing: border-box;
-  /* 초기 숨김 (scale 0) */
-  opacity: 0;
-  transform: scale(0);
-  transition: transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1),
-              opacity 180ms ease;
-}
-
-/* 활성화 시 등장 */
-.cart-badge.is-active {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* ==========================================================================
    11. DESKTOP CONTENT ???ㅼ젣 肄섑뀗痢?   ========================================================================== */
 .desktop-content__inner {
   padding: 0;

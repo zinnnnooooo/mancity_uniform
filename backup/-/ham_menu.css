@@ -1,0 +1,222 @@
+/* ============================================================
+   UNI:CITY — ham_menu.css
+   ============================================================ */
+
+.mobile-menu-backdrop {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 14, 30, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 500;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-menu-backdrop.is-active {
+  opacity: 1;
+}
+
+.mobile-menu-drawer {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 82%;
+  max-width: 320px;
+  height: 100%;
+  background: linear-gradient(180deg, #121F42 0%, #0D1630 100%);
+  z-index: 510;
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.6);
+  border-right: 1px solid rgba(108, 171, 221, 0.2);
+  transform: translateX(-100%);
+  transition: transform 0.32s cubic-bezier(0.25, 1, 0.5, 1);
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.mobile-menu-drawer.is-active {
+  transform: translateX(0);
+}
+
+.menu-panel {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* Header */
+.menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 16px;
+}
+
+.menu-logo {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.06em;
+  color: #FFFFFF;
+}
+
+.menu-close-btn {
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  color: #FFFFFF;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.menu-close-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* Auth Section (로그인/로그아웃 박스) */
+.menu-auth-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(108, 171, 221, 0.25);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.menu-auth-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.menu-auth-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #DFFF00;
+  color: #0b1426;
+  font-size: 15px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(223, 255, 0, 0.4);
+}
+
+.menu-auth-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.menu-auth-name {
+  font-size: 14px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.menu-auth-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6CABDD;
+}
+
+.menu-auth-btn {
+  width: 100%;
+  height: 38px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  color: #EAF0FA;
+}
+
+/* 로그인 버튼 상태 */
+.menu-auth-btn.btn-login {
+  background: #DFFF00;
+  color: #0b1426;
+  border: none;
+  box-shadow: 0 2px 10px rgba(223, 255, 0, 0.3);
+}
+
+.menu-auth-btn.btn-login:hover {
+  background: #f2ff5c;
+}
+
+/* 로그아웃 버튼 상태 */
+.menu-auth-btn.btn-logout {
+  background: rgba(255, 75, 75, 0.1);
+  color: #ff6b6b;
+  border-color: rgba(255, 75, 75, 0.25);
+}
+
+.menu-auth-btn.btn-logout:hover {
+  background: rgba(255, 75, 75, 0.2);
+}
+
+/* Menu Nav */
+.menu-nav {
+  flex: 1;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: rgba(234, 240, 250, 0.8);
+  font-size: 13.5px;
+  font-weight: 700;
+  transition: all 0.18s ease;
+  border: 1px solid transparent;
+}
+
+.menu-item:hover,
+.menu-item.is-active {
+  background: rgba(108, 171, 221, 0.15);
+  color: #DFFF00;
+  border-color: rgba(108, 171, 221, 0.25);
+  transform: translateX(4px);
+}
+
+.menu-item__arrow {
+  font-size: 14px;
+  opacity: 0.6;
+  transition: transform 0.18s ease;
+}
+
+.menu-item:hover .menu-item__arrow {
+  opacity: 1;
+  transform: translateX(3px);
+}
