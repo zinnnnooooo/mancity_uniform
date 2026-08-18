@@ -6,6 +6,106 @@ const mobilePageContent = document.querySelector('.mobile-page-content');
 const homeContent = mobilePageContent ? mobilePageContent.innerHTML : '';
 const appMain = document.querySelector('.app-main');
 
+// --------------------------------------------------------------------------
+// LOGIN UI TOGGLE — 로그인 화면 활성 시 공통 Navigation 숨기기
+// --------------------------------------------------------------------------
+
+/**
+ * 로그인 화면 진입: .mobile-app에 is-login-active 클래스 추가
+ * → CSS에서 Header / Bottom Nav / Scrollbar 숨김 처리
+ */
+function _activateLoginUI() {
+  const mobileApp = document.querySelector('.mobile-app');
+  if (mobileApp) mobileApp.classList.add('is-login-active');
+}
+
+/**
+ * 로그인 화면 해제: .mobile-app에서 is-login-active 클래스 제거
+ * → Header / Bottom Nav / Scrollbar 복구
+ */
+function _deactivateLoginUI() {
+  const mobileApp = document.querySelector('.mobile-app');
+  if (mobileApp) mobileApp.classList.remove('is-login-active');
+}
+
+/**
+ * 로그인/로그아웃 버튼 렌더링 및 상태 동기화
+ * @param {string} containerId
+ */
+function renderAccountButton(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const isLoggedIn = (typeof AuthManager !== 'undefined') ? AuthManager.isLoggedIn() : false;
+
+  if (isLoggedIn) {
+    container.innerHTML = `
+      <button type="button" class="account-btn account-btn--logout" id="${containerId}Btn">로그아웃</button>
+    `;
+  } else {
+    container.innerHTML = `
+      <button type="button" class="account-btn account-btn--login" id="${containerId}Btn">로그인</button>
+    `;
+  }
+
+  const btn = document.getElementById(`${containerId}Btn`);
+  if (btn) {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (isLoggedIn) {
+        // 로그아웃 처리
+        if (typeof AuthManager !== 'undefined') {
+          AuthManager.clearUser();
+        } else {
+          localStorage.removeItem('unicity_user');
+        }
+
+        // 장바구니 Badge 갱신
+        if (typeof updateCartBadgeCount === 'function') {
+          updateCartBadgeCount();
+        }
+
+        // 햄버거 메뉴 닫기
+        if (typeof closeMobileMenu === 'function') {
+          closeMobileMenu();
+        }
+
+        // 로그인 페이지 로드 (자동으로 UI 클래스가 추가되어 숨겨짐)
+        if (typeof loadLoginPage === 'function') {
+          loadLoginPage();
+        }
+      } else {
+        // 로그인 처리 (로그인 화면으로 이동)
+        if (typeof closeMobileMenu === 'function') {
+          closeMobileMenu();
+        }
+        if (typeof loadLoginPage === 'function') {
+          loadLoginPage();
+        }
+      }
+    });
+  }
+}
+
+/**
+ * 상단 왼쪽 햄버거/뒤로가기 버튼 갱신
+ * @param {string} pageName
+ */
+function updateHeaderMenuButton(pageName) {
+  const menuBtn = document.querySelector('.app-header__menu');
+  if (!menuBtn) return;
+  const placeholder = menuBtn.querySelector('.icon-placeholder');
+  if (!placeholder) return;
+
+  if (pageName === 'home' || !pageName) {
+    placeholder.textContent = '☰';
+    menuBtn.setAttribute('aria-label', '메뉴 열기');
+  } else {
+    placeholder.textContent = '←';
+    menuBtn.setAttribute('aria-label', '홈으로 가기');
+  }
+}
+
 function ensureCartScript(callback) {
   if (typeof initCartPage === 'function' || typeof window.initCartPage === 'function') {
     if (callback) callback();
@@ -85,6 +185,7 @@ async function loadClubPage() {
       appMain.scrollTop = 0;
       syncBottomNav('club');
       updateCartBadgeCount();
+      updateHeaderMenuButton('club');
 
       mobilePageContent.classList.remove('page-leave');
       mobilePageContent.classList.add('page-enter');
@@ -131,6 +232,7 @@ async function loadUniformListPage(filter) {
       appMain.scrollTop = 0;
       syncBottomNav('uni-list');
       updateCartBadgeCount();
+      updateHeaderMenuButton('uni-list');
 
       mobilePageContent.classList.remove('page-leave');
       mobilePageContent.classList.add('page-enter');
@@ -185,6 +287,7 @@ async function loadProductDetailPage(productId) {
       appMain.scrollTop = 0;
       syncBottomNav('product-detail');
       updateCartBadgeCount();
+      updateHeaderMenuButton('product-detail');
 
       mobilePageContent.classList.remove('page-leave');
       mobilePageContent.classList.add('page-enter');
@@ -250,6 +353,7 @@ async function loadCartPage() {
       appMain.scrollTop = 0;
       syncBottomNav('cart');
       updateCartBadgeCount();
+      updateHeaderMenuButton('cart');
 
       mobilePageContent.classList.remove('page-leave');
       mobilePageContent.classList.add('page-enter');
@@ -315,6 +419,7 @@ async function loadCheckoutPage() {
       appMain.scrollTop = 0;
       syncBottomNav('checkout');
       updateCartBadgeCount();
+      updateHeaderMenuButton('checkout');
 
       mobilePageContent.classList.remove('page-leave');
       mobilePageContent.classList.add('page-enter');
@@ -374,6 +479,7 @@ async function loadMarkingGuidePage() {
       appMain.scrollTop = 0;
       syncBottomNav('marking-guide');
       updateCartBadgeCount();
+      updateHeaderMenuButton('marking-guide');
 
       mobilePageContent.classList.remove('page-leave');
       mobilePageContent.classList.add('page-enter');
@@ -435,6 +541,11 @@ function syncBottomNav(pageName) {
       nav.style.display = 'none';
       return;
     }
+    // 로그인 화면: display는 복원 상태로 두고 CSS 클래스(is-login-active)가 숨김 처리
+    if (pageName === 'login') {
+      nav.style.display = '';
+      return;
+    }
     nav.style.display = '';
 
     nav.querySelectorAll('.bottom-nav__item').forEach((item) => {
@@ -485,6 +596,8 @@ async function loadMyPage() {
       appMain.scrollTop = 0;
       syncBottomNav('mypage');
       updateCartBadgeCount();
+      updateHeaderMenuButton('mypage');
+      renderAccountButton('mypageAccountContainer');
 
       mobilePageContent.classList.remove('page-leave');
       mobilePageContent.classList.add('page-enter');
@@ -551,6 +664,10 @@ async function loadLoginPage() {
       syncBottomNav('login');
       updateCartBadgeCount();
 
+      // ── 로그인 화면 활성화: 공통 Nav UI 숨김 ──
+      _activateLoginUI();
+      updateHeaderMenuButton('login');
+
       mobilePageContent.classList.remove('page-leave');
       mobilePageContent.classList.add('page-enter');
 
@@ -568,8 +685,9 @@ async function loadLoginPage() {
       // login.js initLoginPage() 호출
       if (typeof initLoginPage === 'function') {
         initLoginPage({
-          // 로그인 성공 → 마이페이지로 이동
+          // 로그인 성공 → Nav UI 복구 후 마이페이지로 이동
           onLoginSuccess: (userData) => {
+            _deactivateLoginUI();
             if (typeof loadMyPage === 'function') {
               setTimeout(() => loadMyPage(), 800);
             }
@@ -578,13 +696,15 @@ async function loadLoginPage() {
           onLogout: () => {
             if (typeof _loadLoginGate === 'function') _loadLoginGate();
           },
-          // 비회원 둘러보기 → 홈으로 이동
+          // 비회원 둘러보기 → Nav UI 복구 후 홈으로 이동
           onGuest: () => {
+            _deactivateLoginUI();
             if (mobilePageContent) {
               mobilePageContent.innerHTML = homeContent;
               mobilePageContent.dataset.page = 'home';
               if (appMain) appMain.scrollTop = 0;
               syncBottomNav('home');
+              updateHeaderMenuButton('home');
               updateCartBadgeCount();
               if (typeof initMainMobileInteractions === 'function') {
                 initMainMobileInteractions();
@@ -645,15 +765,21 @@ async function _loadLoginGate() {
     syncBottomNav('login');
     updateCartBadgeCount();
 
+    // ── 로그인 화면 활성화: 공통 Nav UI 숨김 ──
+    _activateLoginUI();
+    updateHeaderMenuButton('login');
+
     if (typeof initLoginPage === 'function') {
       initLoginPage({
-        // 로그인 성공 → 게이트 해제 후 홈으로
+        // 로그인 성공 → Nav UI 복구 후 게이트 해제 후 홈으로
         onLoginSuccess: () => {
           _authGateActive = false;
+          _deactivateLoginUI();
           mobilePageContent.innerHTML = homeContent;
           mobilePageContent.dataset.page = 'home';
           if (appMain) appMain.scrollTop = 0;
           syncBottomNav('home');
+          updateHeaderMenuButton('home');
           updateCartBadgeCount();
           if (typeof initMainMobileInteractions === 'function') initMainMobileInteractions();
           if (typeof initMainParallax === 'function') initMainParallax();
@@ -662,13 +788,15 @@ async function _loadLoginGate() {
         onLogout: () => {
           _loadLoginGate();
         },
-        // 비회원 둘러보기 → 게이트 해제 후 홈으로
+        // 비회원 둘러보기 → Nav UI 복구 후 게이트 해제 후 홈으로
         onGuest: () => {
           _authGateActive = false;
+          _deactivateLoginUI();
           mobilePageContent.innerHTML = homeContent;
           mobilePageContent.dataset.page = 'home';
           if (appMain) appMain.scrollTop = 0;
           syncBottomNav('home');
+          updateHeaderMenuButton('home');
           updateCartBadgeCount();
           if (typeof initMainMobileInteractions === 'function') initMainMobileInteractions();
         },
@@ -677,6 +805,7 @@ async function _loadLoginGate() {
   } catch (err) {
     console.error('[authGate] 오류:', err);
     _authGateActive = false; // 오류 시 게이트 해제 (서비스 중단 방지)
+    _deactivateLoginUI();    // 오류 시에도 Nav UI 복구
   }
 }
 
@@ -758,6 +887,7 @@ async function initMobileMenu() {
     const panel = doc.querySelector('.menu-panel');
     if (panel && menuDrawerEl) {
       menuDrawerEl.innerHTML = panel.innerHTML;
+      renderAccountButton('hamAccountContainer');
     }
 
     const closeBtn = menuDrawerEl.querySelector('#menuCloseBtn');
@@ -814,6 +944,8 @@ async function initMobileMenu() {
 
 function openMobileMenu() {
   if (!menuDrawerEl || !menuBackdropEl) return;
+
+  renderAccountButton('hamAccountContainer');
 
   const page = mobilePageContent ? mobilePageContent.dataset.page : 'home';
   menuDrawerEl.querySelectorAll('.menu-item').forEach((link) => {
@@ -883,7 +1015,52 @@ function setupMobileMenu() {
   if (hamburgerBtn) {
     hamburgerBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      openMobileMenu();
+      
+      const page = mobilePageContent ? mobilePageContent.dataset.page : 'home';
+      if (page === 'home' || !page) {
+        openMobileMenu();
+      } else {
+        // Main(홈)이 아닐 때: 뒤로가기 동작 (Main으로 복귀)
+        const homeBtn = document.querySelector('.bottom-nav__item[aria-label="홈"]');
+        if (homeBtn) {
+          homeBtn.click();
+        } else {
+          // Fallback 직접 홈 화면 렌더링
+          if (mobilePageContent && mobilePageContent.dataset.page !== 'home') {
+            mobilePageContent.classList.add('page-leave');
+
+            setTimeout(() => {
+              mobilePageContent.innerHTML = homeContent;
+              mobilePageContent.dataset.page = 'home';
+              if (appMain) appMain.scrollTop = 0;
+              syncBottomNav('home');
+              updateCartBadgeCount();
+              updateHeaderMenuButton('home');
+
+              mobilePageContent.classList.remove('page-leave');
+              mobilePageContent.classList.add('page-enter');
+
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                  mobilePageContent.classList.remove('page-enter');
+                  mobilePageContent.classList.add('page-enter-active');
+
+                  setTimeout(() => {
+                    mobilePageContent.classList.remove('page-enter-active');
+                  }, 320);
+                });
+              });
+
+              if (typeof initMainMobileInteractions === 'function') {
+                initMainMobileInteractions();
+              }
+              if (typeof initMainParallax === 'function') {
+                initMainParallax();
+              }
+            }, 220);
+          }
+        }
+      }
     });
   }
 
@@ -967,6 +1144,7 @@ document.querySelectorAll('.bottom-nav').forEach((nav) => {
           mobilePageContent.dataset.page = 'home';
           if (appMain) appMain.scrollTop = 0;
           syncBottomNav('home');
+          updateHeaderMenuButton('home');
           updateCartBadgeCount();
 
           mobilePageContent.classList.remove('page-leave');

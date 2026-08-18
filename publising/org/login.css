@@ -11,7 +11,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 56px); /* 헤더 높이 제외 */
+  min-height: 100%;
   width: 100%;
   background: var(--navy-deep, #10193B);
   overflow: hidden;

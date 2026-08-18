@@ -87,15 +87,15 @@ window.AuthManager = AuthManager;
  *       - 방법 B (Google API): window.google.accounts.id.initialize(...)
  */
 async function handleGoogleLogin() {
-  // TODO: Google SDK 초기화 확인
-  // if (!window.google) throw new Error('Google SDK가 로드되지 않았습니다.');
-
-  // TODO: 실제 Google 로그인 팝업 호출
-  // const result = await firebase.auth().signInWithPopup(googleProvider);
-  // const { uid, displayName, email, photoURL } = result.user;
-
-  // ── 실제 SDK 연동 전까지 이 함수는 실행되지 않습니다 ──
-  throw new Error('TODO: Google SDK를 연동해주세요.');
+  // 테스트용 임시 Google 사용자 데이터 즉시 반환
+  return {
+    uid: `google_${Math.random().toString(36).substr(2, 9)}`,
+    provider: 'google',
+    name: 'Google Tester',
+    email: 'google_test@unicity.com',
+    profileImage: null,
+    authToken: 'temp_google_token_12345'
+  };
 }
 
 /**
@@ -110,29 +110,15 @@ async function handleGoogleLogin() {
  * ※ Apple과 달리 Kakao는 항상 실제 이메일을 반환합니다.
  */
 async function handleKakaoLogin() {
-  // TODO: Kakao SDK 초기화 확인
-  // if (!window.Kakao) throw new Error('Kakao SDK가 로드되지 않았습니다.');
-  // if (!Kakao.isInitialized()) Kakao.init('YOUR_KAKAO_APP_KEY');
-
-  // TODO: 실제 Kakao 로그인 호출
-  // return new Promise((resolve, reject) => {
-  //   Kakao.Auth.loginWithKakaoAccount({
-  //     success: async (authObj) => {
-  //       const profile = await Kakao.API.request({ url: '/v2/user/me' });
-  //       resolve({
-  //         uid: `kakao_${profile.id}`,
-  //         provider: 'kakao',
-  //         name: profile.kakao_account?.profile?.nickname || null,
-  //         email: profile.kakao_account?.email || null,
-  //         profileImage: profile.kakao_account?.profile?.profile_image_url || null,
-  //         authToken: authObj.access_token,
-  //       });
-  //     },
-  //     fail: reject,
-  //   });
-  // });
-
-  throw new Error('TODO: Kakao SDK를 연동해주세요.');
+  // 테스트용 임시 Kakao 사용자 데이터 즉시 반환
+  return {
+    uid: `kakao_${Math.random().toString(36).substr(2, 9)}`,
+    provider: 'kakao',
+    name: 'Kakao Tester',
+    email: 'kakao_test@unicity.com',
+    profileImage: null,
+    authToken: 'temp_kakao_token_12345'
+  };
 }
 
 /**
@@ -150,31 +136,16 @@ async function handleKakaoLogin() {
  *    이 경우 isAppleRelayEmail: true 로 표시하고 uid는 Apple sub(고유ID)를 사용합니다.
  */
 async function handleAppleLogin() {
-  // TODO: Apple SDK 초기화 확인
-  // if (!window.AppleID) throw new Error('Apple SDK가 로드되지 않았습니다.');
-
-  // TODO: 실제 Apple 로그인 요청
-  // const response = await AppleID.auth.signIn();
-  // const { id_token, authorization: { code } } = response;
-  //
-  // // JWT decode로 사용자 정보 추출 (서버사이드 검증 권장)
-  // const payload = JSON.parse(atob(id_token.split('.')[1]));
-  // const email = payload.email || null;
-  // const isRelay = email ? email.endsWith('@privaterelay.appleid.com') : false;
-  //
-  // return {
-  //   uid: `apple_${payload.sub}`,
-  //   provider: 'apple',
-  //   name: response.user?.name
-  //     ? `${response.user.name.firstName || ''} ${response.user.name.lastName || ''}`.trim()
-  //     : null,
-  //   email,
-  //   profileImage: null,
-  //   authToken: code,
-  //   isAppleRelayEmail: isRelay,
-  // };
-
-  throw new Error('TODO: Sign in with Apple SDK를 연동해주세요.');
+  // 테스트용 임시 Apple 사용자 데이터 즉시 반환
+  return {
+    uid: `apple_${Math.random().toString(36).substr(2, 9)}`,
+    provider: 'apple',
+    name: 'Apple Tester',
+    email: 'apple_test@privaterelay.appleid.com',
+    profileImage: null,
+    authToken: 'temp_apple_token_12345',
+    isAppleRelayEmail: true
+  };
 }
 
 

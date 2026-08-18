@@ -167,6 +167,53 @@ img {
 
 
 /* ==========================================================================
+   LOGIN ACTIVE STATE
+   로그인 화면 활성 시 공통 Navigation UI 숨김
+   - HTML 구조는 그대로 유지 (삭제 없음)
+   - .mobile-app.is-login-active 클래스로 토글 제어
+   ========================================================================== */
+
+/* Header 숨김 — 공간 차지 없이 투명 처리 */
+.mobile-app.is-login-active .app-header {
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+}
+
+/* Bottom Nav 숨김 */
+.mobile-app.is-login-active .bottom-nav {
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+}
+
+/* 스크롤바 숨김 */
+.mobile-app.is-login-active .app-main {
+  padding-bottom: 0;
+  scrollbar-width: none;
+}
+
+.mobile-app.is-login-active .app-main::-webkit-scrollbar {
+  display: none;
+}
+
+/* 로그인 페이지 콘텐츠가 전체 높이를 차지하도록 */
+.mobile-app.is-login-active .app-main {
+  padding-bottom: 0;
+}
+
+/* 햄버거 메뉴 드로어 / 백드롭 숨김 */
+.mobile-app.is-login-active .mobile-menu-drawer,
+.mobile-app.is-login-active .mobile-menu-backdrop {
+  display: none !important;
+}
+
+
+/* ==========================================================================
    5. HERO
    ========================================================================== */
 .hero {
@@ -1943,4 +1990,53 @@ img {
   opacity: 1 !important;
   transform: translateY(0) !important;
   filter: blur(0) !important;
+}
+
+/* ==========================================================================
+   Account (Login/Logout) Buttons Style
+   ========================================================================== */
+.account-btn-container {
+  padding: 32px 16px 24px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.account-btn {
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 999px; /* pill */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  display: block;
+}
+
+/* 로그인 버튼: Neon Yellow (#DFFF00) 배경 + Deep Navy 텍스트 */
+.account-btn--login {
+  background-color: #DFFF00;
+  color: #10193B; /* Deep Navy */
+  border: none;
+  font-family: var(--font-body);
+}
+.account-btn--login:hover {
+  background-color: #F2FF5C;
+  box-shadow: 0 0 15px rgba(223, 255, 0, 0.4);
+}
+
+/* 로그아웃 버튼: 투명 배경 + 얇은 White Border + White 텍스트 */
+.account-btn--logout {
+  background-color: transparent;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-family: var(--font-body);
+}
+.account-btn--logout:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #FFFFFF;
 }
