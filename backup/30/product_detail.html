@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>UNI:CITY | 상품 상세</title>
+  <link rel="stylesheet" href="common.css" />
+  <link rel="stylesheet" href="product_detail.css" />
+</head>
+
+<body>
+  <div class="app-frame">
+
+    <div class="product-detail-page-content">
+
+      <div class="pd-hero">
+
+        <div class="topbar topbar--overlay">
+          <button class="icon-btn" id="btnBack" aria-label="뒤로가기">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <span class="topbar__logo">UNI:CITY</span>
+          <div class="topbar__side topbar__side--right">
+            <button class="icon-btn" id="btnCart" aria-label="장바구니로 이동">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                <path d="M3 6h18" />
+                <path d="M16 10a4 4 0 0 1-8 0" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <figure class="pd-hero__figure">
+          <img id="productImg" src="../../img/uniform_31.png" alt="2026/27 시즌 홈 레플리카 유니폼" />
+        </figure>
+
+        <div class="pd-gallery-tabs" id="galleryTabs" style="display: none;">
+        </div>
+
+      </div>
+
+      <section class="pd-info">
+        <div class="pd-info__badges">
+          <span class="pd-badge pd-badge--season" id="productSeason">26/27 SEASON</span>
+          <span class="pd-badge pd-badge--best" id="productBadge">BEST</span>
+        </div>
+        <h1 class="pd-info__name" id="productName">2026/27 시즌 홈 레플리카 유니폼</h1>
+        <p class="pd-info__price" id="productPrice">189,000원</p>
+      </section>
+
+      <div class="pd-divider"></div>
+
+      <section class="pd-option-block">
+        <div class="pd-option-block__head">
+          <span class="pd-option-block__label">SIZE</span>
+          <span class="pd-option-block__guide">정사이즈 추천</span>
+        </div>
+        <div class="pd-size-list" id="sizeList">
+          <button type="button" class="pd-size-btn" data-size="S">S</button>
+          <button type="button" class="pd-size-btn" data-size="M">M</button>
+          <button type="button" class="pd-size-btn is-active" data-size="L">L</button>
+          <button type="button" class="pd-size-btn" data-size="XL">XL</button>
+          <button type="button" class="pd-size-btn" data-size="XXL">XXL</button>
+        </div>
+      </section>
+
+      <div class="pd-divider"></div>
+
+      <section class="pd-option-block">
+        <div class="pd-option-block__head">
+          <span class="pd-option-block__label">PLAYER MARKING</span>
+        </div>
+        <div class="pd-dropdown" id="markingDropdown">
+          <button type="button" class="pd-dropdown__trigger" id="markingTrigger">
+            <span class="pd-dropdown__selected">No marking</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" class="pd-dropdown__icon">
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </button>
+          <div class="pd-dropdown__menu" id="markingMenu">
+          </div>
+        </div>
+      </section>
+
+      <div class="pd-divider"></div>
+
+      <section class="pd-option-block">
+        <div class="pd-option-block__head">
+          <span class="pd-option-block__label">OFFICIAL PATCH</span>
+        </div>
+        <div class="pd-dropdown" id="patchDropdown">
+          <button type="button" class="pd-dropdown__trigger" id="patchTrigger">
+            <span class="pd-dropdown__selected">No patch</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" class="pd-dropdown__icon">
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </button>
+          <div class="pd-dropdown__menu" id="patchMenu">
+          </div>
+        </div>
+      </section>
+
+      <div class="pd-divider"></div>
+
+      <section class="pd-option-block">
+        <div class="pd-option-block__head">
+          <span class="pd-option-block__label">QUANTITY</span>
+        </div>
+        <div class="pd-qty-stepper">
+          <button type="button" class="pd-qty-stepper__btn" id="qtyMinus" aria-label="수량 감소">−</button>
+          <span class="pd-qty-stepper__val" id="qtyValue">1</span>
+          <button type="button" class="pd-qty-stepper__btn" id="qtyPlus" aria-label="수량 증가">+</button>
+        </div>
+      </section>
+
+      <div class="pd-divider"></div>
+
+      <section class="pd-calc-panel" id="calcPanel">
+        <h2 class="pd-calc-panel__title">선택 옵션 내역</h2>
+
+        <div class="pd-calc-panel__row">
+          <span class="pd-calc-panel__label">기본 유니폼</span>
+          <span class="pd-calc-panel__val" id="calcBasePrice">0원</span>
+        </div>
+
+        <div class="pd-calc-panel__row" id="calcMarkingRow">
+          <span class="pd-calc-panel__label">선수 마킹 (<span id="calcMarkingName">No marking</span>)</span>
+          <span class="pd-calc-panel__val pd-calc-panel__val--accent" id="calcMarkingPrice">+0원</span>
+        </div>
+
+        <div class="pd-calc-panel__row" id="calcPatchRow">
+          <span class="pd-calc-panel__label">오피셜 패치 (<span id="calcPatchName">No patch</span>)</span>
+          <span class="pd-calc-panel__val pd-calc-panel__val--accent" id="calcPatchPrice">+0원</span>
+        </div>
+
+        <div class="pd-calc-panel__row">
+          <span class="pd-calc-panel__label">주문 수량</span>
+          <span class="pd-calc-panel__val" id="calcQty">1개</span>
+        </div>
+
+        <hr class="pd-calc-panel__divider" />
+
+        <div class="pd-calc-panel__row pd-calc-panel__row--total">
+          <span>최종 결제 금액</span>
+          <span class="pd-calc-panel__total-price" id="calcTotalPrice">0원</span>
+        </div>
+      </section>
+
+      <div class="pd-bottom-spacer"></div>
+
+      <div class="pd-action-bar">
+        <button type="button" class="btn btn--outline pd-action-bar__cart" id="btnAddCart">장바구니</button>
+        <button type="button" class="btn btn-lime pd-action-bar__buy" id="btnBuyNow">바로구매</button>
+      </div>
+
+      <div class="cart-modal-backdrop" id="cartModalBackdrop"></div>
+      <div class="cart-popup-sheet" id="cartPopupSheet">
+        <div class="cart-popup-sheet__handle"></div>
+        <div class="cart-popup-sheet__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h3 class="cart-popup-sheet__title">장바구니에 상품을 담았습니다.</h3>
+        <p class="cart-popup-sheet__desc">장바구니로 바로 이동하시겠습니까?</p>
+        <div class="cart-popup-sheet__actions">
+          <button type="button" class="btn btn--outline cart-popup-sheet__btn-stay" id="btnCartStay">계속 쇼핑하기</button>
+          <button type="button" class="btn btn-lime cart-popup-sheet__btn-go" id="btnCartGo">장바구니로 이동</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="products_data.js"></script>
+  <script src="common.js"></script>
+  <script src="product_detail.js"></script>
+</body>
+
+</html>

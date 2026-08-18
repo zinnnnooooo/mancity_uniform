@@ -512,96 +512,7 @@ async function loadMyPage() {
 }
 window.loadMyPage = loadMyPage;
 
-// --------------------------------------------------------------------------
-// loadLoginPage — 로그인 페이지를 모바일 페이지 전환 구조로 불러옵니다.
-// 다른 loadXxxPage() 함수와 동일한 패턴을 사용합니다.
-// --------------------------------------------------------------------------
-async function loadLoginPage() {
-  if (!mobilePageContent || !appMain) return;
-
-  // login.css 동적 로드 (중복 방지)
-  if (!document.getElementById('login-style')) {
-    const link = document.createElement('link');
-    link.id = 'login-style';
-    link.rel = 'stylesheet';
-    link.href = './login.css';
-    document.head.appendChild(link);
-  }
-
-  try {
-    const response = await fetch('./login.html');
-    if (!response.ok) throw new Error(`login.html fetch 실패: ${response.status}`);
-    const html = await response.text();
-
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const loginContent = doc.querySelector('.login-page-content');
-
-    if (!loginContent) {
-      console.error('[loadLoginPage] .login-page-content 를 찾을 수 없습니다.');
-      return;
-    }
-
-    mobilePageContent.classList.add('page-leave');
-
-    setTimeout(() => {
-      mobilePageContent.innerHTML = loginContent.outerHTML;
-      mobilePageContent.dataset.page = 'login';
-      appMain.scrollTop = 0;
-      syncBottomNav('login');
-      updateCartBadgeCount();
-
-      mobilePageContent.classList.remove('page-leave');
-      mobilePageContent.classList.add('page-enter');
-
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          mobilePageContent.classList.remove('page-enter');
-          mobilePageContent.classList.add('page-enter-active');
-
-          setTimeout(() => {
-            mobilePageContent.classList.remove('page-enter-active');
-          }, 320);
-        });
-      });
-
-      // login.js initLoginPage() 호출
-      if (typeof initLoginPage === 'function') {
-        initLoginPage({
-          // 로그인 성공 → 마이페이지로 이동
-          onLoginSuccess: (userData) => {
-            if (typeof loadMyPage === 'function') {
-              setTimeout(() => loadMyPage(), 800);
-            }
-          },
-          // 로그아웃 → 로그인 화면 유지 (뷰 상태는 initLoginPage 내부에서 자동 전환)
-          onLogout: () => {
-            console.log('[Login] 로그아웃 완료');
-          },
-          // 비회원 둘러보기 → 홈으로 이동
-          onGuest: () => {
-            if (mobilePageContent) {
-              mobilePageContent.innerHTML = homeContent;
-              mobilePageContent.dataset.page = 'home';
-              if (appMain) appMain.scrollTop = 0;
-              syncBottomNav('home');
-              updateCartBadgeCount();
-              if (typeof initMainMobileInteractions === 'function') {
-                initMainMobileInteractions();
-              }
-            }
-          },
-        });
-      }
-    }, 220);
-
-  } catch (err) {
-    console.error('[loadLoginPage] 오류:', err);
-  }
-}
-window.loadLoginPage = loadLoginPage;
-
-
+let menuBackdropEl = null;
 let menuDrawerEl = null;
 let lockedScrollTop = 0;
 
@@ -700,14 +611,7 @@ async function initMobileMenu() {
           } else if (href.includes('marking_guide.html')) {
             if (typeof loadMarkingGuidePage === 'function') loadMarkingGuidePage();
           } else if (href.includes('mypage.html')) {
-            const isLoggedIn = (typeof AuthManager !== 'undefined')
-              ? AuthManager.isLoggedIn()
-              : false;
-            if (isLoggedIn) {
-              if (typeof loadMyPage === 'function') loadMyPage();
-            } else {
-              if (typeof loadLoginPage === 'function') loadLoginPage();
-            }
+            if (typeof loadMyPage === 'function') loadMyPage();
           } else {
             window.location.href = href;
           }
@@ -901,15 +805,7 @@ document.querySelectorAll('.bottom-nav').forEach((nav) => {
       }
     } else if (label && label.textContent.trim().toLowerCase() === 'my page') {
       if (mobilePageContent && mobilePageContent.dataset.page !== 'mypage') {
-        // 로그인 여부 확인 후 분기
-        const isLoggedIn = (typeof AuthManager !== 'undefined')
-          ? AuthManager.isLoggedIn()
-          : false;
-        if (isLoggedIn) {
-          loadMyPage();
-        } else {
-          loadLoginPage();
-        }
+        loadMyPage();
       }
     }
   });

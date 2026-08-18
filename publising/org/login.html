@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNI:CITY | 로그인</title>
+  <link rel="stylesheet" href="./login.css">
+</head>
+
+<body>
+  <!--
+    login.html — UNI:CITY 로그인 페이지
+    .login-page-content 가 script.js loadLoginPage()에서 innerHTML로 주입됩니다.
+    다른 페이지 (.club-page-content, .cart-page-content 등)와 동일한 패턴.
+  -->
+  <div class="login-page-content">
+
+    <!-- ========================= LOGGED-OUT VIEW ========================= -->
+    <div class="login-view" id="loginView">
+
+      <!-- 상단 브랜드 영역 -->
+      <div class="login-brand">
+        <div class="login-brand__emblem" aria-hidden="true">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="23" stroke="#6CABDD" stroke-width="1.5" opacity="0.5"/>
+            <circle cx="24" cy="24" r="16" stroke="#DFFF00" stroke-width="1" opacity="0.4"/>
+            <circle cx="24" cy="24" r="6" fill="#DFFF00" opacity="0.9"/>
+          </svg>
+        </div>
+        <h1 class="login-brand__name">UNI:CITY</h1>
+        <p class="login-brand__tagline">영광의 순간을 입는다.</p>
+      </div>
+
+      <!-- 로그인 카드 -->
+      <div class="login-card" role="main" aria-label="로그인">
+
+        <div class="login-card__header">
+          <h2 class="login-card__title">로그인</h2>
+          <p class="login-card__desc">소셜 계정으로 간편하게 시작하세요</p>
+        </div>
+
+        <!-- 소셜 로그인 버튼 그룹 -->
+        <div class="login-social-group" role="group" aria-label="소셜 로그인 선택">
+
+          <!-- Google 로그인 -->
+          <button
+            class="login-social-btn login-social-btn--google"
+            id="btnGoogleLogin"
+            type="button"
+            aria-label="Google로 로그인"
+            data-provider="google"
+          >
+            <span class="login-social-btn__icon" aria-hidden="true">
+              <!-- Google G 로고 (SVG) -->
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.6 10.23c0-.68-.06-1.34-.17-1.97H10v3.73h5.39a4.6 4.6 0 0 1-2 3.02v2.5h3.24c1.9-1.75 3-4.33 3-7.28z" fill="#4285F4"/>
+                <path d="M10 20c2.7 0 4.97-.9 6.62-2.42l-3.23-2.5c-.9.6-2.04.96-3.39.96-2.6 0-4.81-1.76-5.6-4.12H1.07v2.58A9.997 9.997 0 0 0 10 20z" fill="#34A853"/>
+                <path d="M4.4 11.92A6.01 6.01 0 0 1 4.08 10c0-.67.11-1.32.31-1.92V5.5H1.07A10 10 0 0 0 0 10c0 1.61.39 3.13 1.07 4.5l3.33-2.58z" fill="#FBBC05"/>
+                <path d="M10 3.96c1.47 0 2.79.5 3.83 1.49l2.87-2.87C14.96.99 12.7 0 10 0A9.997 9.997 0 0 0 1.07 5.5l3.33 2.58C5.19 5.72 7.4 3.96 10 3.96z" fill="#EA4335"/>
+              </svg>
+            </span>
+            <span class="login-social-btn__label">Google로 로그인</span>
+            <span class="login-social-btn__spinner" aria-hidden="true"></span>
+          </button>
+
+          <!-- Kakao 로그인 -->
+          <button
+            class="login-social-btn login-social-btn--kakao"
+            id="btnKakaoLogin"
+            type="button"
+            aria-label="카카오로 로그인"
+            data-provider="kakao"
+          >
+            <span class="login-social-btn__icon" aria-hidden="true">
+              <!-- Kakao 말풍선 로고 (SVG) -->
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M10 1C5.03 1 1 4.19 1 8.1c0 2.52 1.65 4.73 4.12 5.99l-.99 3.67c-.09.33.28.59.56.4L9.2 15.7A10.4 10.4 0 0 0 10 15.2c4.97 0 9-3.19 9-7.1S14.97 1 10 1z"
+                  fill="#3C1E1E"/>
+              </svg>
+            </span>
+            <span class="login-social-btn__label">카카오로 로그인</span>
+            <span class="login-social-btn__spinner" aria-hidden="true"></span>
+          </button>
+
+          <!-- Apple 로그인 -->
+          <button
+            class="login-social-btn login-social-btn--apple"
+            id="btnAppleLogin"
+            type="button"
+            aria-label="Apple로 로그인"
+            data-provider="apple"
+          >
+            <span class="login-social-btn__icon" aria-hidden="true">
+              <!-- Apple 로고 (SVG) -->
+              <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M14.94 11.44c-.02-2.18 1.78-3.23 1.86-3.28-1.01-1.48-2.59-1.68-3.15-1.7-1.34-.14-2.62.79-3.3.79-.68 0-1.72-.77-2.83-.75-1.45.02-2.79.85-3.54 2.15-1.51 2.62-.39 6.5 1.08 8.63.72 1.04 1.57 2.2 2.69 2.16 1.08-.04 1.49-.7 2.8-.7 1.3 0 1.67.7 2.81.67 1.16-.02 1.9-1.05 2.6-2.1a9.5 9.5 0 0 0 1.18-2.43c-.03-.01-2.26-.87-2.28-3.44z"
+                  fill="currentColor"/>
+                <path
+                  d="M12.77 4.56c.6-.73 1-1.74.89-2.75-.86.04-1.9.57-2.52 1.3-.55.64-1.04 1.67-.91 2.65.96.07 1.94-.49 2.54-1.2z"
+                  fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="login-social-btn__label">Apple로 로그인</span>
+            <span class="login-social-btn__spinner" aria-hidden="true"></span>
+          </button>
+
+        </div><!-- /.login-social-group -->
+
+        <!-- 비회원 둘러보기 -->
+        <div class="login-guest">
+          <button class="login-guest__btn" id="btnLoginGuest" type="button">
+            로그인 없이 둘러보기
+          </button>
+        </div>
+
+        <!-- 에러/상태 메시지 -->
+        <div class="login-message" id="loginMessage" role="alert" aria-live="polite" hidden>
+          <span class="login-message__icon" aria-hidden="true">!</span>
+          <span class="login-message__text" id="loginMessageText"></span>
+        </div>
+
+      </div><!-- /.login-card -->
+
+      <!-- 개인정보 안내 -->
+      <p class="login-privacy">
+        로그인 시 UNI:CITY
+        <button type="button" class="login-privacy__link">이용약관</button>
+        및
+        <button type="button" class="login-privacy__link">개인정보 처리방침</button>
+        에 동의하게 됩니다.
+      </p>
+
+    </div><!-- /#loginView -->
+
+
+    <!-- ========================= LOGGED-IN VIEW ========================= -->
+    <div class="loggedin-view" id="loggedinView" hidden>
+
+      <!-- 프로필 카드 -->
+      <div class="login-profile-card">
+        <div class="login-profile__avatar" id="loginProfileAvatar" aria-hidden="true">
+          <!-- 프로필 이미지 or 이니셜 -->
+          <span class="login-profile__initial" id="loginProfileInitial">C</span>
+        </div>
+
+        <div class="login-profile__info">
+          <p class="login-profile__name" id="loginProfileName">CITY FAN</p>
+          <p class="login-profile__email" id="loginProfileEmail">—</p>
+          <span class="login-profile__badge" id="loginProfileBadge">
+            <!-- provider 뱃지: google / kakao / apple -->
+          </span>
+        </div>
+      </div>
+
+      <!-- 로그인 후 액션 버튼들 -->
+      <div class="loggedin-actions">
+        <button class="loggedin-action-btn loggedin-action-btn--mypage" id="btnGoMyPage" type="button">
+          <span class="loggedin-action-btn__icon" aria-hidden="true">👤</span>
+          마이페이지로 이동
+        </button>
+        <button class="loggedin-action-btn loggedin-action-btn--logout" id="btnLogout" type="button">
+          <span class="loggedin-action-btn__icon" aria-hidden="true">→</span>
+          로그아웃
+        </button>
+      </div>
+
+    </div><!-- /#loggedinView -->
+
+
+    <!-- ========================= LOADING OVERLAY ========================= -->
+    <div class="login-loading-overlay" id="loginLoadingOverlay" aria-live="polite" aria-busy="true" hidden>
+      <div class="login-loading-overlay__inner">
+        <div class="login-spinner" aria-label="로그인 처리 중"></div>
+        <p class="login-loading-overlay__text" id="loginLoadingText">로그인 중...</p>
+      </div>
+    </div>
+
+  </div><!-- /.login-page-content -->
+</body>
+
+</html>
