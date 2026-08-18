@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UNI:CITY | 배송 안내</title>
+  <link rel="stylesheet" href="common.css" />
+  <link rel="stylesheet" href="delivery_info.css" />
+</head>
+
+<body>
+  <div class="app-frame delivery-page">
+    <header class="delivery-topbar">
+      <button class="topbar-icon" id="backBtn" type="button" aria-label="뒤로가기">←</button>
+      <a class="topbar-logo" href="uni_list.html" aria-label="CITY STORE 홈">CITY STORE</a>
+      <button class="topbar-icon topbar-search" type="button" aria-label="검색">⌕</button>
+    </header>
+
+    <main>
+      <section class="delivery-hero" aria-labelledby="heroTitle">
+        <img src="img/delivery_hero.png" alt="" class="delivery-hero__image" />
+        <div class="delivery-hero__shade"></div>
+        <div class="delivery-hero__content">
+          <h1 id="heroTitle">FROM CITY<br>TO <span>YOUR CITY</span></h1>
+          <p>주문부터 도착까지, 빠르고 안전하게 전달합니다.</p>
+        </div>
+      </section>
+
+      <section class="section process-section">
+        <span class="eyebrow">DELIVERY PROCESS</span>
+        <h2>배송 프로세스</h2>
+
+        <ol class="process-list">
+          <li class="process-step is-active">
+            <span class="process-dot"></span>
+            <div class="process-copy">
+              <span class="process-index">01</span>
+              <strong>ORDER</strong>
+              <p>주문 완료 및 결제 확인</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <span class="process-dot"></span>
+            <div class="process-copy">
+              <span class="process-index">02</span>
+              <strong>PREPARING</strong>
+              <p>상품 준비 및 마킹/패치 작업 진행</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <span class="process-dot"></span>
+            <div class="process-copy">
+              <span class="process-index">03</span>
+              <strong>SHIPPING</strong>
+              <p>상품 포장 및 택배사 인계 (배송 시작)</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <span class="process-dot"></span>
+            <div class="process-copy">
+              <span class="process-index">04</span>
+              <strong>DELIVERED</strong>
+              <p>고객님께 배송 완료</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section eta-section">
+        <h2 class="icon-heading"><span aria-hidden="true">▣</span> 예상 배송 기간</h2>
+
+        <article class="eta-card">
+          <span class="eta-label">일반 상품 (노마킹)</span>
+          <div class="eta-value">2-3<span>일</span></div>
+          <p>영업일 기준 (주말/공휴일 제외)</p>
+        </article>
+
+        <article class="eta-card eta-card--outline">
+          <span class="eta-label eta-label--blue">커스텀 상품 (마킹/패치)</span>
+          <div class="eta-value">+ 3-5<span>일</span></div>
+          <p>수작업으로 진행되어 추가 작업 기간 발생</p>
+        </article>
+      </section>
+
+      <section class="section safety-section">
+        <h2>안전한 배송</h2>
+        <h3>유니폼의 컨디션까지 안전하게.</h3>
+        <p>모든 상품은 꼼꼼한 검수 과정을 거쳐 출고됩니다. 프리미엄 패키징을 통해 오염이나 손상 없이 최상의 상태로 고객님께 전달하는 것을 최우선으로 합니다.</p>
+        <img src="img/safe_delivery.png" alt="유니폼을 안전하게 검수하고 포장하는 모습" />
+      </section>
+
+      <section class="section faq-section">
+        <h2 class="icon-heading"><span aria-hidden="true">?</span> 자주 묻는 질문</h2>
+        <div class="faq-list">
+          <article class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>배송 조회는 어디서 하나요?</span><span class="faq-plus">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>주문/배송 조회 메뉴에서 주문 상태와 배송 진행 상황을 확인할 수 있습니다.</p>
+            </div>
+          </article>
+
+          <article class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>마킹 상품은 배송이 더 오래 걸리나요?</span><span class="faq-plus">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>네. 마킹/패치 작업은 수작업으로 진행되어 일반 상품보다 약 3~5영업일이 추가될 수 있습니다.</p>
+            </div>
+          </article>
+
+          <article class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>배송지를 변경할 수 있나요?</span><span class="faq-plus">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>상품이 출고되기 전이라면 주문 정보 확인 후 배송지 변경이 가능합니다.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="delivery-cta">
+        <h2>TRACK YOUR KIT</h2>
+        <p>주문한 유니폼의 현재 배송 상태를 확인하세요.</p>
+        <button type="button" id="trackingBtn">주문 / 배송 조회 <span>→</span></button>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="하단 네비게이션">
+      <a href="uni_list.html" aria-label="홈">⌂</a>
+      <a href="delivery_info.html" class="is-active" aria-current="page" aria-label="배송조회">▱</a>
+      <a href="#" aria-label="찜">♡</a>
+      <a href="#" aria-label="마이페이지">♙</a>
+    </nav>
+  </div>
+
+  <script src="common.js"></script>
+  <script src="delivery_info.js"></script>
+</body>
+
+</html>

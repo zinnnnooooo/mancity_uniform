@@ -1,0 +1,350 @@
+/* ==========================================================================
+   club.html 전용 스타일 (club.css)
+   ========================================================================== */
+
+/* ---------- 히어로 ---------- */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  overflow: hidden;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(108, 171, 221, 0.35), transparent 55%),
+    linear-gradient(180deg, #16324a 0%, #0f2338 45%, #0b1622 100%);
+}
+
+.hero__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 34px 34px;
+  opacity: 0.5;
+}
+
+.hero__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11, 22, 34, 0) 35%, rgba(11, 22, 34, 0.85) 78%, var(--color-bg-navy) 100%);
+}
+
+.hero__content {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 24px;
+}
+
+.hero__title {
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.hero__title--accent {
+  color: var(--color-sky-blue);
+}
+
+.hero__subtitle {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+/* ---------- CLUB IDENTITY ---------- */
+.identity {
+  padding: 32px 20px 40px;
+}
+
+.identity__title {
+  margin-top: 6px;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.identity__title--accent {
+  color: var(--color-sky-blue);
+}
+
+.identity__subtitle {
+  margin-top: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.identity__body {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+/* ---------- OUR HERITAGE (타임라인) ---------- */
+.heritage {
+  padding: 40px 20px 56px;
+  background: var(--color-bg-navy-2);
+}
+
+.timeline {
+  position: relative;
+  margin-top: 28px;
+}
+
+.timeline__curve {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.timeline__item {
+  position: relative;
+  padding-top: 56px;
+  padding-bottom: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.timeline__item--right {
+  padding-left: 36%;
+  padding-right: 4%;
+  text-align: left;
+}
+
+.timeline__item--left {
+  padding-right: 36%;
+  padding-left: 4%;
+  text-align: left;
+}
+
+.timeline__dot {
+  position: absolute;
+  top: 14px;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: var(--color-sky-blue);
+  box-shadow: 0 0 0 4px rgba(108, 171, 221, 0.2);
+}
+
+.timeline__year {
+  font-size: 46px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--color-accent-lime);
+  letter-spacing: -0.01em;
+}
+
+.timeline__item:nth-child(even) .timeline__year {
+  color: var(--color-white);
+}
+
+.timeline__desc {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.timeline__photo {
+  margin-top: 4px;
+  width: 100%;
+  height: 130px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #1c2f42, #0b1622);
+}
+
+.timeline__photo--mono {
+  background: linear-gradient(135deg, #3a3a3a, #101010);
+  filter: grayscale(1);
+}
+
+.timeline__photo--trophy {
+  background: linear-gradient(135deg, #2a4f78, #6cabdd);
+}
+
+/* ---------- OUR HONOURS ---------- */
+.honours {
+  padding: 40px 0 48px;
+}
+
+.honours .section-eyebrow,
+.honours .section-title,
+.honours .section-subtitle {
+  padding: 0 20px;
+}
+
+.honours__list {
+  margin-top: 24px;
+  display: flex;
+  gap: 22px;
+  overflow-x: auto;
+  padding: 0 20px;
+}
+
+.honours__item {
+  flex: 0 0 auto;
+  width: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.honours__label {
+  font-size: 10px;
+  line-height: 1.4;
+  color: var(--color-text-muted);
+}
+
+/* ---------- OUR CREST ---------- */
+.crest {
+  padding: 40px 20px 48px;
+}
+
+.crest__list {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.crest__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.crest__badge {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #6cabdd, #14304a 70%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.crest__period {
+  font-size: 10px;
+  color: var(--color-text-muted-2);
+}
+
+/* ---------- OUR HOME ---------- */
+.stadium {
+  padding: 40px 20px 0;
+}
+
+.stadium__photo {
+  margin-top: 20px;
+  width: 100%;
+  height: 180px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #1c3350, #0b1622);
+}
+
+.stadium__photo--night {
+  margin-top: 10px;
+  background: linear-gradient(135deg, #0e1c2c, #060c14);
+}
+
+.stadium__info {
+  margin-top: 24px;
+  padding: 24px 0 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 22px;
+  column-gap: 12px;
+}
+
+.stadium__info li {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stadium__info-label {
+  font-size: 11px;
+  color: var(--color-text-muted-2);
+}
+
+.stadium__info-value {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* ---------- CLUB SIGNATURE COLOR ---------- */
+.signature {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+}
+
+.signature__photo {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #6cabdd 0%, #4f8fc4 55%, #2c5f8f 100%);
+}
+
+.signature__content {
+  position: relative;
+  padding: 32px 20px;
+}
+
+.signature .section-eyebrow {
+  color: rgba(11, 22, 34, 0.65);
+}
+
+.signature__title {
+  margin-top: 8px;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #0b1622;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- 하단 CTA ---------- */
+.cta {
+  padding: 44px 20px 56px;
+  text-align: center;
+}
+
+.cta__eyebrow {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.cta__eyebrow--accent {
+  color: var(--color-sky-blue);
+}
+
+.cta__title {
+  margin-top: 6px;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.cta__btn {
+  margin-top: 24px;
+  width: 100%;
+}

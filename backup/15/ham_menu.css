@@ -1,0 +1,102 @@
+/* ==========================================================================
+   UNI:CITY — ham_menu.css
+   ========================================================================== */
+
+.menu-panel {
+  min-height: 100vh;
+  background: var(--color-bg-navy);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- 헤더 ------------------------------------------------------------- */
+.menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 22px 20px;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.menu-logo {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--color-white);
+}
+
+.menu-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  color: var(--color-white);
+  border-radius: 6px;
+  transition: opacity 0.15s ease;
+}
+
+.menu-close:hover,
+.menu-close:focus-visible {
+  opacity: 0.7;
+}
+
+.menu-close:focus-visible {
+  outline: 2px solid var(--color-sky-blue);
+  outline-offset: 2px;
+}
+
+/* ---- 본문 --------------------------------------------------------------- */
+.menu-body {
+  flex: 1;
+  padding: 30px 22px 40px;
+}
+
+.menu-section + .menu-section {
+  margin-top: 34px;
+}
+
+.menu-section--my {
+  margin-top: 54px;
+}
+
+.menu-section .section-eyebrow {
+  margin-bottom: 14px;
+}
+
+.menu-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  transition: opacity 0.15s ease;
+}
+
+.menu-item:hover,
+.menu-item:focus-visible {
+  opacity: 0.75;
+}
+
+.menu-item:focus-visible {
+  outline: 2px solid var(--color-sky-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.menu-item-label {
+  font-size: 16.5px;
+  font-weight: 700;
+  color: var(--color-white);
+  letter-spacing: -0.01em;
+}
+
+.menu-item-arrow {
+  font-size: 15px;
+  color: var(--color-text-muted);
+  line-height: 1;
+}

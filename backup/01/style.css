@@ -1,0 +1,522 @@
+/* ==========================================================================
+   UNI:CITY — 1단계 : 레이아웃 구조 (Skeleton)
+   - 색상/폰트/이미지/애니메이션은 다음 단계에서 작업
+   - 지금은 구조(Flex/Grid/width/height/position)만 확인
+   ========================================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden; /* 가로 스크롤 방지 */
+}
+
+body {
+  font-family: sans-serif;
+  color: #222;
+  background: #ddd;
+}
+
+button {
+  font: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.icon-placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   구조 확인용 스켈레톤 스타일
+   (실제 디자인 단계에서 교체 예정 — 지금은 영역 구분용 outline만 사용)
+   ========================================================================== */
+[class] {
+  outline: 1px dashed rgba(0, 0, 0, 0.15);
+}
+
+
+/* ==========================================================================
+   0. DESKTOP WRAPPER
+   기본값(모바일) : 세로 1단
+   481px 이상 : 좌우 2단(Flex)
+   ========================================================================== */
+.desktop-wrapper {
+  width: 100%;
+  min-height: 100vh;
+}
+
+
+/* ==========================================================================
+   1. DESKTOP CONTENT (왼쪽 — 데스크톱 전용)
+   기본값(모바일) : 숨김
+   ========================================================================== */
+.desktop-content {
+  display: none;
+}
+
+
+/* ==========================================================================
+   2. MOBILE PREVIEW (오른쪽 / 모바일 전체화면)
+   - 내부에 .mobile-app 을 그대로 재사용
+   - 자체적으로 세로 스크롤을 갖는 독립 화면 구조
+   ========================================================================== */
+.mobile-preview {
+  width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  overflow: hidden; /* 내부 .app-main 이 스크롤을 담당 */
+}
+
+.mobile-app {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+
+/* ==========================================================================
+   3. HEADER
+   ========================================================================== */
+.app-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 56px;
+  padding: 0 16px;
+}
+
+.app-header__logo {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.app-header__menu,
+.app-header__search {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ==========================================================================
+   4. MAIN (스크롤 영역)
+   ========================================================================== */
+.app-main {
+  flex: 1;
+  min-height: 0;      /* flex 자식 overflow 스크롤을 위해 필요 */
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+
+/* ==========================================================================
+   5. HERO
+   ========================================================================== */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__text {
+  position: relative;
+  z-index: 1;
+  padding: 0 16px 24px;
+}
+
+.hero__eyebrow {
+  font-size: 13px;
+}
+
+.hero__title {
+  font-size: 40px;
+  line-height: 1.1;
+  font-weight: 800;
+  margin-top: 8px;
+}
+
+
+/* ==========================================================================
+   6. SCROLL GUIDE
+   ========================================================================== */
+.scroll-guide {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 16px;
+}
+
+.scroll-guide__icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.scroll-guide__text {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+/* ==========================================================================
+   7. CLUB INTRO (Manchester City Introduction)
+   ========================================================================== */
+.club-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 16px;
+}
+
+.club-intro__title {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+/* 7-1. History / Timeline */
+.club-history {
+  position: relative;
+}
+
+.club-history__label {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.club-history__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 16px;
+  border-left: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.club-history__item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.club-history__year {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.club-history__desc {
+  font-size: 12px;
+}
+
+.club-history__emblem {
+  position: absolute;
+  top: 0;
+  right: -16px;
+  width: 160px;
+  height: 160px;
+  overflow: hidden;
+}
+
+/* 7-2. Stadium / Club Image Area */
+.club-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.club-gallery__item {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+/* 7-3. Club Feature Image (celebration) */
+.club-feature-image {
+  width: 100%;
+  height: 360px;
+}
+
+/* 7-4. Club Description */
+.club-description {
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* 7-5. Trophy Statistics */
+.club-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.club-stats__item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.club-stats__label {
+  font-size: 11px;
+  letter-spacing: 0.03em;
+}
+
+.club-stats__value {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+
+/* ==========================================================================
+   8. POPULAR UNIFORM
+   ========================================================================== */
+.popular-uniform {
+  padding: 24px 16px;
+}
+
+.popular-uniform__title {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.popular-uniform__filter {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+
+.filter-tab {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.product-card__image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  margin-bottom: 4px;
+}
+
+.product-card__season {
+  font-size: 10px;
+}
+
+.product-card__name {
+  font-size: 12px;
+}
+
+.product-card__price {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+
+/* ==========================================================================
+   9. RETRO COLLECTION
+   ========================================================================== */
+.retro-collection {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.retro-collection__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.retro-collection__text {
+  position: relative;
+  z-index: 1;
+  padding: 24px 16px;
+}
+
+.retro-collection__eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+
+.retro-collection__title {
+  font-size: 24px;
+  font-weight: 800;
+  margin-top: 8px;
+}
+
+.retro-collection__desc {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.retro-collection__cta {
+  margin-top: 12px;
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+
+/* ==========================================================================
+   10. BOTTOM NAVIGATION
+   - .mobile-app 하단에 고정 (스크롤 영역 밖)
+   ========================================================================== */
+.bottom-nav {
+  flex-shrink: 0;
+  width: 100%;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.bottom-nav__item {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ==========================================================================
+   11. DESKTOP CONTENT 내부 임시 블록
+   (2단계에서 실제 콘텐츠로 교체)
+   ========================================================================== */
+.desktop-content__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* 세로 중앙 정렬 */
+  gap: 24px;
+  height: 100%;
+  width: 100%;
+  max-width: 660px;          /* 콘텐츠가 무제한으로 퍼지지 않도록 정돈된 폭 유지 */
+  margin: 0 auto;            /* 화면 중앙 구성에 맞춰 균형 있게 배치 */
+  padding: 64px 0;
+  overflow-y: auto;
+}
+
+.dc-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+}
+
+.dc-block__label {
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+.dc-popular-uniform {
+  min-height: 200px;
+}
+
+.dc-nav-cards {
+  min-height: 160px;
+}
+
+
+/* ==========================================================================
+   ▣ 반응형 분기점 : 481px 이상 = 데스크톱 구조
+   ========================================================================== */
+@media (min-width: 481px) {
+
+  .desktop-wrapper {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    width: 100%;
+    max-width: 1270px;         /* Desktop Content + gap + Mobile Preview 를 하나의 고정 그룹으로 묶음 */
+    margin: 0 auto;             /* 그룹 자체를 화면 수평 중앙에 배치 */
+    height: 100vh;
+    gap: 100px;                  /* Desktop Content ↔ Mobile Preview 사이 간격 */
+    padding: 0 24px;            /* 좁은 화면에서의 최소 바깥 여백 */
+  }
+
+  /* 왼쪽 : 데스크톱 전용 콘텐츠 — 남는 공간은 유동적으로 갖되
+     내부 콘텐츠는 max-width로 정돈된 블록 형태를 유지 */
+  .desktop-content {
+    display: block;
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 100vh;
+  }
+
+  /* 오른쪽 : Mobile Preview — 430px 고정, 절대 줄어들거나 늘어나지 않음 */
+  .mobile-preview {
+    flex: 0 0 430px;
+    width: 430px;
+    max-width: 430px;
+    min-width: 430px;
+    flex-shrink: 0;
+    height: calc(100vh - 80px);
+    margin: 40px 0;
+  }
+
+}
+
+/* 데스크톱 구조를 유지하되(2단 레이아웃, Mobile Preview 430px 고정),
+   창이 좁은 데스크톱(예: 481~900px)에서는 좌우 padding/gap을 줄여
+   Desktop Content가 필요 이상으로 눌리지 않도록 함 */
+@media (min-width: 481px) and (max-width: 900px) {
+
+  .desktop-wrapper {
+    gap: 24px;
+    padding: 0 24px;
+  }
+
+}

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>UNI:CITY | 구단 소개</title>
+  <link rel="stylesheet" href="common.css" />
+  <link rel="stylesheet" href="club.css" />
+</head>
+
+<body>
+  <div class="app-frame">
+
+    <!-- 상단바 (히어로 위 오버레이) -->
+    <header class="topbar topbar--overlay">
+      <div class="topbar__side">
+        <button type="button" class="topbar__icon-btn" id="backBtn" aria-label="뒤로가기">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M15 5L8 12L15 19" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+      <div class="topbar__logo">UNI:CITY</div>
+      <div class="topbar__side topbar__side--right">
+        <button type="button" class="topbar__icon-btn" aria-label="공유">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <circle cx="18" cy="5" r="2.5" stroke="#FFFFFF" stroke-width="1.6" />
+            <circle cx="6" cy="12" r="2.5" stroke="#FFFFFF" stroke-width="1.6" />
+            <circle cx="18" cy="19" r="2.5" stroke="#FFFFFF" stroke-width="1.6" />
+            <path d="M8.2 10.7L15.8 6.3M8.2 13.3L15.8 17.7" stroke="#FFFFFF" stroke-width="1.6" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- 히어로 -->
+    <div class="club-page-content">
+      <section class="hero">
+      <div class="hero__bg"></div>
+      <div class="hero__gradient"></div>
+      <div class="hero__content">
+        <h1 class="hero__title">THIS IS<br /><span class="hero__title--accent">OUR CITY.</span></h1>
+        <p class="hero__subtitle">1880년부터 이어진 하늘빛 역사의 시작.</p>
+      </div>
+    </section>
+
+    <!-- CLUB IDENTITY -->
+    <section class="identity">
+      <p class="section-eyebrow">CLUB IDENTITY</p>
+      <h2 class="identity__title">Manchester Is <span class="identity__title--accent">Blue</span></h2>
+      <p class="identity__subtitle">맨체스터의 자부심</p>
+      <div class="identity__body">
+        <p>맨체스터 시티는 맨체스터를 연고로 한 잉글랜드 프리미어리그의 클럽입니다.</p>
+        <p>하늘색 유니폼은 우리의 아이덴티티이자 팬들과 지금까지 함께 걸어온 자부심의 상징입니다.</p>
+      </div>
+    </section>
+
+    <!-- OUR HERITAGE -->
+    <section class="heritage">
+      <p class="section-eyebrow">CLUB HISTORY</p>
+      <h2 class="section-title">OUR<br />HERITAGE</h2>
+      <p class="section-subtitle">구단 주요 역사</p>
+
+      <div class="ht" id="ht-wrap">
+
+        <!-- SVG 발광 타임라인 (JS로 동적 생성) -->
+        <svg class="ht__svg-timeline" id="ht-svg-timeline" aria-hidden="true"
+             xmlns="http://www.w3.org/2000/svg"
+             style="position:absolute;top:0;left:0;width:100%;pointer-events:none;z-index:1;"></svg>
+
+
+        <div class="ht__row ht__row--a" data-year="1880">
+          <div class="ht__img-wrap ht__img-wrap--a">
+            <img src="../../img/history_1.webp" class="ht__img" alt="1880 역사">
+          </div>
+          <div class="ht__info ht__info--a">
+            <span class="ht__year ht__year--lime" id="ht-year-1880">1880</span>
+            <p class="ht__desc">세인트 마크스 교회의 축구 팀으로 시작한 맨체스터 시티</p>
+          </div>
+        </div>
+
+        <!-- 1937 : 이미지 왼쪽, 연도 오른쪽에 크게 겹침 -->
+        <div class="ht__row ht__row--b" data-year="1937">
+          <div class="ht__img-wrap ht__img-wrap--b">
+            <img src="../../img/history_2.png" class="ht__img" alt="1937 역사">
+          </div>
+          <div class="ht__info ht__info--b">
+            <span class="ht__year ht__year--blue" id="ht-year-1937">1937</span>
+            <p class="ht__desc">맨시티 역사상 첫 리그 우승 기록</p>
+          </div>
+        </div>
+
+        <!-- 1968 : 이미지 오른쪽, 연도 왼쪽 -->
+        <div class="ht__row ht__row--c" data-year="1968">
+          <div class="ht__img-wrap ht__img-wrap--c">
+            <img src="../../img/history_3.png" class="ht__img" alt="1968 역사">
+          </div>
+          <div class="ht__info ht__info--c">
+            <span class="ht__year ht__year--white" id="ht-year-1968">1968</span>
+            <p class="ht__desc">맨시티의 찬란했던 첫 번째 전성기</p>
+          </div>
+        </div>
+
+        <!-- 2012 : 이미지 왼쪽, 연도 오른쪽 -->
+        <div class="ht__row ht__row--d" data-year="2012">
+          <div class="ht__img-wrap ht__img-wrap--d">
+            <img src="../../img/history_4.png" class="ht__img" alt="2012 역사">
+          </div>
+          <div class="ht__info ht__info--d">
+            <span class="ht__year ht__year--lime" id="ht-year-2012">2012</span>
+            <p class="ht__desc">44년만에 PL 우승</p>
+          </div>
+        </div>
+
+        <!-- 2023 : 이미지 전체 너비, 연도 아래 중앙 -->
+        <div class="ht__row ht__row--e" data-year="2023">
+          <div class="ht__img-wrap ht__img-wrap--e">
+            <img src="../../img/history_5.jpg" class="ht__img" alt="2023 역사">
+          </div>
+          <div class="ht__info ht__info--e">
+            <span class="ht__year ht__year--lime" id="ht-year-2023">2023</span>
+            <p class="ht__desc">구단 역사상 첫 트레블 달성</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- OUR HONOURS -->
+    <section class="honours">
+      <p class="section-eyebrow">CLUB TROPHY</p>
+      <h2 class="section-title">OUR<br />HONOURS</h2>
+      <p class="section-subtitle">주요 우승 기록</p>
+
+      <ul class="honours__list no-scrollbar">
+        <li class="honours__item">
+          <img src="../../img/trophy_1.png" class="honours__img" alt="프리미어 리그">
+          <span class="honours__name">프리미어 리그</span>
+          <span class="honours__count">10회</span>
+        </li>
+        <li class="honours__item">
+          <img src="../../img/trophy_2.png" class="honours__img" alt="FA 컵">
+          <span class="honours__name">FA 컵</span>
+          <span class="honours__count">8회</span>
+        </li>
+        <li class="honours__item">
+          <img src="../../img/trophy_3.png" class="honours__img" alt="EFL 컵">
+          <span class="honours__name">EFL 컵</span>
+          <span class="honours__count">9회</span>
+        </li>
+        <li class="honours__item">
+          <img src="../../img/trophy_4.png" class="honours__img" alt="커뮤니티 실드">
+          <span class="honours__name">커뮤니티 실드</span>
+          <span class="honours__count">7회</span>
+        </li>
+        <li class="honours__item">
+          <img src="../../img/trophy_5.png" class="honours__img" alt="챔피언스리그">
+          <span class="honours__name">챔피언스리그</span>
+          <span class="honours__count">1회</span>
+        </li>
+        <li class="honours__item">
+          <img src="../../img/trophy_6.png" class="honours__img" alt="슈퍼컵">
+          <span class="honours__name">슈퍼컵</span>
+          <span class="honours__count">1회</span>
+        </li>
+        <li class="honours__item">
+          <img src="../../img/trophy_7.png" class="honours__img" alt="클럽 월드컵">
+          <span class="honours__name">클럽 월드컵</span>
+          <span class="honours__count">1회</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- OUR CREST -->
+    <section class="crest">
+      <p class="section-eyebrow">CLUB CREST</p>
+      <h2 class="section-title">OUR<br />CREST</h2>
+      <p class="section-subtitle">구단 로고 변천사</p>
+
+      <ul class="crest__list">
+        <li class="crest__item">
+          <img src="../../img/logo_1.png" class="crest__logo" alt="1880-1972 로고">
+          <span class="crest__period">1880-1972</span>
+        </li>
+        <li class="crest__item">
+          <img src="../../img/logo_2.png" class="crest__logo" alt="1972-1997 로고">
+          <span class="crest__period">1972-1997</span>
+        </li>
+        <li class="crest__item">
+          <img src="../../img/logo_3.png" class="crest__logo" alt="1997-2016 로고">
+          <span class="crest__period">1997-2016</span>
+        </li>
+        <li class="crest__item">
+          <img src="../../img/logo_4.png" class="crest__logo" alt="2016- 로고">
+          <span class="crest__period">2016-</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- OUR HOME -->
+    <section class="stadium">
+      <p class="section-eyebrow">HOME STADIUM</p>
+      <h2 class="section-title">OUR<br />HOME</h2>
+      <p class="section-subtitle">에티하드 스타디움</p>
+
+      <div class="stadium__photos">
+        <img src="../../img/stadium_2.jpg" class="stadium__img" alt="에티하드 스타디움 낮 전경">
+        <img src="../../img/staium3.jpg" class="stadium__img" alt="에티하드 스타디움 밤 전경">
+      </div>
+
+      <ul class="stadium__info">
+        <li>
+          <span class="stadium__info-label">한글명</span>
+          <span class="stadium__info-value">맨체스터 시 M11 3FF</span>
+        </li>
+        <li>
+          <span class="stadium__info-label">완공</span>
+          <span class="stadium__info-value">2003. 08. 10.</span>
+        </li>
+        <li>
+          <span class="stadium__info-label">수용 인원</span>
+          <span class="stadium__info-value">61,083명</span>
+        </li>
+        <li>
+          <span class="stadium__info-label">UEFA 등급</span>
+          <span class="stadium__info-value">GRADE 4</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- CLUB SIGNATURE COLOR -->
+    <section class="signature">
+      <p class="signature__eyebrow">CLUB SIGNATURE COLOR</p>
+      <h2 class="signature__title">SKY BLUE</h2>
+      <p class="signature__value">#6CABDD</p>
+      <div class="signature__photo-wrapper">
+        <img src="../../img/color.jpg" class="signature__img" alt="Manchester City Fans">
+      </div>
+    </section>
+
+    <!-- 하단 CTA -->
+    <section class="cta">
+      <p class="cta__eyebrow">Manchester Is <span class="cta__eyebrow--accent">Blue</span></p>
+      <h2 class="cta__title">WEAR THE<br />HISTORY</h2>
+      <button type="button" class="btn-cta cta__btn" id="ctaBtn">유니폼 둘러보러 가기</button>
+    </section>
+    </div>
+
+  </div>
+
+  <script src="common.js"></script>
+  <script src="club.js"></script>
+</body>
+
+</html>

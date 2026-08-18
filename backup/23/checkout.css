@@ -1,0 +1,554 @@
+/* ============================================================
+   UNI:CITY — checkout.css
+   ============================================================ */
+
+body.checkout-page-body {
+  background: #080c1e;
+  margin: 0;
+  color: var(--color-white, #ffffff);
+  font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif;
+}
+
+body.checkout-page-body .app-frame {
+  background: #10193B;
+  min-height: 100vh;
+  position: relative;
+  max-width: var(--max-width, 480px);
+  margin: 0 auto;
+}
+
+.checkout-page-content {
+  padding-bottom: 20px;
+}
+
+/* ---------- 상단 탑바 ---------- */
+.checkout-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.01) 40%, rgba(255, 255, 255, 0) 100%),
+    rgba(16, 25, 59, 0.85);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.checkout-topbar__title {
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.checkout-topbar__side {
+  width: 24px;
+}
+
+/* ---------- 공통 섹션 ---------- */
+.co-section {
+  padding: 20px 20px 0;
+}
+
+.co-section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.co-section__title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-white, #fff);
+  margin: 0;
+}
+
+.co-link-btn {
+  background: none;
+  border: none;
+  color: #6CABDD;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+}
+
+.co-card {
+  padding: 16px 18px;
+  border-radius: 12px;
+  background: #16224A;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ---------- 배송지 카드 ---------- */
+.co-address__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.co-badge {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(108, 171, 221, 0.2);
+  color: #6CABDD;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.co-address__user {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-white, #fff);
+}
+
+.co-address__main {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-white, #fff);
+  margin: 0 0 4px;
+  line-height: 1.4;
+}
+
+.co-address__sub {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 14px;
+}
+
+/* 배송 요청사항 드롭다운 */
+.co-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.co-dropdown__trigger {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  border-radius: 8px;
+  background: #10193B;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12.5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.co-dropdown__icon {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
+}
+
+.co-dropdown.is-open .co-dropdown__icon {
+  transform: rotate(180deg);
+}
+
+.co-dropdown__menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  background: #142045;
+  border: 1px solid rgba(108, 171, 221, 0.3);
+  border-radius: 8px;
+  z-index: 20;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.co-dropdown.is-open .co-dropdown__menu {
+  display: block;
+}
+
+.co-dropdown__item {
+  width: 100%;
+  padding: 10px 14px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.co-dropdown__item:hover,
+.co-dropdown__item.is-selected {
+  background: #6CABDD;
+  color: #10193B;
+  font-weight: 700;
+}
+
+/* ---------- 주문 상품 목록 ---------- */
+.co-toggle-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.co-toggle-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease;
+}
+
+.co-toggle-btn[aria-expanded="false"] .co-toggle-icon {
+  transform: rotate(180deg);
+}
+
+.co-item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.co-item-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #16224A;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.co-item__thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  background: #0b112c;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.co-item__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.co-item__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.co-item__name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.co-item__opt {
+  font-size: 11px;
+  color: #8fa4b8;
+  margin: 4px 0 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.co-item__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.co-item__qty {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.co-item__price {
+  font-size: 14px;
+  font-weight: 800;
+  color: #DFFF00;
+}
+
+/* ---------- 결제 수단 그리드 ---------- */
+.co-payment-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.co-pay-btn {
+  height: 48px;
+  background: #16224A;
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.co-pay-btn.is-active {
+  border-color: #6CABDD;
+  background: rgba(108, 171, 221, 0.15);
+  color: #fff;
+}
+
+/* ---------- 결제 금액 요약 패널 ---------- */
+.co-summary-panel {
+  margin: 24px 20px 0;
+  padding: 18px 20px;
+  background: #16224A;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.co-summary__title {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 14px;
+}
+
+.co-summary__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.co-summary__row span:last-child {
+  color: #fff;
+  font-weight: 600;
+}
+
+.co-divider {
+  margin: 12px 0;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.co-summary__row--total {
+  padding-top: 4px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.co-summary__total-val {
+  font-size: 19px !important;
+  font-weight: 900 !important;
+  color: #DFFF00 !important;
+}
+
+/* ---------- 체크박스 및 동의 ---------- */
+.co-agree-section {
+  padding: 18px 20px 0;
+}
+
+.co-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.co-checkbox input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.co-checkbox__box {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  background: #16224A;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.co-checkbox input:checked + .co-checkbox__box {
+  background: #6CABDD;
+  border-color: #6CABDD;
+}
+
+.co-checkbox input:checked + .co-checkbox__box::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid #10193B;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.co-checkbox__label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ---------- 하단 고정 CTA ---------- */
+.co-bottom-spacer {
+  height: 90px;
+}
+
+.co-cta-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-width, 480px);
+  padding: 14px 20px calc(14px + env(safe-area-inset-bottom, 0px));
+  background: rgba(16, 25, 59, 0.85);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  box-sizing: border-box;
+}
+
+.co-cta-btn {
+  width: 100%;
+  height: 52px;
+  background: #DFFF00 !important;
+  color: #10193B !important;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 900;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(223, 255, 0, 0.25);
+  transition: transform 0.1s ease;
+}
+
+.co-cta-btn:active {
+  transform: scale(0.98);
+}
+
+/* ---------- 완료 모달 ---------- */
+.co-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 300;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.co-modal.is-open {
+  display: flex;
+}
+
+.co-modal__dialog {
+  width: 100%;
+  max-width: 360px;
+  background: #142347;
+  border: 1px solid rgba(108, 171, 221, 0.3);
+  border-radius: 16px;
+  padding: 28px 22px 24px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: modalPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.co-modal__badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #DFFF00;
+  color: #10193B;
+  font-size: 24px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  box-shadow: 0 0 16px rgba(223, 255, 0, 0.4);
+}
+
+.co-modal__title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 8px;
+}
+
+.co-modal__desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 20px;
+  line-height: 1.45;
+}
+
+.co-modal__info {
+  background: #0E1833;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 22px;
+}
+
+.co-modal__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 4px 0;
+}
+
+.co-modal__row strong {
+  color: #fff;
+}
+
+.co-modal__price {
+  color: #DFFF00 !important;
+  font-weight: 800;
+}
+
+.co-modal__btn {
+  width: 100%;
+  height: 46px;
+  background: #6CABDD !important;
+  color: #10193B !important;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+}

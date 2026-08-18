@@ -1,0 +1,236 @@
+/* ============================================================
+   UNI:CITY — cart.css
+   ============================================================ */
+
+/* ---------- 전체 선택 / 선택 삭제 ---------- */
+.cart-select-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+}
+
+.cart-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.cart-checkbox input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.cart-checkbox__box {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 1.5px solid var(--color-divider);
+  background: var(--color-bg-navy-3);
+  position: relative;
+  flex: 0 0 20px;
+}
+
+.cart-checkbox input:checked + .cart-checkbox__box {
+  background: var(--color-sky-blue);
+  border-color: var(--color-sky-blue);
+}
+
+.cart-checkbox input:checked + .cart-checkbox__box::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--color-bg-navy);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.cart-checkbox__label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.cart-delete-btn {
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-navy-3);
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ---------- 장바구니 상품 리스트 ---------- */
+.cart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 20px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-navy-2);
+}
+
+.cart-item__checkbox {
+  flex: 0 0 auto;
+}
+
+.cart-item__thumb {
+  flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(160deg, #223a55 0%, #16283c 100%);
+}
+
+.cart-item__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.cart-item__name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cart-item__option {
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  color: var(--color-text-muted-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cart-item__footer {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cart-item__qty {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart-item__qty-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: var(--color-bg-navy-3);
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-item__qty-value {
+  min-width: 16px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.cart-item__price {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--color-accent-lime);
+}
+
+.cart-empty {
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+/* ---------- 결제 예정 금액 패널 ---------- */
+.cart-summary {
+  margin: 24px 20px 0;
+  padding: 18px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-navy-2);
+}
+
+.cart-summary__title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-white);
+  margin-bottom: 14px;
+}
+
+.cart-summary__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.cart-summary__shipping {
+  color: var(--color-sky-blue);
+  font-size: 12px;
+  text-align: right;
+}
+
+.cart-summary__divider {
+  margin: 10px 0;
+}
+
+.cart-summary__row--total {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-white);
+  padding-top: 2px;
+}
+
+.cart-summary__row--total span:last-child {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--color-accent-lime);
+}
+
+/* ---------- 하단 고정 CTA ---------- */
+.cart-bottom-spacer {
+  height: var(--bottom-bar-height);
+}
+
+.cart-cta-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-width);
+  padding: 14px 20px calc(14px + env(safe-area-inset-bottom, 0px));
+  background: var(--color-bg-navy);
+  border-top: 1px solid var(--color-divider);
+  z-index: 100;
+}
+
+.cart-cta-btn {
+  width: 100%;
+}

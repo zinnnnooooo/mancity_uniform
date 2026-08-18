@@ -1,0 +1,357 @@
+:root {
+  --mypage-bg: #465766;
+  --mypage-panel: #617382;
+  --mypage-panel-dark: #526473;
+  --mypage-panel-muted: rgba(88, 107, 121, .55);
+  --mypage-white: #fff;
+  --mypage-muted: rgba(255, 255, 255, .53);
+  --mypage-line: rgba(255, 255, 255, .14);
+  --mypage-sky: #6cabdd;
+  --mypage-lime: #dfff00;
+  --mypage-outer: #17222d;
+  --mypage-max: 480px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html:not(:has(.desktop-wrapper)) {
+  background: var(--mypage-outer);
+}
+
+body.mypage-page-body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background: var(--mypage-outer);
+  color: var(--mypage-white);
+  font-family: Pretendard, "Noto Sans KR", Arial, sans-serif;
+  line-height: 1.5;
+}
+
+button,
+a {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+body.mypage-page-body .app-frame.mypage {
+  width: 100%;
+  max-width: var(--mypage-max);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background: var(--mypage-bg);
+  box-shadow: 0 0 34px rgba(0, 0, 0, .22);
+}
+
+.mypage-page-content {
+  padding-bottom: 96px;
+}
+
+.mypage-topbar {
+  height: 58px;
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  padding: 0 14px;
+  border-bottom: 1px solid var(--mypage-line);
+}
+
+.topbar-btn {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.mypage-logo {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: .06em;
+}
+
+.cart-link {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-section {
+  padding: 34px 20px 24px;
+  text-align: center;
+}
+
+.profile-image-wrap {
+  width: 102px;
+  height: 102px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(145deg, var(--mypage-sky), rgba(255, 255, 255, .2));
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .25);
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.profile-section h1 {
+  margin: 0 0 4px;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: .02em;
+}
+
+.profile-section p {
+  margin: 0;
+  color: var(--mypage-muted);
+  font-size: 12px;
+}
+
+.summary-grid {
+  margin: 10px 20px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.summary-card {
+  padding: 16px;
+  border: 1px solid var(--mypage-line);
+  background: var(--mypage-panel-muted);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: background .2s ease;
+}
+
+.summary-card:active {
+  background: var(--mypage-panel);
+}
+
+.summary-card strong {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--mypage-lime);
+}
+
+.summary-card span {
+  font-size: 11px;
+  color: var(--mypage-muted);
+}
+
+.order-status-section {
+  margin: 28px 20px 0;
+  padding: 20px 18px;
+  background: var(--mypage-panel);
+  border-radius: 14px;
+  border: 1px solid var(--mypage-line);
+}
+
+.section-title-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.section-title-wrap h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.btn-more {
+  border: 0;
+  background: transparent;
+  color: var(--mypage-muted);
+  font-size: 12px;
+  padding: 0;
+}
+
+.order-progress {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+}
+
+.order-progress::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 12%;
+  right: 12%;
+  height: 2px;
+  background: rgba(255, 255, 255, .14);
+  z-index: 1;
+}
+
+.order-step {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+}
+
+.step-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--mypage-panel-dark);
+  border: 2px solid rgba(255, 255, 255, .2);
+  display: block;
+}
+
+.order-step.is-complete .step-dot {
+  background: var(--mypage-sky);
+  border-color: var(--mypage-sky);
+}
+
+.order-step.is-current .step-dot {
+  background: var(--mypage-lime);
+  border-color: var(--mypage-lime);
+  box-shadow: 0 0 10px rgba(223, 255, 0, .4);
+}
+
+.order-step strong {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--mypage-muted);
+}
+
+.order-step em {
+  font-style: normal;
+  font-size: 10px;
+  color: rgba(255, 255, 255, .4);
+}
+
+.order-step.is-complete strong,
+.order-step.is-current strong {
+  color: var(--mypage-white);
+}
+
+.mypage-menu {
+  margin: 28px 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-row {
+  display: flex;
+  align-items: center;
+  padding: 16px 18px;
+  background: var(--mypage-panel-muted);
+  border: 1px solid var(--mypage-line);
+  border-radius: 12px;
+  gap: 14px;
+  transition: background .2s ease;
+}
+
+.menu-row:active {
+  background: var(--mypage-panel);
+}
+
+.menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--mypage-sky);
+}
+
+.menu-label {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.menu-arrow {
+  color: var(--mypage-muted);
+  font-size: 14px;
+}
+
+/* SPA(index.html) 진입 시 메인 프레임 내 중복 방지 스타일 정의 */
+.mobile-app:has(.mypage-page-content)>.bottom-nav {
+  display: none !important;
+}
+
+/* 마이페이지 자체 고정 하단 네비게이션 전용 스타일 정의 */
+.app-frame.mypage .bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--mypage-max);
+  height: 64px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  background: #4C5C69;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  z-index: 100;
+}
+
+.app-frame.mypage .bottom-nav__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 100%;
+  color: rgba(255, 255, 255, 0.55);
+  background: transparent;
+  border: none;
+}
+
+.app-frame.mypage .bottom-nav__icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  opacity: 0.55;
+  transition: opacity 0.2s ease;
+}
+
+.app-frame.mypage .bottom-nav__label {
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.app-frame.mypage .bottom-nav__item.is-active {
+  color: var(--mypage-white);
+}
+
+.app-frame.mypage .bottom-nav__item.is-active .bottom-nav__icon {
+  opacity: 1;
+}

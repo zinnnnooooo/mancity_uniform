@@ -1,0 +1,456 @@
+:root {
+  --product-info-bg-rgb: 13, 33, 53;
+  --product-info-bg: #0D2135;
+}
+
+/* ============================================================
+   UNI:CITY — product_detail.css
+   ============================================================ */
+
+.product-detail-page-content {
+  background: var(--product-info-bg);
+  min-height: 100%;
+  position: relative;
+}
+
+/* ---------- 히어로 (실제 상품 이미지) ---------- */
+.pd-hero {
+  position: relative;
+  width: 100%;
+  background: #081220;
+}
+
+.pd-hero__figure {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+.pd-hero__figure::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 45%;
+  background: linear-gradient(to bottom,
+      rgba(13, 33, 53, 0) 0%,
+      rgba(13, 33, 53, 0.35) 40%,
+      rgba(13, 33, 53, 0.8) 75%,
+      var(--product-info-bg) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+#productImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---------- 정보 패널 ---------- */
+.pd-info-panel {
+  position: relative;
+  z-index: 2;
+  margin-top: -60px;
+  background: var(--product-info-bg);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding: 24px 20px 22px;
+}
+
+.pd-authentic-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-white);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pd-authentic-badge svg {
+  width: 14px;
+  height: 14px;
+  color: var(--color-sky-blue);
+}
+
+.pd-product-name {
+  margin-top: 14px;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--color-white);
+}
+
+.pd-product-price {
+  margin-top: 8px;
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--color-accent-lime);
+}
+
+/* ---------- 공통 섹션 ---------- */
+.pd-section {
+  padding: 18px 20px;
+  background: var(--product-info-bg);
+}
+
+.pd-section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.pd-section__label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.pd-size-guide-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.pd-divider {
+  margin: 0 20px;
+  width: auto;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ---------- 사이즈 선택 ---------- */
+.pd-size-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.pd-size-btn {
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-navy-3, #182C3F);
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: 700;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pd-size-btn.is-active {
+  border-color: var(--color-white);
+  background: rgba(108, 171, 221, 0.2);
+}
+
+/* ---------- 제품 수량 ---------- */
+.pd-qty-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pd-qty-control {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.pd-qty-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-navy-3, #182C3F);
+  color: var(--color-white);
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pd-qty-value {
+  min-width: 20px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.pd-patch-section {
+  margin-bottom: 0;
+}
+
+/* ---------- 커스텀 드롭다운 UI ---------- */
+.pd-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.pd-dropdown__trigger {
+  width: 100%;
+  height: 50px;
+  padding: 0 40px 0 14px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-navy-3, #182C3F);
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+.pd-dropdown__icon {
+  position: absolute;
+  right: 14px;
+  width: 18px;
+  height: 18px;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  transition: transform 0.2s ease;
+}
+
+.pd-dropdown.is-open .pd-dropdown__icon {
+  transform: rotate(180deg);
+}
+
+.pd-dropdown__menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  max-height: 280px;
+  background: #10193B !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: var(--radius-sm);
+  z-index: 200 !important;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.pd-dropdown.is-open .pd-dropdown__menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.pd-dropdown__item {
+  width: 100%;
+  padding: 12px 14px;
+  background: transparent !important;
+  color: var(--color-white);
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.pd-dropdown__item:hover {
+  background: #6CABDD !important;
+  color: #10193B !important;
+}
+
+.pd-dropdown__item.is-selected {
+  border-left: 3px solid #DFFF00;
+  color: #DFFF00;
+  font-weight: 700;
+}
+
+/* 커스텀 스크롤바 디자인 */
+.pd-dropdown__menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.pd-dropdown__menu::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.pd-dropdown__menu::-webkit-scrollbar-thumb {
+  background: rgba(108, 171, 221, 0.3);
+  border-radius: 99px;
+}
+
+.pd-dropdown__menu::-webkit-scrollbar-thumb:hover {
+  background: #6CABDD;
+}
+
+/* ---------- 상세 이미지 탭 / 갤러리 ---------- */
+.pd-gallery-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 0 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.pd-gallery-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.pd-gallery-tab {
+  width: 54px;
+  height: 54px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2.2px solid transparent;
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.pd-gallery-tab img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pd-gallery-tab.is-active {
+  border-color: var(--color-sky-blue);
+  background: rgba(108, 171, 221, 0.1);
+  box-shadow: 0 0 10px rgba(108, 171, 221, 0.35);
+}
+
+/* ---------- 실시간 가격 계산 오브제 ---------- */
+.pd-calc-panel {
+  margin: 16px 20px 24px;
+  padding: 18px 20px;
+  border-radius: 12px;
+  background: #142338;
+  border: 1px solid rgba(108, 171, 221, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.pd-calc-panel__title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--color-white);
+  margin-bottom: 12px;
+}
+
+.pd-calc-panel__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.pd-calc-panel__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pd-calc-panel__val {
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+.pd-calc-panel__val--accent {
+  color: #6CABDD;
+}
+
+.pd-calc-panel__divider {
+  margin: 10px 0;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pd-calc-panel__row--total {
+  padding-top: 4px;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--color-white);
+}
+
+.pd-calc-panel__total-price {
+  font-size: 19px;
+  font-weight: 900;
+  color: #DFFF00 !important;
+}
+
+/* ---------- 하단 고정 액션바 및 스페이서 ---------- */
+.pd-bottom-spacer {
+  height: 120px;
+}
+
+.pd-action-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-width);
+  display: flex;
+  gap: 10px;
+  padding: 14px 20px calc(14px + env(safe-area-inset-bottom, 0px));
+  background: rgba(13, 33, 53, 0.92);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 100;
+}
+
+.pd-action-bar__cart {
+  flex: 0 0 34%;
+  height: 52px;
+  background: #FFFFFF !important;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 800;
+  color: #10193B !important;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.pd-action-bar__buy {
+  flex: 1;
+  height: 52px;
+  background: #DFFF00 !important;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 800;
+  color: #10193B !important;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(223, 255, 0, 0.2);
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.pd-action-bar__cart:active,
+.pd-action-bar__buy:active {
+  transform: scale(0.98);
+}

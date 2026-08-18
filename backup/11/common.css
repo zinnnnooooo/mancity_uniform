@@ -1,0 +1,279 @@
+/* ============================================================
+   UNI:CITY — common.css
+   공통 디자인 토큰 / 레이아웃 / 재사용 컴포넌트
+   ============================================================ */
+
+/* ---------- 1. 디자인 토큰 ---------- */
+:root {
+  /* 배경 (시안 실측 색상 기준) */
+  --color-bg: #465461;            /* 기본 페이지 배경 (다크 슬레이트 네이비) */
+  --color-bg-elevated: #57697A;   /* 카드/패널 배경 (기본보다 살짝 밝은 톤) */
+  --color-bg-elevated-2: #4C5C69; /* 리스트 항목 등 보조 배경 */
+  --color-backdrop: #232B33;      /* 데스크톱에서 480px 프레임 바깥 여백 배경 */
+
+  /* 포인트 컬러 */
+  --color-sky-blue: #6CABDD;      /* Manchester City Sky Blue — 라벨/숫자 강조 */
+  --color-lime: #DFFF00;          /* 가격/CTA 강조 포인트 */
+  --color-warning: #E4484F;       /* 경고/주의 강조 */
+
+  /* 텍스트 */
+  --color-white: #FFFFFF;
+  --color-text: rgba(255, 255, 255, 0.92);
+  --color-text-muted: rgba(255, 255, 255, 0.68);
+  --color-text-faint: rgba(255, 255, 255, 0.45);
+
+  /* 구분선 */
+  --color-divider: rgba(255, 255, 255, 0.12);
+  --color-border: rgba(255, 255, 255, 0.22);
+
+  /* 레이아웃 */
+  --max-width: 480px;
+  --topbar-height: 56px;
+  --bottom-nav-height: 64px;
+
+  /* 폰트 */
+  --font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic',
+    -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ---------- 2. 리셋 ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background: var(--color-backdrop);
+  font-family: var(--font-family);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* ---------- 3. 앱 프레임 (모바일 480px 고정) ---------- */
+.app-frame {
+  position: relative;
+  width: 100%;
+  max-width: var(--max-width);
+  min-height: 100vh;
+  margin: 0 auto;
+  overflow-x: hidden;
+  background: var(--color-bg);
+}
+
+.app-frame--has-bottom-nav {
+  padding-bottom: var(--bottom-nav-height);
+}
+
+/* ---------- 4. 상단바 ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--topbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: var(--color-bg);
+}
+
+/* 히어로 이미지 위 오버레이로 얹는 상단바 variant */
+.topbar--overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: transparent;
+}
+
+.topbar__side {
+  display: flex;
+  align-items: center;
+  width: 40px;
+  flex: 0 0 40px;
+}
+
+.topbar__side--right {
+  justify-content: flex-end;
+}
+
+.topbar__title {
+  flex: 1;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--color-white);
+}
+
+.icon-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* ---------- 5. 라벨 필 (eyebrow) ---------- */
+.pill-label {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-sky-blue);
+  color: var(--color-sky-blue);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ---------- 6. 섹션 타이틀 ---------- */
+.section-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--color-text-faint);
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+}
+
+.section-desc {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* ---------- 7. 버튼 ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 800;
+  border-radius: 10px;
+  font-size: 15px;
+  padding: 15px 20px;
+  width: 100%;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.btn:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.btn-lime {
+  background: var(--color-lime);
+  color: #17222B;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+.btn-outline--sm {
+  width: auto;
+  padding: 10px 16px;
+  font-size: 13px;
+  border-radius: 8px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+/* ---------- 8. 구분선 ---------- */
+.divider {
+  height: 1px;
+  background: var(--color-divider);
+  border: none;
+}
+
+/* ---------- 9. 하단 고정 네비게이션 ---------- */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-width);
+  height: var(--bottom-nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: var(--color-bg-elevated-2);
+  border-top: 1px solid var(--color-divider);
+  z-index: 100;
+}
+
+.bottom-nav__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.bottom-nav__item svg {
+  width: 22px;
+  height: 22px;
+}
+
+.bottom-nav__item--active {
+  color: var(--color-white);
+}
+
+/* ---------- 10. 유틸리티 ---------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

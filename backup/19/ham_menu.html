@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>UNI:CITY | 메뉴</title>
+  <link rel="stylesheet" href="common.css" />
+  <link rel="stylesheet" href="ham_menu.css" />
+</head>
+
+<body>
+  <div class="app-frame">
+    <div class="menu-panel">
+      <!-- 헤더 -->
+      <header class="menu-header">
+        <span class="menu-logo">UNI:CITY</span>
+        <button type="button" class="menu-close" id="menuCloseBtn" aria-label="메뉴 닫기">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L19 19M19 1L1 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </button>
+      </header>
+
+      <!-- 메뉴 본문 -->
+      <nav class="menu-body">
+        <!-- MANCITY -->
+        <section class="menu-section">
+          <p class="section-eyebrow">MANCITY</p>
+          <ul class="menu-list">
+            <li>
+              <a href="club.html" class="menu-item">
+                <span class="menu-item-label">맨시티 알아보기</span>
+                <span class="menu-item-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        <!-- SHOP -->
+        <section class="menu-section">
+          <p class="section-eyebrow">SHOP</p>
+          <ul class="menu-list">
+            <li>
+              <a href="uni_list.html?tab=all" class="menu-item">
+                <span class="menu-item-label">전체 유니폼</span>
+                <span class="menu-item-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li>
+              <a href="uni_list.html?tab=type&val=home" class="menu-item">
+                <span class="menu-item-label">홈 유니폼</span>
+                <span class="menu-item-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li>
+              <a href="uni_list.html?tab=type&val=away" class="menu-item">
+                <span class="menu-item-label">어웨이 유니폼</span>
+                <span class="menu-item-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li>
+              <a href="uni_list.html?tab=type&val=third" class="menu-item">
+                <span class="menu-item-label">써드 유니폼</span>
+                <span class="menu-item-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li>
+              <a href="uni_list.html?tab=collection&val=special" class="menu-item">
+                <span class="menu-item-label">스페셜 유니폼</span>
+                <span class="menu-item-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li>
+              <a href="uni_list.html?tab=collection&val=retro" class="menu-item">
+                <span class="menu-item-label">레트로 유니폼</span>
+                <span class="menu-item-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        <!-- SERVICE -->
+        <section class="menu-section">
+          <p class="section-eyebrow">SERVICE</p>
+          <ul class="menu-list">
+            <li>
+              <a href="#" class="menu-item">
+                <span class="menu-item-label">마킹 &amp; 패치 가이드</span>
+                <span class="menu-item-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item">
+                <span class="menu-item-label">정품 인증 안내</span>
+                <span class="menu-item-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item">
+                <span class="menu-item-label">배송 안내</span>
+                <span class="menu-item-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        <!-- MY -->
+        <section class="menu-section menu-section--my">
+          <p class="section-eyebrow">MY</p>
+          <ul class="menu-list">
+            <li>
+              <a href="cart.html" class="menu-item">
+                <span class="menu-item-label">장바구니</span>
+                <span class="menu-item-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="menu-item">
+                <span class="menu-item-label">주문 조회</span>
+                <span class="menu-item-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li>
+              <a href="mypage.html" class="menu-item">
+                <span class="menu-item-label">마이페이지</span>
+                <span class="menu-item-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+      </nav>
+    </div>
+  </div>
+
+  <script src="common.js"></script>
+  <script src="ham_menu.js"></script>
+</body>
+
+</html>

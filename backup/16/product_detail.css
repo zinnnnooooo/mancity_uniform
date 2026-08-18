@@ -1,0 +1,304 @@
+/* ============================================================
+   UNI:CITY — product_detail.css
+   ============================================================ */
+
+/* ---------- 히어로 (이미지 플레이스홀더) ---------- */
+.pd-hero {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(108, 171, 221, 0.55) 0%, rgba(108, 171, 221, 0) 55%),
+    linear-gradient(180deg, #1c3450 0%, #12233a 55%, var(--color-bg-navy) 100%);
+}
+
+.pd-hero__watermark {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-4deg);
+  font-size: 120px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.05);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.pd-hero__figure {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 40px;
+}
+
+/* 실제 상품 사진 에셋이 없어 유니폼 실루엣 형태의 그라디언트 placeholder로 대체.
+   추후 실사 이미지 교체 시 이 블록을 <img>로 대체하면 됨. */
+.pd-hero__jersey {
+  width: 190px;
+  height: 260px;
+  border-radius: 20px 20px 60px 60px;
+  background: linear-gradient(180deg, #cfe6f7 0%, #8fbfe4 55%, #5f95c4 100%);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+  position: relative;
+}
+
+.pd-hero__jersey::before {
+  content: "ETIHAD";
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: rgba(11, 22, 34, 0.55);
+}
+
+.pd-slide-indicator {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  gap: 6px;
+  z-index: 5;
+}
+
+.pd-slide-indicator__seg {
+  flex: 1;
+  height: 3px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.pd-slide-indicator__seg.is-active {
+  background: var(--color-sky-blue);
+}
+
+/* ---------- 정보 패널 ---------- */
+.pd-info-panel {
+  position: relative;
+  z-index: 2;
+  margin-top: -36px;
+  background: rgba(16, 31, 48, 0.94);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding: 20px 20px 22px;
+}
+
+.pd-authentic-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-white);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pd-authentic-badge svg {
+  width: 14px;
+  height: 14px;
+  color: var(--color-sky-blue);
+}
+
+.pd-product-name {
+  margin-top: 14px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.pd-product-price {
+  margin-top: 8px;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--color-accent-lime);
+}
+
+/* ---------- 공통 섹션 ---------- */
+.pd-section {
+  padding: 18px 20px;
+}
+
+.pd-section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.pd-section__label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.pd-size-guide-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.pd-divider {
+  margin: 0 20px;
+  width: auto;
+}
+
+/* ---------- 사이즈 선택 ---------- */
+.pd-size-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.pd-size-btn {
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-navy-3);
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.pd-size-btn.is-active {
+  border-color: var(--color-white);
+}
+
+/* ---------- 드롭다운(select) ---------- */
+.pd-select-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.pd-select {
+  width: 100%;
+  height: 50px;
+  padding: 0 40px 0 14px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-navy-3);
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: 600;
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+}
+
+.pd-select__icon {
+  position: absolute;
+  right: 14px;
+  width: 18px;
+  height: 18px;
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+/* ---------- 제품 수량 ---------- */
+.pd-qty-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pd-qty-control {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.pd-qty-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-navy-3);
+  color: var(--color-white);
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pd-qty-value {
+  min-width: 20px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* ---------- 하단 고정 액션바 ---------- */
+.pd-bottom-spacer {
+  height: var(--bottom-bar-height);
+}
+
+.pd-action-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-width);
+  display: flex;
+  gap: 10px;
+  padding: 14px 20px calc(14px + env(safe-area-inset-bottom, 0px));
+  background: var(--color-bg-navy);
+  border-top: 1px solid var(--color-divider);
+  z-index: 100;
+}
+
+.pd-action-bar__cart {
+  flex: 0 0 34%;
+  background: #FFFFFF !important;
+}
+
+.pd-action-bar__buy {
+  flex: 1;
+  background: #DFFF00 !important;
+  box-shadow: 0 4px 12px rgba(223, 255, 0, 0.2);
+}
+
+/* 하단 액션바 버튼 디자인 개별 복구 */
+.pd-action-bar__cart,
+.pd-action-bar__buy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 800;
+  color: #10193B !important;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.pd-action-bar__cart:active,
+.pd-action-bar__buy:active {
+  transform: scale(0.98);
+}
+
+/* 셀렉트 드롭다운 옵션 가독성 개선 */
+.pd-select option {
+  background-color: #FFFFFF !important;
+  color: #10193B !important;
+}
+
+.pd-select option:hover,
+.pd-select option:focus,
+.pd-select option:active,
+.pd-select option:checked {
+  background-color: #6CABDD !important;
+  color: #10193B !important;
+}

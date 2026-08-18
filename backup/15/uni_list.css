@@ -1,0 +1,597 @@
+/* ==========================================================================
+   UNI:CITY — uni_list.css
+   ========================================================================== */
+
+.app-frame {
+  padding-bottom: 0;
+}
+
+/* ---- 상단바 (히어로 위 오버레이) ------------------------------------------ */
+.topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 0;
+}
+
+.topbar-spacer {
+  width: 20px;
+}
+
+.topbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--color-white);
+}
+
+.topbar-logo-badge {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--color-sky-blue), #274766 70%);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+.topbar-icon-btn {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  transition: opacity 0.15s ease;
+}
+
+.topbar-icon-btn:hover,
+.topbar-icon-btn:focus-visible {
+  opacity: 0.7;
+}
+
+.topbar-icon-btn:focus-visible {
+  outline: 2px solid var(--color-sky-blue);
+  outline-offset: 3px;
+}
+
+/* ---- 히어로 -------------------------------------------------------------- */
+.hero {
+  position: relative;
+  height: auto;
+  overflow: hidden;
+}
+
+.hero-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 50% 0%, #1b3a56 0%, #0c1826 55%, #060c15 100%);
+  overflow: hidden;
+}
+
+.hero-bg-glow {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140%;
+  height: 60%;
+  background: radial-gradient(ellipse at center, rgba(108, 171, 221, 0.35), transparent 70%);
+}
+
+.hero-watermark {
+  position: absolute;
+  top: 14%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1.25;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
+}
+
+.hero-players {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 78%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.hero-player {
+  fill: rgba(255, 255, 255, 0.92);
+}
+
+.hero-player--left {
+  width: 34%;
+  transform: translate(6%, 6%) rotate(-4deg);
+  fill: rgba(255, 255, 255, 0.22);
+}
+
+.hero-player--center {
+  width: 44%;
+  z-index: 2;
+  fill: rgba(255, 255, 255, 0.96);
+  filter: drop-shadow(0 8px 22px rgba(0, 0, 0, 0.5));
+}
+
+.hero-player--right {
+  width: 34%;
+  transform: translate(-6%, 6%) rotate(4deg);
+  fill: rgba(255, 255, 255, 0.3);
+}
+
+.hero-player-number {
+  position: absolute;
+  bottom: 8%;
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.hero-player-number--center {
+  left: 50%;
+  transform: translateX(56px);
+}
+
+.hero-player-number--right {
+  right: 6%;
+}
+
+/* ---- 신상품 섹션 ---------------------------------------------------------- */
+.new-arrivals {
+  padding: 22px 20px 8px;
+}
+
+.season-title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+}
+
+.season-subtitle {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+/* ---- 상품 그리드 (공통, 신상품 / 필터 그리드 재사용) ------------------------ */
+.product-grid {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-media {
+  position: relative;
+  aspect-ratio: 1 / 1.05;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 50% 30%, var(--kit-glow, #223247), transparent 65%),
+    linear-gradient(160deg, #101c2c 0%, #060b12 100%);
+}
+
+.product-jersey {
+  width: 56%;
+  height: 56%;
+  fill: var(--kit-color, #6cabdd);
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
+}
+
+.product-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 3px 9px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  border-radius: 4px;
+  line-height: 1.6;
+}
+
+:root {
+  --color-accent-lime: #DFFF00;
+}
+
+.product-badge--best {
+  background: var(--color-sky-blue);
+  color: var(--color-white);
+  border: none;
+}
+
+.product-badge--new {
+  background: var(--color-accent-lime);
+  color: #0c1826;
+}
+
+.product-image-img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
+}
+
+.product-season {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.product-name {
+  margin-top: 2px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-white);
+  letter-spacing: -0.01em;
+}
+
+.product-price {
+  margin-top: 6px;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--color-accent-lime);
+}
+
+/* 신상품 섹션 하단 여백 + 구분선 */
+.new-arrivals {
+  border-bottom: 1px solid var(--color-divider);
+  padding-bottom: 26px;
+}
+
+/* ---- 시즌 / 유니폼 선택 탭 ------------------------------------------------- */
+.filter-section {
+  padding: 22px 0 6px;
+}
+
+.segmented-control {
+  display: flex;
+  gap: 8px;
+  margin: 0 20px 22px;
+  background: transparent;
+  padding: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.segmented-control::-webkit-scrollbar {
+  display: none;
+}
+
+.segment-btn {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 20px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 999px;
+  border: 1px solid rgba(108, 171, 221, 0.3);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.segment-btn.is-active {
+  background: var(--color-accent-lime) !important;
+  border-color: var(--color-accent-lime) !important;
+  color: #0b1420 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 14px rgba(223, 255, 0, 0.35);
+}
+
+.segment-btn:focus-visible {
+  outline: 2px solid var(--color-sky-blue);
+  outline-offset: 2px;
+}
+
+.sub-tabs-wrapper {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+.scroll-arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(11, 20, 32, 0.88);
+  color: var(--color-white);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
+  pointer-events: auto;
+}
+
+.scroll-arrow-btn:hover {
+  background: #15263d;
+  color: var(--color-sky-blue);
+}
+
+.scroll-arrow-btn--left {
+  left: 6px;
+}
+
+.scroll-arrow-btn--right {
+  right: 6px;
+}
+
+.scroll-arrow-btn.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%) scale(0.85);
+}
+
+.pill-row {
+  margin-top: 0;
+  margin-bottom: 0;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 0 20px 2px;
+  scrollbar-width: none;
+}
+
+.pill-row::-webkit-scrollbar {
+  display: none;
+}
+
+.pill {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 14px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.65);
+  white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.pill.is-active {
+  background: #6CABDD !important;
+  border-color: #6CABDD !important;
+  color: #0b1420 !important;
+  font-weight: 700 !important;
+  box-shadow: none !important;
+}
+
+.pill:focus-visible {
+  outline: 2px solid var(--color-sky-blue);
+  outline-offset: 2px;
+}
+
+/* ---- 필터 결과 상품 리스트 -------------------------------------------------- */
+.product-list {
+  padding: 0 20px 30px;
+}
+
+.product-list .product-grid {
+  margin-top: 0;
+  gap: 26px 14px;
+}
+
+/* ---- SPECIAL & HERITAGE 배너 ----------------------------------------------- */
+.banner-heritage {
+  padding: 0;
+}
+
+.banner-link {
+  position: relative;
+  display: block;
+  height: 210px;
+  overflow: hidden;
+}
+
+.banner-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(6, 10, 16, 0.15) 0%, rgba(6, 10, 16, 0.85) 78%, rgba(6, 10, 16, 0.96) 100%),
+    repeating-linear-gradient(
+      70deg,
+      #cddc39 0px,
+      #cddc39 26px,
+      #1a1f24 26px,
+      #1a1f24 52px,
+      #6cabdd 52px,
+      #6cabdd 78px
+    );
+  opacity: 0.9;
+}
+
+.banner-content {
+  position: absolute;
+  left: 20px;
+  bottom: 18px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.banner-eyebrow {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--color-white);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+.banner-explore {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* ---- 인기 유니폼 ------------------------------------------------------------ */
+.popular-section {
+  padding: 26px 0 30px;
+}
+
+.section-title {
+  padding: 0 20px;
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--color-white);
+}
+
+.scroll-row {
+  margin-top: 16px;
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 0 20px 4px;
+  scrollbar-width: none;
+}
+
+.scroll-row::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-row .product-card {
+  flex: 0 0 auto;
+  width: 148px;
+}
+
+/* ---- 푸터 -------------------------------------------------------------- */
+.site-footer {
+  padding: 32px 20px 40px;
+  text-align: center;
+  background: var(--color-bg-navy-deep);
+}
+
+.footer-logo {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--color-white);
+}
+
+.footer-sub {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.footer-links {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 11.5px;
+  color: var(--color-text-muted);
+}
+
+.footer-links a {
+  transition: color 0.15s ease;
+}
+
+.footer-links a:hover,
+.footer-links a:focus-visible {
+  color: var(--color-white);
+}
+
+.footer-divider {
+  color: var(--color-divider-strong);
+}
+
+.footer-copyright {
+  margin-top: 14px;
+  font-size: 10.5px;
+  color: var(--color-text-faint);
+}
+
+/* ==========================================================================
+   26/27 SEASON 및 필터 아래 상품 그리드 디자인 오버라이드
+   ========================================================================== */
+.new-arrivals .product-grid,
+.product-list .product-grid {
+  margin-top: 14px;
+  gap: 16px 8px;
+}
+
+.new-arrivals .product-media,
+.product-list .product-media {
+  background: none;
+  border-radius: 0;
+  aspect-ratio: 3 / 4;
+}
+
+.new-arrivals .product-image-img,
+.product-list .product-image-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: none;
+}
+
+.new-arrivals .product-badge,
+.product-list .product-badge {
+  top: 6px;
+  left: 6px;
+  border-radius: 0;
+}
+
+.new-arrivals .product-season,
+.product-list .product-season {
+  margin-top: 6px;
+}
+
+.new-arrivals .product-name,
+.product-list .product-name {
+  margin-top: 1px;
+}
+
+.new-arrivals .product-price,
+.product-list .product-price {
+  margin-top: 3px;
+}

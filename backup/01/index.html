@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNI:CITY — Manchester City Uniform</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       DESKTOP WRAPPER
+       - 481px 이상에서만 flex 2단 구조로 동작 (css에서 제어)
+       - 480px 이하에서는 desktop-content가 숨겨지고
+         mobile-preview가 풀스크린 mobile-app 역할을 함
+  ============================================================ -->
+  <div class="desktop-wrapper">
+
+    <!-- ============================================================
+         LEFT : DESKTOP ONLY CONTENT
+         - 481px 이상에서만 노출
+         - 이번 단계에서는 구조(뼈대)만 구성
+    ============================================================ -->
+    <section class="desktop-content" aria-label="Desktop Only Content">
+
+      <div class="desktop-content__inner">
+
+        <!-- Brand Copy -->
+        <div class="dc-block dc-brand-copy">
+          <p class="dc-block__label">Brand Copy Area</p>
+        </div>
+
+        <!-- Search -->
+        <div class="dc-block dc-search">
+          <p class="dc-block__label">Search Area</p>
+        </div>
+
+        <!-- Popular Uniform (Desktop) -->
+        <div class="dc-block dc-popular-uniform">
+          <p class="dc-block__label">Popular Uniform Area</p>
+        </div>
+
+        <!-- Desktop Navigation Cards -->
+        <div class="dc-block dc-nav-cards">
+          <p class="dc-block__label">Desktop Navigation Cards Area</p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ============================================================
+         RIGHT : MOBILE PREVIEW
+         - 기존 .mobile-app 구조를 그대로 감싸는 컨테이너
+         - 데스크톱에서는 고정 폭(420~440px) + 내부 세로 스크롤
+         - 모바일(480px 이하)에서는 이 컨테이너 자체가 풀스크린이 됨
+    ============================================================ -->
+    <div class="mobile-preview" aria-label="Mobile Preview">
+
+      <div class="mobile-app">
+
+        <!-- ========================= HEADER ========================= -->
+        <header class="app-header">
+          <button class="app-header__menu" type="button" aria-label="메뉴 열기">
+            <span class="icon-placeholder">☰</span>
+          </button>
+
+          <h1 class="app-header__logo">UNI:CITY</h1>
+
+          <button class="app-header__search" type="button" aria-label="검색">
+            <span class="icon-placeholder">⌕</span>
+          </button>
+        </header>
+
+        <main class="app-main">
+
+          <!-- ========================= HERO ========================= -->
+          <section class="hero" aria-label="Hero">
+            <div class="hero__media">
+              <!-- <img src="./img/hero.jpg" alt="Manchester City hero image"> -->
+            </div>
+            <div class="hero__text">
+              <p class="hero__eyebrow">영광의 순간을 입는다.</p>
+              <p class="hero__title">GLORY<br>WORN.</p>
+            </div>
+          </section>
+
+          <!-- ===================== SCROLL GUIDE ===================== -->
+          <section class="scroll-guide" aria-label="Scroll Guide">
+            <span class="scroll-guide__icon" aria-hidden="true">↓</span>
+            <p class="scroll-guide__text">
+              SCROLL<br>
+              <span>구단 소개 및 유니폼 구경하기</span>
+            </p>
+          </section>
+
+          <!-- ============== MANCHESTER CITY INTRODUCTION ============== -->
+          <section class="club-intro" aria-label="Manchester City Introduction">
+
+            <h2 class="club-intro__title">THIS IS MANCHESTER CITY</h2>
+
+            <!-- History / Timeline -->
+            <article class="club-history" aria-label="History Timeline">
+              <h3 class="club-history__label">LEGACY</h3>
+              <ul class="club-history__list">
+                <li class="club-history__item">
+                  <span class="club-history__year">1894</span>
+                  <span class="club-history__desc">맨시티 공식 출범</span>
+                </li>
+                <li class="club-history__item">
+                  <span class="club-history__year">1937</span>
+                  <span class="club-history__desc">구단 최초 리그 우승</span>
+                </li>
+                <li class="club-history__item">
+                  <span class="club-history__year">1968</span>
+                  <span class="club-history__desc">구단의 첫 전성기</span>
+                </li>
+                <li class="club-history__item">
+                  <span class="club-history__year">2012</span>
+                  <span class="club-history__desc">44년만의 첫 PL 우승</span>
+                </li>
+                <li class="club-history__item">
+                  <span class="club-history__year">2023</span>
+                  <span class="club-history__desc">구단 최초 트레블 달성</span>
+                </li>
+              </ul>
+              <div class="club-history__emblem">
+                <!-- <img src="./img/emblem.png" alt="Manchester City emblem"> -->
+              </div>
+            </article>
+
+            <!-- Stadium Area / Club Image Area -->
+            <article class="club-gallery" aria-label="Stadium and Club Image">
+              <div class="club-gallery__item club-gallery__item--stadium">
+                <!-- <img src="./img/stadium.jpg" alt="Etihad Stadium"> -->
+              </div>
+              <div class="club-gallery__item club-gallery__item--club">
+                <!-- <img src="./img/club.jpg" alt="Club moment"> -->
+              </div>
+            </article>
+
+            <!-- Club Image Area (large celebration image) -->
+            <article class="club-feature-image" aria-label="Club Celebration Image">
+              <!-- <img src="./img/celebration.jpg" alt="Team celebration"> -->
+            </article>
+
+            <!-- Club Description -->
+            <article class="club-description" aria-label="Club Description">
+              <p>
+                1880년 창단 이래 맨체스터의 하늘을 상징해온 맨체스터 시티는
+                혁신적인 축구와 끊임없는 도전으로 전 세계 팬들의 심장을 뛰게 합니다.
+                프리미어리그를 넘어 유럽 정상에 서기까지, 우리의 역사는
+                단순한 승리가 아닌 매 순간 써 내려간 열정의 기록입니다.
+              </p>
+            </article>
+
+            <!-- Trophy Statistics -->
+            <article class="club-stats" aria-label="Trophy Statistics">
+              <div class="club-stats__item">
+                <span class="club-stats__label">LEAGUE TITLES</span>
+                <span class="club-stats__value">10</span>
+              </div>
+              <div class="club-stats__item">
+                <span class="club-stats__label">FA CUPS</span>
+                <span class="club-stats__value">7</span>
+              </div>
+              <div class="club-stats__item">
+                <span class="club-stats__label">EFL CUP</span>
+                <span class="club-stats__value">11</span>
+              </div>
+              <div class="club-stats__item">
+                <span class="club-stats__label">CHAMPIONS LEAGUE</span>
+                <span class="club-stats__value">1</span>
+              </div>
+              <div class="club-stats__item">
+                <span class="club-stats__label">SUPER CUP</span>
+                <span class="club-stats__value">1</span>
+              </div>
+              <div class="club-stats__item">
+                <span class="club-stats__label">CLUB WORLD CUP</span>
+                <span class="club-stats__value">1</span>
+              </div>
+            </article>
+
+          </section>
+
+          <!-- ===================== POPULAR UNIFORM ===================== -->
+          <section class="popular-uniform" aria-label="Popular Uniform">
+            <h2 class="popular-uniform__title">인기 유니폼</h2>
+
+            <nav class="popular-uniform__filter" aria-label="유니폼 필터">
+              <button class="filter-tab is-active" type="button">전체</button>
+              <button class="filter-tab" type="button">홈</button>
+              <button class="filter-tab" type="button">어웨이</button>
+              <button class="filter-tab" type="button">서드</button>
+              <button class="filter-tab" type="button">에디션</button>
+            </nav>
+
+            <ul class="product-grid">
+              <li class="product-card">
+                <div class="product-card__image">
+                  <!-- <img src="./img/product-1.jpg" alt=""> -->
+                </div>
+                <p class="product-card__season">22/23 SEASON</p>
+                <p class="product-card__name">홈 레플리카 유니폼</p>
+                <p class="product-card__price">189,000원</p>
+              </li>
+              <li class="product-card">
+                <div class="product-card__image">
+                  <!-- <img src="./img/product-2.jpg" alt=""> -->
+                </div>
+                <p class="product-card__season">23/24 SEASON</p>
+                <p class="product-card__name">어웨이 레플리카 유니폼</p>
+                <p class="product-card__price">135,000원</p>
+              </li>
+              <li class="product-card">
+                <div class="product-card__image">
+                  <!-- <img src="./img/product-3.jpg" alt=""> -->
+                </div>
+                <p class="product-card__season">15/16 SEASON</p>
+                <p class="product-card__name">어웨이 레플리카 유니폼</p>
+                <p class="product-card__price">103,000원</p>
+              </li>
+              <li class="product-card">
+                <div class="product-card__image">
+                  <!-- <img src="./img/product-4.jpg" alt=""> -->
+                </div>
+                <p class="product-card__season">RETRO</p>
+                <p class="product-card__name">홈 레트로 유니폼</p>
+                <p class="product-card__price">85,000원</p>
+              </li>
+            </ul>
+          </section>
+
+          <!-- ===================== RETRO COLLECTION ===================== -->
+          <section class="retro-collection" aria-label="Retro Collection">
+            <div class="retro-collection__media">
+              <!-- <img src="./img/retro.jpg" alt="Retro collection"> -->
+            </div>
+            <div class="retro-collection__text">
+              <p class="retro-collection__eyebrow">PRIDE &amp; HERITAGE</p>
+              <p class="retro-collection__title">레트로 컬렉션</p>
+              <p class="retro-collection__desc">클래식한 멋과 현대적인 감각의 만남</p>
+              <button class="retro-collection__cta" type="button">EXPLORE</button>
+            </div>
+          </section>
+
+        </main>
+
+        <!-- ===================== BOTTOM NAVIGATION ===================== -->
+        <footer class="bottom-nav">
+          <button class="bottom-nav__item is-active" type="button" aria-label="홈">
+            <span class="icon-placeholder">⌂</span>
+          </button>
+          <button class="bottom-nav__item" type="button" aria-label="장바구니">
+            <span class="icon-placeholder">▭</span>
+          </button>
+          <button class="bottom-nav__item" type="button" aria-label="찜">
+            <span class="icon-placeholder">♡</span>
+          </button>
+          <button class="bottom-nav__item" type="button" aria-label="마이페이지">
+            <span class="icon-placeholder">◎</span>
+          </button>
+        </footer>
+
+      </div><!-- /.mobile-app -->
+
+    </div><!-- /.mobile-preview -->
+
+  </div><!-- /.desktop-wrapper -->
+
+<script src="./script.js"></script>
+</body>
+</html>

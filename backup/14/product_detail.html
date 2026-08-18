@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>UNI:CITY | 상품 상세</title>
+<link rel="stylesheet" href="css/common.css" />
+<link rel="stylesheet" href="css/product_detail.css" />
+</head>
+<body>
+<div class="app-frame">
+
+  <!-- ===== 상품 히어로 ===== -->
+  <div class="pd-hero">
+    <div class="pd-hero__watermark" aria-hidden="true">CITY</div>
+
+    <div class="topbar topbar--overlay">
+      <button class="icon-btn" id="btnBack" aria-label="뒤로가기">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <span class="topbar__logo">UNI:CITY</span>
+      <div class="topbar__side topbar__side--right">
+        <button class="icon-btn" id="btnCart" aria-label="장바구니로 이동">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="pd-hero__figure" aria-hidden="true">
+      <div class="pd-hero__jersey"></div>
+    </div>
+
+    <div class="pd-slide-indicator" id="slideIndicator">
+      <span class="pd-slide-indicator__seg is-active"></span>
+      <span class="pd-slide-indicator__seg"></span>
+      <span class="pd-slide-indicator__seg"></span>
+      <span class="pd-slide-indicator__seg"></span>
+      <span class="pd-slide-indicator__seg"></span>
+    </div>
+  </div>
+
+  <!-- ===== 상품 정보 패널 ===== -->
+  <div class="pd-info-panel">
+    <span class="pd-authentic-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+      정품 인증 상품
+    </span>
+    <h1 class="pd-product-name" id="productName">2026/27 시즌 홈 레플리카 유니폼</h1>
+    <p class="pd-product-price" id="productPrice">189,000원</p>
+  </div>
+
+  <!-- ===== 사이즈 선택 ===== -->
+  <section class="pd-section">
+    <div class="pd-section__head">
+      <span class="pd-section__label">사이즈</span>
+      <a href="#" class="pd-size-guide-link" id="sizeGuideLink">사이즈 가이드</a>
+    </div>
+    <div class="pd-size-list" id="sizeList">
+      <button type="button" class="pd-size-btn" data-size="S">S</button>
+      <button type="button" class="pd-size-btn" data-size="M">M</button>
+      <button type="button" class="pd-size-btn is-active" data-size="L">L</button>
+      <button type="button" class="pd-size-btn" data-size="XL">XL</button>
+      <button type="button" class="pd-size-btn" data-size="XXL">XXL</button>
+    </div>
+  </section>
+
+  <hr class="divider pd-divider" />
+
+  <!-- ===== 선수 마킹 ===== -->
+  <section class="pd-section">
+    <div class="pd-section__head">
+      <span class="pd-section__label">선수 마킹</span>
+    </div>
+    <div class="pd-select-wrap">
+      <select class="pd-select" id="markingSelect">
+        <option value="0">No marking</option>
+        <option value="15000">AGUERO 10 (+15,000원)</option>
+        <option value="15000">HAALAND 9 (+15,000원)</option>
+        <option value="15000">DE BRUYNE 17 (+15,000원)</option>
+        <option value="10000">직접 입력 마킹 (+10,000원)</option>
+      </select>
+      <svg class="pd-select__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+  </section>
+
+  <!-- ===== 오피셜 패치 ===== -->
+  <section class="pd-section">
+    <div class="pd-section__head">
+      <span class="pd-section__label">오피셜 패치</span>
+    </div>
+    <div class="pd-select-wrap">
+      <select class="pd-select" id="patchSelect">
+        <option value="0">No patch</option>
+        <option value="8000">PL PATCH (+8,000원)</option>
+        <option value="8000">UCL PATCH (+8,000원)</option>
+      </select>
+      <svg class="pd-select__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+  </section>
+
+  <hr class="divider pd-divider" />
+
+  <!-- ===== 제품 수량 ===== -->
+  <section class="pd-section pd-qty-section">
+    <span class="pd-section__label">제품 수량</span>
+    <div class="pd-qty-control">
+      <button type="button" class="pd-qty-btn" id="qtyMinus" aria-label="수량 감소">−</button>
+      <span class="pd-qty-value" id="qtyValue">1</span>
+      <button type="button" class="pd-qty-btn" id="qtyPlus" aria-label="수량 증가">+</button>
+    </div>
+  </section>
+
+  <div class="pd-bottom-spacer"></div>
+
+  <!-- ===== 하단 고정 액션바 ===== -->
+  <div class="pd-action-bar">
+    <button type="button" class="btn btn--outline pd-action-bar__cart" id="btnAddCart">장바구니</button>
+    <button type="button" class="btn btn--primary pd-action-bar__buy" id="btnBuyNow">바로 구매</button>
+  </div>
+
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/product_detail.js"></script>
+</body>
+</html>

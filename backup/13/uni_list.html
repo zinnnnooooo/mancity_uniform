@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>UNI:CITY | CITY STORE</title>
+  <link rel="stylesheet" href="common.css" />
+  <link rel="stylesheet" href="uni_list.css" />
+</head>
+
+<body>
+  <!-- 재사용 아이콘 스프라이트 -->
+  <svg style="display:none" aria-hidden="true">
+    <symbol id="icon-jersey" viewBox="0 0 100 100">
+      <path d="M38 8 L28 18 L34 30 L38 27 L38 90 L62 90 L62 27 L66 30 L72 18 L62 8
+               C62 8 58 14 50 14 C42 14 38 8 38 8 Z" />
+    </symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24">
+      <circle cx="10.5" cy="10.5" r="7" fill="none" stroke="currentColor" stroke-width="1.8" />
+      <line x1="21" y1="21" x2="15.8" y2="15.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+    </symbol>
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+      <path d="M9 6 L16 12 L9 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </symbol>
+  </svg>
+
+  <div class="app-frame">
+
+    <!-- ================= 상단바 (히어로 오버레이) ================= -->
+    <header class="topbar topbar--overlay">
+      <span class="topbar-spacer" aria-hidden="true"></span>
+      <a href="uni_list.html" class="topbar-logo">
+        <span class="topbar-logo-badge" aria-hidden="true"></span>
+        CITY STORE
+      </a>
+      <button type="button" class="topbar-icon-btn" aria-label="검색">
+        <svg width="20" height="20">
+          <use href="#icon-search" />
+        </svg>
+      </button>
+    </header>
+
+    <!-- ================= 히어로 ================= -->
+    <section class="hero">
+      <div class="hero-bg">
+        <span class="hero-bg-glow"></span>
+        <span class="hero-watermark">ETIHAD<br />STADIUM</span>
+        <div class="hero-players" aria-hidden="true">
+          <svg class="hero-player hero-player--left" viewBox="0 0 100 100">
+            <use href="#icon-jersey" />
+          </svg>
+          <svg class="hero-player hero-player--center" viewBox="0 0 100 100">
+            <use href="#icon-jersey" />
+          </svg>
+          <span class="hero-player-number hero-player-number--center">9</span>
+          <svg class="hero-player hero-player--right" viewBox="0 0 100 100">
+            <use href="#icon-jersey" />
+          </svg>
+          <span class="hero-player-number hero-player-number--right">3</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 26/27 시즌 신상품 ================= -->
+    <section class="new-arrivals">
+      <h1 class="season-title">26/27 SEASON</h1>
+      <p class="season-subtitle">새로운 시즌 유니폼을 가장 먼저 만나보세요!</p>
+      <div class="product-grid" id="newArrivalsGrid"></div>
+    </section>
+
+    <!-- ================= 시즌 / 유니폼 선택 탭 ================= -->
+    <section class="filter-section">
+      <p class="filter-label">시즌 선택</p>
+      <div class="pill-row" id="seasonTabs" role="tablist" aria-label="시즌 선택"></div>
+
+      <p class="filter-label">유니폼 선택</p>
+      <div class="pill-row" id="typeTabs" role="tablist" aria-label="유니폼 선택"></div>
+    </section>
+
+    <!-- ================= 필터링 상품 그리드 ================= -->
+    <section class="product-list">
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <!-- ================= SPECIAL & HERITAGE 배너 ================= -->
+    <section class="banner-heritage">
+      <a href="#" class="banner-link">
+        <span class="banner-bg" aria-hidden="true"></span>
+        <span class="banner-content">
+          <span class="banner-eyebrow">SPECIAL &amp;<br />HERITAGE</span>
+          <span class="banner-explore">EXPLORE</span>
+        </span>
+      </a>
+    </section>
+
+    <!-- ================= 인기 유니폼 ================= -->
+    <section class="popular-section">
+      <h2 class="section-title">인기 유니폼</h2>
+      <div class="scroll-row" id="popularRow"></div>
+    </section>
+
+    <!-- ================= 푸터 ================= -->
+    <footer class="site-footer">
+      <p class="footer-logo">CITY STORE</p>
+      <p class="footer-sub">Official Merchandise Store</p>
+      <nav class="footer-links" aria-label="약관 및 안내">
+        <a href="#">이용약관</a>
+        <span class="footer-divider" aria-hidden="true">|</span>
+        <a href="#">개인정보처리방침</a>
+        <span class="footer-divider" aria-hidden="true">|</span>
+        <a href="#">고객센터</a>
+      </nav>
+      <p class="footer-copyright">© 2024 Manchester City FC Ltd. All rights reserved.</p>
+    </footer>
+
+  </div>
+
+  <script src="common.js"></script>
+  <script src="uni_list.js"></script>
+</body>
+
+</html>

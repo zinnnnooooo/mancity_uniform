@@ -1,0 +1,697 @@
+/* ==========================================================================
+   club.html 전용 스타일 (club.css)
+   ========================================================================= */
+
+/* ---------- 1. 디자인 토큰 및 변수 (Scoped) ---------- */
+.club-page-content {
+  /* 배경 (시안 실측 색상 기준) */
+  --color-bg: #465461;            /* 기본 페이지 배경 */
+  --color-bg-elevated: #57697A;   /* 카드/패널 배경 */
+  --color-bg-elevated-2: #4C5C69; /* 보조 배경 */
+  --color-backdrop: #232B33;      /* 바깥 여백 배경 */
+  --color-bg-navy: #0B1622;       /* 다크 네이비, 페이지 배경 */
+  --color-bg-navy-2: #101F30;     /* 카드/패널 배경 */
+  --color-bg-navy-3: #182C3F;     /* 보조 다크 톤 */
+
+  /* 포인트 컬러 */
+  --color-sky-blue: #6CABDD;      /* Manchester City Sky Blue */
+  --color-lime: #DFFF00;          /* 가격/CTA 강조 포인트 */
+  --color-accent-lime: #DFFF00;   /* 강조 포인트 */
+  --color-warning: #E4484F;       /* 경고 강조 */
+
+  /* 텍스트 */
+  --color-white: #FFFFFF;
+  --color-text: rgba(255, 255, 255, 0.92);
+  --color-text-muted: rgba(255, 255, 255, 0.68);
+  --color-text-muted-2: rgba(255, 255, 255, 0.45);
+  --color-text-faint: rgba(255, 255, 255, 0.45);
+
+  /* 구분선 */
+  --color-divider: rgba(255, 255, 255, 0.12);
+  --color-border: rgba(255, 255, 255, 0.22);
+}
+
+/* ---------- 2. 공통 섹션 컴포넌트 스타일 (Scoped) ---------- */
+.club-page-content .section-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--color-text-faint);
+  text-transform: uppercase;
+}
+
+.club-page-content .section-title {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+}
+
+.club-page-content .section-subtitle {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+.club-page-content .section-desc {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* ---------- 3. 공통 버튼 스타일 (Scoped) ---------- */
+.club-page-content .btn-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  border-radius: 10px;
+  font-size: 15px;
+  padding: 15px 20px;
+  width: 100%;
+  border: none;
+  background: var(--color-accent-lime);
+  color: #0b1622;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.club-page-content .btn-cta:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+/* ---------- 4. 본문 세부 스타일 ---------- */
+/* ---------- 히어로 ---------- */
+.club-page-content .hero {
+  position: relative;
+  width: 100%;
+  height: 560px; /* Matched to main mobile hero height (560px) */
+  overflow: hidden;
+  margin-top: -56px; /* Pulls the hero up behind the transparent header */
+}
+
+.club-page-content .hero__bg {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(11, 22, 34, 0.45), rgba(11, 22, 34, 0.45)),
+    url('../../img/stadium_1.jpg');
+  background-size: cover;
+  background-position: center 45%; /* Adjusted focus for vertical container */
+  background-repeat: no-repeat;
+}
+
+.club-page-content .hero__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 34px 34px;
+  opacity: 0.5;
+  display: none; /* Hide futuristic grid on top of real stadium image */
+}
+
+.club-page-content .hero__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11, 22, 34, 0) 20%, rgba(11, 22, 34, 0.45) 55%, rgba(11, 22, 34, 0.85) 82%, var(--color-bg-navy) 100%);
+}
+
+.club-page-content .hero__content {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 24px;
+}
+
+.club-page-content .hero__title {
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.club-page-content .hero__title--accent {
+  color: var(--color-sky-blue);
+}
+
+.club-page-content .hero__subtitle {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+/* ---------- CLUB IDENTITY ---------- */
+.club-page-content .identity {
+  position: relative;
+  overflow: hidden;
+  padding: 32px 20px 40px;
+}
+
+.club-page-content .identity::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -60px;
+  transform: translateY(-50%);
+  width: 250px;
+  height: 250px;
+  background-image: url('../../img/logo_4.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.08;
+  filter: blur(0.5px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.club-page-content .identity > * {
+  position: relative;
+  z-index: 1;
+}
+
+.club-page-content .identity__title {
+  margin-top: 6px;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.club-page-content .identity__title--accent {
+  color: var(--color-sky-blue);
+}
+
+.club-page-content .identity__subtitle {
+  margin-top: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.club-page-content .identity__body {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+/* ---------- OUR HERITAGE (Editorial Timeline) ---------- */
+.club-page-content .heritage {
+  padding: 32px 0 56px;
+  background: var(--color-bg-navy-2);
+  overflow: hidden;
+}
+
+/* 헤더 텍스트 (section-eyebrow/title/subtitle) 좌측 패딩 */
+.club-page-content .heritage .section-eyebrow,
+.club-page-content .heritage .section-title,
+.club-page-content .heritage .section-subtitle {
+  padding-left: 20px;
+}
+
+/* ── 전체 래퍼 ── */
+.club-page-content .ht {
+  position: relative;
+  margin-top: 24px;
+  width: 100%;
+}
+
+/* ── SVG 타임라인 컨테이너 ── */
+.club-page-content .ht__svg-timeline {
+  display: block;
+  overflow: visible;
+}
+
+/* ── .ht__glow: SVG로 대체되어 CSS는 사용하지 않음 ── */
+.club-page-content .ht__glow { display: none; }
+
+/* ── 연도 공통 ── */
+.club-page-content .ht__year {
+  font-size: 64px;
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  position: relative;
+  z-index: 3;
+  display: block;
+  /* 강한 드롭섀도로 배경과 분리 */
+  text-shadow:
+    0 2px 0 rgba(11, 22, 34, 1),
+    0 0 20px rgba(11, 22, 34, 0.9),
+    2px 2px 8px rgba(11, 22, 34, 0.95),
+    -2px -2px 8px rgba(11, 22, 34, 0.95);
+}
+
+.club-page-content .ht__year--lime { color: var(--color-accent-lime); }
+.club-page-content .ht__year--blue { color: var(--color-sky-blue); }
+.club-page-content .ht__year--white { color: var(--color-white); }
+
+/* ── 설명 텍스트 공통 ── */
+.club-page-content .ht__desc {
+  font-size: 12px;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.5;
+  position: relative;
+  z-index: 3;
+  margin-top: 5px;
+  /* 가독성 배경 */
+  text-shadow: 0 1px 6px rgba(11, 22, 34, 0.95), 0 0 12px rgba(11, 22, 34, 0.8);
+}
+
+/* ── info 래퍼 공통: 반투명 어두운 배경으로 가독성 확보 ── */
+.club-page-content .ht__info {
+  background: rgba(11, 22, 34, 0.55);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border-radius: 6px;
+  padding: 8px 10px 10px;
+}
+
+/* ── 이미지 공통 ── */
+.club-page-content .ht__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* 누끼 이미지: 크롭 금지, 비율 유지 */
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+}
+
+/* ============================================================
+   각 ROW 개별 배치
+   레퍼런스 분석:
+   A(1880): 이미지 우측(40~100%), 연도+설명 좌측에 크게 겹침
+   B(1937): 이미지 좌측(0~60%), 연도+설명 우측에 크게 겹침
+   C(1968): 이미지 우측(30~90%), 연도+설명 좌측
+   D(2012): 이미지 좌측(0~65%), 연도+설명 우측
+   E(2023): 이미지 전체 너비(10~90%), 연도+설명 하단 중앙
+   ============================================================ */
+
+/* ── ROW A : 1880 ── */
+/* 이미지: 우측 75% / 연도+설명: 이미지 왼쪽 여백(0~25%) 안에서 표현 */
+.club-page-content .ht__row--a {
+  position: relative;
+  height: 215px;
+  margin-bottom: 24px;
+}
+
+.club-page-content .ht__img-wrap--a {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 74%;
+  height: 185px;
+  z-index: 2;
+}
+
+
+/* 연도: 이미지 시작 왼쪽 여백에 위치, 이미지와 부분 겹침 허용하되 가장자리 */
+.club-page-content .ht__info--a {
+  position: absolute;
+  left: 0;
+  top: 86px;
+  width: 46%;
+  z-index: 4;
+  padding: 6px 8px 8px 14px;
+  border-radius: 0 6px 6px 0;
+}
+
+.club-page-content .ht__info--a .ht__year {
+  font-size: 68px;
+}
+
+/* ── ROW B : 1937 ── */
+/* 이미지: 좌측 60% / 연도+설명: 우측 여백(60%~100%) 안에서 우정렬 */
+.club-page-content .ht__row--b {
+  position: relative;
+  height: 205px;
+  margin-bottom: 24px;
+}
+
+.club-page-content .ht__img-wrap--b {
+  position: absolute;
+  left: 0;
+  top: 14px;
+  width: 60%;
+  height: 160px;
+  z-index: 2;
+}
+
+
+/* 연도+설명: 이미지 오른쪽 여백 안에 완전히 들어오도록 */
+.club-page-content .ht__info--b {
+  position: absolute;
+  right: 0;
+  top: 52px;
+  width: 42%;
+  text-align: right;
+  z-index: 4;
+  padding: 6px 14px 8px 8px;
+  border-radius: 6px 0 0 6px;
+}
+
+.club-page-content .ht__info--b .ht__year {
+  font-size: 60px;
+}
+
+/* ── ROW C : 1968 ── */
+/* 이미지: 우측 62% / 연도+설명: 좌측 여백(0~38%) 안에서 좌정렬 */
+.club-page-content .ht__row--c {
+  position: relative;
+  height: 200px;
+  margin-bottom: 24px;
+}
+
+.club-page-content .ht__img-wrap--c {
+  position: absolute;
+  right: 0;
+  top: 14px;
+  width: 62%;
+  height: 158px;
+  z-index: 2;
+}
+
+
+/* 연도+설명: 이미지 왼쪽 여백에 완전히 수납 */
+.club-page-content .ht__info--c {
+  position: absolute;
+  left: 0;
+  top: 52px;
+  width: 40%;
+  z-index: 4;
+  padding: 6px 8px 8px 14px;
+  border-radius: 0 6px 6px 0;
+}
+
+.club-page-content .ht__info--c .ht__year {
+  font-size: 58px;
+}
+
+/* ── ROW D : 2012 ── */
+/* 이미지: 좌측 62% / 연도+설명: 우측 여백(62%~100%) 안에서 우정렬 */
+.club-page-content .ht__row--d {
+  position: relative;
+  height: 205px;
+  margin-bottom: 24px;
+}
+
+.club-page-content .ht__img-wrap--d {
+  position: absolute;
+  left: 0;
+  top: 14px;
+  width: 62%;
+  height: 160px;
+  z-index: 2;
+}
+
+
+/* 연도+설명: 이미지 오른쪽 여백 안에 완전히 수납 */
+.club-page-content .ht__info--d {
+  position: absolute;
+  right: 0;
+  top: 52px;
+  width: 40%;
+  text-align: right;
+  z-index: 4;
+  padding: 6px 14px 8px 8px;
+  border-radius: 6px 0 0 6px;
+}
+
+.club-page-content .ht__info--d .ht__year {
+  font-size: 58px;
+}
+
+/* ── ROW E : 2023 ── */
+/* 이미지: 거의 전체 너비 / 연도+설명: 이미지 아래 흐름으로 배치 */
+.club-page-content .ht__row--e {
+  position: relative;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.club-page-content .ht__img-wrap--e {
+  position: relative;    /* flow 레이아웃으로 전환 */
+  width: 94%;            /* left:3% right:3% 대체 */
+  top: 0;
+  z-index: 2;
+}
+
+/* history_5: 원본 가로세로 비율 유지 */
+.club-page-content .ht__img-wrap--e .ht__img {
+  height: auto;
+  object-fit: contain;
+}
+
+
+/* 연도+설명: 이미지 아래 흐름으로 자연스럽게 배치 */
+.club-page-content .ht__info--e {
+  position: relative;    /* absolute → relative로 전환 */
+  left: auto;
+  transform: none;
+  margin-top: 12px;
+  text-align: center;
+  width: 86%;
+  z-index: 4;
+  /* 2023은 배경 없이 섹션 배경색(navy) 위에 위치하므로 그냥 표시 */
+  background: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  padding: 4px 0 0;
+}
+
+.club-page-content .ht__info--e .ht__year {
+  font-size: 72px;
+}
+
+.club-page-content .ht__info--e .ht__desc {
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+/* ---------- OUR HONOURS ---------- */
+.club-page-content .honours {
+  padding: 40px 0 48px;
+}
+
+.club-page-content .honours .section-eyebrow,
+.club-page-content .honours .section-title,
+.club-page-content .honours .section-subtitle {
+  padding: 0 20px;
+}
+
+.club-page-content .honours__list {
+  margin-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  gap: 3px;
+  padding: 0 12px;
+  list-style: none;
+  overflow: hidden; /* Disable horizontal scrolling */
+}
+
+.club-page-content .honours__item {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.club-page-content .honours__img {
+  width: 100%;
+  height: 52px; /* Set a uniform height for perfect alignment */
+  object-fit: contain; /* Preserve trophy aspect ratio */
+  display: block;
+}
+
+.club-page-content .honours__name {
+  font-size: 8px; /* Compact font size to fit on mobile */
+  line-height: 1.15;
+  color: var(--color-text-muted);
+  margin-top: 8px;
+  word-break: keep-all;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: 20px; /* Fixed height to align the bottoms of the text */
+  transform: scale(0.95);
+}
+
+.club-page-content .honours__count {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--color-accent-lime); /* Highlight counts in Lime */
+  margin-top: 2px;
+  display: block;
+}
+
+/* ---------- OUR CREST ---------- */
+.club-page-content .crest {
+  padding: 40px 20px 48px;
+}
+
+.club-page-content .crest__list {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 16px; /* Reduced gap to group them in the center */
+}
+
+.club-page-content .crest__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.club-page-content .crest__logo {
+  width: 72px; /* Scaled up from 56px */
+  height: 72px; /* Scaled up from 56px */
+  object-fit: contain; /* Maintain original aspect ratios */
+  display: block;
+}
+
+.club-page-content .crest__period {
+  font-size: 10px;
+  color: var(--color-text-muted-2);
+}
+
+/* ---------- OUR HOME ---------- */
+.club-page-content .stadium {
+  padding: 40px 20px 0;
+}
+
+.club-page-content .stadium__photos {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* Remove gap to make images touch directly */
+}
+
+.club-page-content .stadium__img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+}
+
+.club-page-content .stadium__info {
+  margin-top: 24px;
+  padding: 24px 0 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 22px;
+  column-gap: 12px;
+}
+
+.club-page-content .stadium__info li {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.club-page-content .stadium__info-label {
+  font-size: 11px;
+  color: var(--color-text-muted-2);
+}
+
+.club-page-content .stadium__info-value {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* ---------- CLUB SIGNATURE COLOR ---------- */
+.club-page-content .signature {
+  background: #6CABDD; /* Sky Blue background */
+  padding: 40px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.club-page-content .signature__eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.85); /* Highly readable white-translucent text */
+  text-transform: uppercase;
+}
+
+.club-page-content .signature__title {
+  font-size: 46px; /* Taller and bolder title */
+  font-weight: 900;
+  line-height: 1.05;
+  color: #ffffff; /* White text */
+  letter-spacing: -0.02em;
+  margin-top: 18px;
+}
+
+.club-page-content .signature__value {
+  font-size: 26px; /* Bolder code text */
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 6px;
+  letter-spacing: -0.01em;
+}
+
+.club-page-content .signature__photo-wrapper {
+  margin-top: 24px;
+  width: 75%; /* Scaled down further to 75% width */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(11, 22, 34, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.club-page-content .signature__img {
+  width: 100%;
+  height: auto; /* Preserve aspect ratio */
+  display: block;
+}
+
+/* ---------- 하단 CTA ---------- */
+.club-page-content .cta {
+  padding: 44px 20px 56px;
+  text-align: center;
+}
+
+.club-page-content .cta__eyebrow {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.club-page-content .cta__eyebrow--accent {
+  color: var(--color-sky-blue);
+}
+
+.club-page-content .cta__title {
+  margin-top: 6px;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.club-page-content .cta__btn {
+  margin-top: 24px;
+  width: 100%;
+}
