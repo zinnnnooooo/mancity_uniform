@@ -651,7 +651,10 @@ function _showTopToast(userData, onLoginSuccess) {
     </div>
   `;
 
-  document.body.appendChild(toast);
+  // Mobile Preview 컨테이너에 추가 (position:absolute 기준점)
+  const mobilePreview = document.querySelector('.mobile-preview');
+  const mountTarget = mobilePreview || document.body;
+  mountTarget.appendChild(toast);
 
   // 슬라이드 인 (다음 프레임에서 is-visible 추가)
   requestAnimationFrame(() => {

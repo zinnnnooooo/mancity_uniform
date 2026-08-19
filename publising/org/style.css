@@ -88,11 +88,12 @@ img {
    - ?대???.mobile-app ??洹몃?濡??ъ궗??   - ?먯껜?곸쑝濡??몃줈 ?ㅽ겕濡ㅼ쓣 媛뽯뒗 ?낅┰ ?붾㈃ 援ъ“
    ========================================================================== */
 .mobile-preview {
+  position: relative;
   width: 100%;
   max-width: 100%;
   height: 100vh;
   overflow: hidden;
-  /* ?대? .app-main ???ㅽ겕濡ㅼ쓣 ?대떦 */
+  /* .app-main 내부 스크롤을 담당 */
 }
 
 .mobile-app {

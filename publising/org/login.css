@@ -346,15 +346,16 @@
 
 /* --------------------------------------------------------------------------
    TOP TOAST NOTIFICATION (로그인 성공 알림)
+   Mobile Preview 콘테이너 내부 최상단에 표시 (position: absolute)
    -------------------------------------------------------------------------- */
 .login-top-toast {
-  position: fixed;
+  position: absolute;
   top: 12px;
   left: 50%;
   transform: translateX(-50%) translateY(-120%);
   z-index: 9999;
   width: calc(100% - 32px);
-  max-width: 360px;
+  max-width: 396px;
   background: #10193B;
   border: 1px solid rgba(223, 255, 0, 0.18);
   border-radius: 14px;
@@ -366,7 +367,7 @@
   align-items: center;
   gap: 12px;
   pointer-events: none;
-  /* 초기 상태: 위로 숨김 */
+  /* 초기 상태: 위로 숨김 (overflow:hidden에 의해 클립됨) */
   transition: transform 300ms cubic-bezier(0.34, 1.2, 0.64, 1);
 }
 
