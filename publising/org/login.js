@@ -87,65 +87,216 @@ window.AuthManager = AuthManager;
  *       - 방법 B (Google API): window.google.accounts.id.initialize(...)
  */
 async function handleGoogleLogin() {
-  // 테스트용 임시 Google 사용자 데이터 즉시 반환
-  return {
-    uid: `google_${Math.random().toString(36).substr(2, 9)}`,
-    provider: 'google',
-    name: 'Google Tester',
-    email: 'google_test@unicity.com',
-    profileImage: null,
-    authToken: 'temp_google_token_12345'
-  };
+  // GIS SDK 로드 여부 확인
+  if (typeof google === 'undefined' || !google.accounts || !google.accounts.oauth2) {
+    throw new Error('network_Google Identity Services SDK가 로드되지 않았습니다. 인터넷 연결을 확인해주세요.');
+  }
+
+  // 클라이언트 ID 확인
+  const clientId = (window.ENV && window.ENV.GOOGLE_CLIENT_ID) || '';
+  if (!clientId || clientId.includes('YOUR_GOOGLE_CLIENT_ID')) {
+    throw new Error('TODO: env.js 파일에 실제 Google 클라이언트 ID를 입력해주세요.\n(env.js → window.ENV.GOOGLE_CLIENT_ID)');
+  }
+
+  return new Promise((resolve, reject) => {
+    let settled = false;
+
+    const client = google.accounts.oauth2.initTokenClient({
+      client_id: clientId,
+      scope: 'openid email profile',
+      callback: async (tokenResponse) => {
+        if (settled) return;
+        settled = true;
+
+        // 사용자가 팝업을 닫거나 취소한 경우
+        if (tokenResponse.error) {
+          const errMsg =
+            tokenResponse.error === 'access_denied'
+              ? 'cancelled'
+              : tokenResponse.error;
+          reject(new Error(errMsg));
+          return;
+        }
+
+        try {
+          // userinfo API로 실제 프로필 정보 요청
+          const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+            headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
+          });
+
+          if (!res.ok) {
+            throw new Error(`userinfo 요청 실패: ${res.status}`);
+          }
+
+          const profile = await res.json();
+
+          resolve({
+            uid: `google_${profile.sub}`,
+            provider: 'google',
+            name: profile.name || profile.email || 'Google 사용자',
+            email: profile.email || null,
+            profileImage: profile.picture || null,
+            authToken: tokenResponse.access_token,
+          });
+
+        } catch (fetchErr) {
+          reject(new Error(`fetch_${fetchErr.message}`));
+        }
+      },
+
+      // 에러 콜백 (일부 브라우저에서 팝업 차단 등)
+      error_callback: (err) => {
+        if (settled) return;
+        settled = true;
+        reject(new Error(err.type || 'popup-closed'));
+      },
+    });
+
+    client.requestAccessToken({ prompt: 'select_account' });
+  });
 }
+
 
 /**
  * Kakao 로그인 처리
- * @returns {Promise<Object>} 사용자 정보 객체
  *
- * TODO: Kakao JavaScript SDK를 연동하세요.
- *       1. index.html에 <script src="https://developers.kakao.com/sdk/js/kakao.js"> 추가
- *       2. Kakao.init('YOUR_APP_KEY') 호출 (실제 앱 키 필요)
- *       3. Kakao.Auth.loginWithKakaoAccount() 호출
+ * Kakao.Auth.authorize()를 사용해 실제 카카오 로그인/동의 화면으로 이동합니다.
+ * 인증 완료 후 KAKAO_REDIRECT_URI로 리다이렉트되며,
+ * 해당 콜백 페이지에서 code를 받아 처리해야 합니다.
  *
- * ※ Apple과 달리 Kakao는 항상 실제 이메일을 반환합니다.
+ * ※ 이 함수는 호출 시 페이지를 이동(리다이렉트)시킵니다.
+ *    Promise를 반환하지만 리다이렉트 이후 이 페이지는 종료됩니다.
+ *
+ * TODO (서버 필요): 리다이렉트 URI에서 code를 받아
+ *   카카오 토큰 발급 → 사용자 정보 조회 → AuthManager.setUser() 호출.
+ *   순수 프론트엔드에서는 code를 클라이언트 Secret 없이 교환할 수 없으므로
+ *   서버 연동 시 구현하세요.
+ *
+ * @returns {Promise<never>} — 리다이렉트 발생, resolve/reject 없음
  */
 async function handleKakaoLogin() {
-  // 테스트용 임시 Kakao 사용자 데이터 즉시 반환
-  return {
-    uid: `kakao_${Math.random().toString(36).substr(2, 9)}`,
-    provider: 'kakao',
-    name: 'Kakao Tester',
-    email: 'kakao_test@unicity.com',
-    profileImage: null,
-    authToken: 'temp_kakao_token_12345'
-  };
+  // Kakao SDK 로드 여부 확인
+  if (typeof Kakao === 'undefined') {
+    throw new Error('network_Kakao SDK가 로드되지 않았습니다. 인터넷 연결을 확인해주세요.');
+  }
+
+  // 환경변수 확인
+  const jsKey      = (window.ENV && window.ENV.KAKAO_JAVASCRIPT_KEY) || '';
+  const redirectUri = (window.ENV && window.ENV.KAKAO_REDIRECT_URI)   || '';
+
+  if (!jsKey || jsKey.includes('YOUR_KAKAO_JAVASCRIPT_KEY')) {
+    throw new Error('CONFIG:env.js의 KAKAO_JAVASCRIPT_KEY를 카카오 개발자 콘솔에서 발급받은 JavaScript 키로 교체하세요.');
+  }
+  if (!redirectUri || redirectUri.includes('YOUR_KAKAO_REDIRECT_URI')) {
+    throw new Error('CONFIG:env.js의 KAKAO_REDIRECT_URI를 카카오 개발자 콘솔에 등록한 Redirect URI로 교체하세요.');
+  }
+
+  // Kakao SDK 초기화 (중복 초기화 방지)
+  if (!Kakao.isInitialized()) {
+    Kakao.init(jsKey);
+  }
+
+  // 실제 카카오 로그인/동의 화면으로 리다이렉트
+  // ※ 이 이후 코드는 실행되지 않습니다 (페이지 이동)
+  Kakao.Auth.authorize({
+    redirectUri,
+    scope: 'profile_nickname,account_email,profile_image',
+  });
+
+  // 리다이렉트 중 — Promise는 resolve/reject되지 않음
+  return new Promise(() => {});
 }
+
 
 /**
  * Apple 로그인 처리
+ *
+ * Sign in with Apple JS SDK를 사용해 팝업으로 Apple 인증 화면을 호출합니다.
+ *
+ * 성공 시 Apple은 { authorization: { id_token, code, state }, user? } 응답을 반환합니다.
+ * id_token은 JWT로 sub(고유 ID), email, name을 포함합니다.
+ *
+ * ※ Apple 비공개 Relay 이메일:
+ *    사용자가 이메일 숨기기를 선택하면 "abc@privaterelay.appleid.com" 형태의 주소가 옵니다.
+ *    이 경우 isAppleRelayEmail: true로 표시합니다.
+ *
+ * TODO (서버 필요): id_token 서명 검증은 반드시 서버에서 수행하세요.
+ *   프론트엔드에서 검증 없이 사용자 데이터를 신뢰하는 것은 보안 취약점입니다.
+ *   현재 구현은 id_token 페이로드를 직접 파싱(비검증)합니다 — 데모/개발 전용.
+ *
  * @returns {Promise<Object>} 사용자 정보 객체
- *
- * TODO: Sign in with Apple (Web)을 연동하세요.
- *       1. Apple Developer에서 Service ID 등록
- *       2. <script src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"> 추가
- *       3. AppleID.auth.init({ ... }) 호출
- *
- * ※ Apple 비공개 Relay 이메일 처리:
- *    Apple은 사용자가 이메일 숨기기를 선택하면
- *    "abc@privaterelay.appleid.com" 형태의 Relay 이메일을 전달합니다.
- *    이 경우 isAppleRelayEmail: true 로 표시하고 uid는 Apple sub(고유ID)를 사용합니다.
  */
 async function handleAppleLogin() {
-  // 테스트용 임시 Apple 사용자 데이터 즉시 반환
-  return {
-    uid: `apple_${Math.random().toString(36).substr(2, 9)}`,
-    provider: 'apple',
-    name: 'Apple Tester',
-    email: 'apple_test@privaterelay.appleid.com',
-    profileImage: null,
-    authToken: 'temp_apple_token_12345',
-    isAppleRelayEmail: true
-  };
+  // Apple SDK 로드 여부 확인
+  if (typeof AppleID === 'undefined') {
+    throw new Error('network_Apple Sign In SDK가 로드되지 않았습니다. 인터넷 연결을 확인해주세요.');
+  }
+
+  // 환경변수 확인
+  const clientId   = (window.ENV && window.ENV.APPLE_CLIENT_ID)   || '';
+  const redirectUri = (window.ENV && window.ENV.APPLE_REDIRECT_URI) || '';
+
+  if (!clientId || clientId.includes('YOUR_APPLE_CLIENT_ID')) {
+    throw new Error('CONFIG:env.js의 APPLE_CLIENT_ID를 Apple Developer에서 발급받은 Service ID로 교체하세요.');
+  }
+  if (!redirectUri || redirectUri.includes('YOUR_APPLE_REDIRECT_URI')) {
+    throw new Error('CONFIG:env.js의 APPLE_REDIRECT_URI를 Apple Developer에 등록한 Return URL로 교체하세요.');
+  }
+
+  // Apple Sign In 초기화
+  AppleID.auth.init({
+    clientId,
+    scope:       'name email',
+    redirectURI: redirectUri,
+    state:       `unicity_${Date.now()}`,
+    usePopup:    true,   // 팝업 방식 (리다이렉트 아님)
+  });
+
+  try {
+    const response = await AppleID.auth.signIn();
+    // response: { authorization: { id_token, code, state }, user? }
+
+    const { id_token } = response.authorization;
+
+    // id_token 페이로드 파싱 (Base64URL 디코딩 — 서명 미검증, 개발 전용)
+    // TODO: 프로덕션에서는 반드시 서버에서 검증하세요.
+    let payload = {};
+    try {
+      const base64Url = id_token.split('.')[1];
+      const base64    = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      payload = JSON.parse(atob(base64));
+    } catch {
+      throw new Error('Apple id_token 파싱 실패');
+    }
+
+    const sub   = payload.sub || '';         // Apple 고유 사용자 ID
+    const email = payload.email || null;
+    const isRelayEmail = email ? email.endsWith('@privaterelay.appleid.com') : false;
+
+    // user 객체는 최초 로그인 시만 포함됩니다
+    const appleUser = response.user || {};
+    const firstName = (appleUser.name && appleUser.name.firstName) || '';
+    const lastName  = (appleUser.name && appleUser.name.lastName)  || '';
+    const name      = [firstName, lastName].filter(Boolean).join(' ') || 'Apple 사용자';
+
+    return {
+      uid:             `apple_${sub}`,
+      provider:        'apple',
+      name,
+      email,
+      profileImage:    null,              // Apple은 프로필 이미지를 제공하지 않습니다
+      authToken:       id_token,          // TODO: 서버에서 검증 후 사용
+      appleCode:       response.authorization.code,  // 서버 토큰 교환용
+      isAppleRelayEmail: isRelayEmail,
+    };
+
+  } catch (err) {
+    // 사용자 취소 처리
+    if (err && (err.error === 'popup_closed_by_user' || err.error === 'user_trigger_new_signin_flow')) {
+      throw new Error('cancelled');
+    }
+    throw err;
+  }
 }
 
 
@@ -177,9 +328,19 @@ function getLoginErrorMessage(err, provider) {
     return `${providerName} 로그인이 취소되었습니다.`;
   }
 
-  // 네트워크 오류
-  if (msg.includes('network') || msg.includes('fetch') || msg.includes('NetworkError')) {
+  // 네트워크 오류 (GIS SDK 미로드 포함)
+  if (
+    msg.startsWith('network_') ||
+    msg.includes('network') ||
+    msg.includes('fetch') ||
+    msg.includes('NetworkError')
+  ) {
     return '네트워크 오류가 발생했습니다. 연결을 확인해주세요.';
+  }
+
+  // 환경변수 미설정 오류
+  if (msg.startsWith('CONFIG:')) {
+    return `⚙️ 설정 오류: ${msg.replace('CONFIG:', '').trim()}`;
   }
 
   // SDK 미연동 (개발 단계)
