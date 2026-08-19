@@ -827,6 +827,15 @@ async function _loadLoginGate() {
 }
 
 /**
+ * auth-checking 상태 해제: index.html에 심어둔 visibility:hidden 스타일을 제거합니다.
+ * Firebase 인증 결과를 받은 모든 분기에서 반드시 호출해야 합니다.
+ */
+function _revealMobileApp() {
+  const style = document.getElementById('auth-checking-style');
+  if (style) style.remove();
+}
+
+/**
  * 최초 진입 시 Firebase 인증 상태를 확인하고 필요하면 게이트를 표시합니다.
  * Firebase onAuthStateChanged로 실제 인증 여부를 확인합니다.
  * script.js 초기화 구간에서 호출됩니다.
@@ -872,8 +881,9 @@ function initAuthGate() {
               });
             }
           }
-          // 로그인 상태 → 게이트 없이 홈 화면 표시 (기본 홈 콘텐츠가 이미 로드됨)
+          // 로그인 상태 → Main 화면 노출 (기본 홈 콘텐츠가 이미 로드됨)
           console.log('[AuthGate] Firebase 로그인 확인 — 게이트 생략');
+          _revealMobileApp();
         } else {
           // Firebase에 로그인 없음 → 로그인 게이트 표시
           if (typeof AuthManager !== 'undefined') {
@@ -883,7 +893,8 @@ function initAuthGate() {
               AuthManager.clearUser();
             }
           }
-          _loadLoginGate();
+          // 비로그인: Login 화면으로 교체한 뒤 reveal (Main이 1프레임도 노출되지 않음)
+          _loadLoginGate().then(() => _revealMobileApp());
         }
       });
     } catch (err) {
@@ -891,17 +902,22 @@ function initAuthGate() {
       // Firebase 오류 시 기존 localStorage 방식으로 fallback
       const isLoggedIn = (typeof AuthManager !== 'undefined') ? AuthManager.isLoggedIn() : false;
       if (!isLoggedIn) {
-        _loadLoginGate();
+        _loadLoginGate().then(() => _revealMobileApp());
+      } else {
+        _revealMobileApp();
       }
     }
   } else {
     // Firebase SDK 미로드 시: localStorage 기반 fallback
     const isLoggedIn = (typeof AuthManager !== 'undefined') ? AuthManager.isLoggedIn() : false;
     if (!isLoggedIn) {
-      _loadLoginGate();
+      _loadLoginGate().then(() => _revealMobileApp());
+    } else {
+      _revealMobileApp();
     }
   }
 }
+
 
 
 let menuDrawerEl = null;
