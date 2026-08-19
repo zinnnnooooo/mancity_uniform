@@ -531,21 +531,6 @@ function initLoginPage(options = {}) {
     }
   });
 
-  // ── 로그인 후 Main(Home)으로 이동 — 확인 버튼과 동일하게 onLoginSuccess 콜백 위임 ──
-  const myPageBtn = loginPageEl.querySelector('#btnGoMyPage');
-  if (myPageBtn) {
-    myPageBtn.addEventListener('click', () => {
-      // onLoginSuccess는 _handleLoginSuccessTransition에서 타이머와 함께 실행됨.
-      // 직접 클릭 시 확인 버튼(#btnConfirmLogin)과 동일하게 동작하도록 클릭 전파
-      const confirmBtn = loginPageEl.querySelector('#btnConfirmLogin');
-      if (confirmBtn) {
-        confirmBtn.click();
-      } else if (typeof onLoginSuccess === 'function') {
-        onLoginSuccess(AuthManager.getUser());
-      }
-    });
-  }
-
   // ── 로그아웃: Firebase signOut() + localStorage 정리 ────────────────────
   const logoutBtn = loginPageEl.querySelector('#btnLogout');
   if (logoutBtn) {
@@ -615,7 +600,6 @@ async function _runSocialLogin(provider, onLoginSuccess) {
 
     // 로그인 성공 처리
     AuthManager.setUser(userData);
-    _renderViewState();
 
     // Apple relay 이메일 안내
     if (userData.isAppleRelayEmail) {
@@ -625,7 +609,7 @@ async function _runSocialLogin(provider, onLoginSuccess) {
       );
     }
 
-    _handleLoginSuccessTransition(userData, onLoginSuccess);
+    _showTopToast(userData, onLoginSuccess);
 
     // 장바구니 Badge 갱신
     if (typeof window.updateCartBadgeCount === 'function') {
@@ -645,40 +629,52 @@ async function _runSocialLogin(provider, onLoginSuccess) {
 
 
 /**
- * 로그인 성공 후 팝업 대기 및 자동 종료 처리
- * @param {Object} userData 
- * @param {Function} onLoginSuccess 
+ * 로그인 성공 후 Top Toast 알림 표시 및 자동 종료 처리
+ * @param {Object} userData
+ * @param {Function} onLoginSuccess
  */
-function _handleLoginSuccessTransition(userData, onLoginSuccess) {
-  if (typeof onLoginSuccess !== 'function') return;
+function _showTopToast(userData, onLoginSuccess) {
+  // 기존 토스트 제거 (중복 방지)
+  const existing = document.getElementById('loginTopToast');
+  if (existing) existing.remove();
 
-  let redirected = false;
+  // 토스트 엘리먼트 생성
+  const toast = document.createElement('div');
+  toast.id = 'loginTopToast';
+  toast.className = 'login-top-toast';
+  toast.setAttribute('role', 'status');
+  toast.setAttribute('aria-live', 'polite');
+  toast.innerHTML = `
+    <div class="login-top-toast__icon" aria-hidden="true">✓</div>
+    <div>
+      <p class="login-top-toast__text">로그인에 성공했습니다.</p>
+    </div>
+  `;
 
-  // 2.0초 후 자동 종료 타이머
-  const autoCloseTimer = setTimeout(() => {
-    if (!redirected) {
-      redirected = true;
-      onLoginSuccess(userData);
-    }
-  }, 2000);
+  document.body.appendChild(toast);
 
-  // 확인 버튼 및 오버레이 클릭 시 즉시 종료 처리
-  const confirmBtn = loginPageEl ? loginPageEl.querySelector('#btnConfirmLogin') : null;
-  const handleConfirm = (e) => {
-    if (e) e.preventDefault();
-    clearTimeout(autoCloseTimer);
-    if (!redirected) {
-      redirected = true;
-      onLoginSuccess(userData);
-    }
-  };
+  // 슬라이드 인 (다음 프레임에서 is-visible 추가)
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      toast.classList.add('is-visible');
+    });
+  });
 
-  if (confirmBtn) {
-    // 기존 리스너 누적 방지를 위해 버튼 클론 및 이벤트 바인딩
-    const newConfirmBtn = confirmBtn.cloneNode(true);
-    confirmBtn.replaceWith(newConfirmBtn);
-    newConfirmBtn.addEventListener('click', handleConfirm);
-  }
+  // 1.8초 후 슬라이드 아웃 → onLoginSuccess 호출
+  const hideDelay = 1800;
+  const animDuration = 300;
+
+  setTimeout(() => {
+    toast.classList.remove('is-visible');
+    toast.classList.add('is-hiding');
+
+    setTimeout(() => {
+      toast.remove();
+      if (typeof onLoginSuccess === 'function') {
+        onLoginSuccess(userData);
+      }
+    }, animDuration);
+  }, hideDelay);
 }
 
 
@@ -693,19 +689,8 @@ function _renderViewState() {
   if (!loginPageEl) return;
 
   const loginView = loginPageEl.querySelector('#loginView');
-  const loggedinView = loginPageEl.querySelector('#loggedinView');
-  const user = AuthManager.getUser();
-
-  if (user && user.isLoggedIn) {
-    // 로그인 후 뷰
-    if (loginView)    loginView.hidden = false;
-    if (loggedinView) loggedinView.hidden = false;
-    _renderProfileCard(user);
-  } else {
-    // 로그인 전 뷰
-    if (loginView)    loginView.hidden = false;
-    if (loggedinView) loggedinView.hidden = true;
-  }
+  // loginView는 항상 표시 (loggedinView 제거됨)
+  if (loginView) loginView.hidden = false;
 }
 
 /**

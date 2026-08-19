@@ -345,228 +345,68 @@
 }
 
 /* --------------------------------------------------------------------------
-   LOGGED-IN VIEW
+   TOP TOAST NOTIFICATION (로그인 성공 알림)
    -------------------------------------------------------------------------- */
-.loggedin-view {
+.login-top-toast {
   position: fixed;
-  inset: 0;
-  background: rgba(16, 25, 59, 0.65);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 200;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  gap: 24px;
-}
-
-.loggedin-view[hidden] {
-  display: none;
-}
-
-/* --------------------------------------------------------------------------
-   SUCCESS POPUP CARD (Deep Navy, No Glassmorphism)
-   -------------------------------------------------------------------------- */
-.login-success-popup {
-  width: calc(100% - 40px);
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-120%);
+  z-index: 9999;
+  width: calc(100% - 32px);
   max-width: 360px;
   background: #10193B;
-  border: 1px solid rgba(108, 171, 221, 0.25);
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  z-index: 210;
-  box-sizing: border-box;
-}
-
-.login-success-popup .login-profile-card {
-  background: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: none !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-}
-
-/* --------------------------------------------------------------------------
-   PROFILE CARD (로그인 후)
-   -------------------------------------------------------------------------- */
-.login-profile-card {
+  border: 1px solid rgba(223, 255, 0, 0.18);
+  border-radius: 14px;
+  padding: 14px 18px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    0 0 0 0.5px rgba(223, 255, 0, 0.08) inset;
   display: flex;
   align-items: center;
-  gap: 16px;
-  width: 100%;
-  max-width: 360px;
-  background: rgba(28, 44, 91, 0.55);
-  backdrop-filter: blur(20px) saturate(140%);
-  -webkit-backdrop-filter: blur(20px) saturate(140%);
-  border: 1px solid rgba(108, 171, 221, 0.22);
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  gap: 12px;
+  pointer-events: none;
+  /* 초기 상태: 위로 숨김 */
+  transition: transform 300ms cubic-bezier(0.34, 1.2, 0.64, 1);
 }
 
-.login-profile__avatar {
-  width: 52px;
-  height: 52px;
+/* 등장 상태 */
+.login-top-toast.is-visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* 퇴장 상태 */
+.login-top-toast.is-hiding {
+  transform: translateX(-50%) translateY(-120%);
+  transition: transform 280ms cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.login-top-toast__icon {
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--navy, #1C2C5B) 0%, rgba(108, 171, 221, 0.4) 100%);
-  border: 2px solid var(--yellow, #DFFF00);
+  background: rgba(223, 255, 0, 0.12);
+  border: 1px solid rgba(223, 255, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  overflow: hidden;
-  box-shadow: 0 0 12px rgba(223, 255, 0, 0.3);
+  font-size: 13px;
 }
 
-.login-profile__avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.login-profile__initial {
-  font-size: 20px;
-  font-weight: 900;
-  color: var(--yellow, #DFFF00);
-  font-family: 'Archivo Black', sans-serif;
-}
-
-.login-profile__info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  min-width: 0;
-}
-
-.login-profile__name {
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--white, #FFFFFF);
+.login-top-toast__text {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #FFFFFF;
   letter-spacing: -0.01em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.4;
 }
 
-.login-profile__email {
-  font-size: 12px;
+.login-top-toast__sub {
+  font-size: 11px;
   font-weight: 500;
-  color: var(--muted, rgba(234, 240, 250, 0.62));
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.login-profile__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  width: fit-content;
-}
-
-.login-profile__badge--google {
-  background: rgba(66, 133, 244, 0.2);
-  color: #7ab3ff;
-  border: 1px solid rgba(66, 133, 244, 0.3);
-}
-
-.login-profile__badge--kakao {
-  background: rgba(254, 229, 0, 0.15);
-  color: #FEE500;
-  border: 1px solid rgba(254, 229, 0, 0.25);
-}
-
-.login-profile__badge--apple {
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-/* --------------------------------------------------------------------------
-   LOGGED-IN ACTION BUTTONS
-   -------------------------------------------------------------------------- */
-.loggedin-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-  max-width: 360px;
-}
-
-.loggedin-action-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  height: 52px;
-  padding: 0 20px;
-  border-radius: 12px;
-  border: 1px solid transparent;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 180ms ease, box-shadow 180ms ease;
-}
-
-.loggedin-action-btn:active {
-  transform: scale(0.97);
-}
-
-.loggedin-action-btn__icon {
-  font-size: 16px;
-  flex-shrink: 0;
-}
-
-/* 확인 버튼 — Neon Yellow 강조 */
-.loggedin-action-btn--confirm {
-  background: var(--yellow, #DFFF00);
-  color: #0B1426;
-  border-color: var(--yellow, #DFFF00);
-  box-shadow: 0 2px 12px rgba(223, 255, 0, 0.3);
-}
-
-.loggedin-action-btn--confirm:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(223, 255, 0, 0.45);
-}
-
-/* 마이페이지 버튼 — 투명도 포함한 보조 버튼 */
-.loggedin-action-btn--mypage {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--white, #FFFFFF);
-  border-color: rgba(255, 255, 255, 0.12);
-}
-
-.loggedin-action-btn--mypage:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: var(--white, #FFFFFF);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-/* 로그아웃 버튼 */
-.loggedin-action-btn--logout {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--muted, rgba(234, 240, 250, 0.62));
-  border-color: rgba(255, 255, 255, 0.12);
-}
-
-.loggedin-action-btn--logout:hover {
-  background: rgba(255, 80, 80, 0.1);
-  color: #FF9999;
-  border-color: rgba(255, 80, 80, 0.25);
+  color: rgba(234, 240, 250, 0.55);
+  margin-top: 2px;
 }
 
 /* --------------------------------------------------------------------------
@@ -614,10 +454,9 @@
 }
 
 /* --------------------------------------------------------------------------
-   PAGE TRANSITION SUPPORT (script.js page-enter / page-leave 재사용)
+   PAGE TRANSITION SUPPORT
    -------------------------------------------------------------------------- */
-.login-view,
-.loggedin-view {
+.login-view {
   animation: login-fade-in 0.3s ease both;
 }
 
