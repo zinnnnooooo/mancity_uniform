@@ -1,20 +1,24 @@
+/* ==========================================================================
+   UNI:CITY — mypage.css
+   Deep Navy 기반 디자인 시스템 (login.css / style.css 톤앤매너 통일)
+   ========================================================================== */
+
 :root {
-  --mypage-bg: #465766;
-  --mypage-panel: #617382;
-  --mypage-panel-dark: #526473;
-  --mypage-panel-muted: rgba(88, 107, 121, .55);
-  --mypage-white: #fff;
-  --mypage-muted: rgba(255, 255, 255, .53);
-  --mypage-line: rgba(255, 255, 255, .14);
-  --mypage-sky: #6cabdd;
-  --mypage-lime: #dfff00;
-  --mypage-outer: #17222d;
-  --mypage-max: 480px;
+  --mypage-bg:          #0D1630;
+  --mypage-navy:        #10193B;
+  --mypage-panel:       rgba(28, 44, 91, 0.55);
+  --mypage-panel-dark:  rgba(16, 25, 59, 0.75);
+  --mypage-panel-hover: rgba(28, 44, 91, 0.80);
+  --mypage-white:       #FFFFFF;
+  --mypage-muted:       rgba(234, 240, 250, 0.55);
+  --mypage-line:        rgba(108, 171, 221, 0.18);
+  --mypage-sky:         #6CABDD;
+  --mypage-lime:        #DFFF00;
+  --mypage-outer:       #080F20;
+  --mypage-max:         480px;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 html:not(:has(.desktop-wrapper)) {
   background: var(--mypage-outer);
@@ -31,22 +35,13 @@ body.mypage-page-body {
   line-height: 1.5;
 }
 
-button,
-a {
-  font: inherit;
-  color: inherit;
-}
+button, a { font: inherit; color: inherit; }
+button    { cursor: pointer; background: none; border: none; }
+a         { text-decoration: none; }
 
-button {
-  cursor: pointer;
-  background: none;
-  border: none;
-}
-
-a {
-  text-decoration: none;
-}
-
+/* --------------------------------------------------------------------------
+   APP FRAME
+   -------------------------------------------------------------------------- */
 body.mypage-page-body .app-frame.mypage {
   width: 100%;
   max-width: var(--mypage-max);
@@ -54,13 +49,16 @@ body.mypage-page-body .app-frame.mypage {
   position: relative;
   overflow-x: hidden;
   background: var(--mypage-bg);
-  box-shadow: 0 0 34px rgba(0, 0, 0, .22);
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
 }
 
 .mypage-page-content {
   padding-bottom: 96px;
 }
 
+/* --------------------------------------------------------------------------
+   TOP BAR
+   -------------------------------------------------------------------------- */
 .mypage-topbar {
   height: 58px;
   display: grid;
@@ -68,6 +66,9 @@ body.mypage-page-body .app-frame.mypage {
   align-items: center;
   padding: 0 14px;
   border-bottom: 1px solid var(--mypage-line);
+  background: rgba(13, 22, 48, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .topbar-btn {
@@ -79,13 +80,18 @@ body.mypage-page-body .app-frame.mypage {
   align-items: center;
   justify-content: center;
   font-size: 22px;
+  color: var(--mypage-sky);
+  transition: color 150ms ease;
 }
+
+.topbar-btn:hover { color: var(--mypage-white); }
 
 .mypage-logo {
   text-align: center;
   font-size: 15px;
   font-weight: 900;
   letter-spacing: .06em;
+  color: var(--mypage-white);
 }
 
 .cart-link {
@@ -93,8 +99,14 @@ body.mypage-page-body .app-frame.mypage {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--mypage-sky);
+  transition: color 150ms ease;
 }
+.cart-link:hover { color: var(--mypage-white); }
 
+/* --------------------------------------------------------------------------
+   PROFILE SECTION
+   -------------------------------------------------------------------------- */
 .profile-section {
   padding: 34px 20px 24px;
   text-align: center;
@@ -106,8 +118,8 @@ body.mypage-page-body .app-frame.mypage {
   margin: 0 auto 16px;
   border-radius: 50%;
   padding: 3px;
-  background: linear-gradient(145deg, var(--mypage-sky), rgba(255, 255, 255, .2));
-  box-shadow: 0 10px 26px rgba(0, 0, 0, .25);
+  background: linear-gradient(145deg, var(--mypage-sky), rgba(223, 255, 0, 0.4));
+  box-shadow: 0 0 20px rgba(108, 171, 221, 0.25), 0 10px 26px rgba(0, 0, 0, 0.4);
 }
 
 .profile-image {
@@ -123,14 +135,19 @@ body.mypage-page-body .app-frame.mypage {
   font-size: 20px;
   font-weight: 800;
   letter-spacing: .02em;
+  color: var(--mypage-white);
 }
 
 .profile-section p {
   margin: 0;
-  color: var(--mypage-muted);
+  color: var(--mypage-sky);
   font-size: 12px;
+  font-weight: 500;
 }
 
+/* --------------------------------------------------------------------------
+   SUMMARY CARDS (주문 내역 / 위시리스트)
+   -------------------------------------------------------------------------- */
 .summary-grid {
   margin: 10px 20px 0;
   display: grid;
@@ -139,62 +156,87 @@ body.mypage-page-body .app-frame.mypage {
 }
 
 .summary-card {
-  padding: 16px;
+  padding: 18px 16px;
   border: 1px solid var(--mypage-line);
-  background: var(--mypage-panel-muted);
-  border-radius: 12px;
+  background: var(--mypage-panel);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border-radius: 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  transition: background .2s ease;
+  gap: 6px;
+  transition: background 200ms ease, border-color 200ms ease, transform 180ms ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(255,255,255,0.04) inset;
+}
+
+.summary-card:hover {
+  background: var(--mypage-panel-hover);
+  border-color: rgba(108, 171, 221, 0.35);
+  transform: translateY(-2px);
 }
 
 .summary-card:active {
-  background: var(--mypage-panel);
+  transform: scale(0.97);
+  background: var(--mypage-panel-dark);
 }
 
 .summary-card strong {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 900;
   color: var(--mypage-lime);
+  text-shadow: 0 0 12px rgba(223, 255, 0, 0.35);
 }
 
 .summary-card span {
   font-size: 11px;
+  font-weight: 600;
   color: var(--mypage-muted);
+  letter-spacing: 0.02em;
 }
 
+/* --------------------------------------------------------------------------
+   ORDER STATUS SECTION
+   -------------------------------------------------------------------------- */
 .order-status-section {
-  margin: 28px 20px 0;
+  margin: 20px 20px 0;
   padding: 20px 18px;
   background: var(--mypage-panel);
-  border-radius: 14px;
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border-radius: 16px;
   border: 1px solid var(--mypage-line);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(255,255,255,0.04) inset;
 }
 
 .section-title-wrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .section-title-wrap h2 {
   margin: 0;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--mypage-white);
 }
 
 .btn-more {
   border: 0;
   background: transparent;
-  color: var(--mypage-muted);
+  color: var(--mypage-sky);
   font-size: 12px;
+  font-weight: 600;
   padding: 0;
+  transition: color 150ms ease;
 }
+.btn-more:hover { color: var(--mypage-white); }
 
+/* 배송 진행 트래커 */
 .order-progress {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -207,8 +249,8 @@ body.mypage-page-body .app-frame.mypage {
   top: 10px;
   left: 12%;
   right: 12%;
-  height: 2px;
-  background: rgba(255, 255, 255, .14);
+  height: 1.5px;
+  background: var(--mypage-line);
   z-index: 1;
 }
 
@@ -226,20 +268,21 @@ body.mypage-page-body .app-frame.mypage {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: var(--mypage-panel-dark);
-  border: 2px solid rgba(255, 255, 255, .2);
+  background: rgba(16, 25, 59, 0.8);
+  border: 2px solid rgba(108, 171, 221, 0.25);
   display: block;
 }
 
 .order-step.is-complete .step-dot {
   background: var(--mypage-sky);
   border-color: var(--mypage-sky);
+  box-shadow: 0 0 8px rgba(108, 171, 221, 0.45);
 }
 
 .order-step.is-current .step-dot {
   background: var(--mypage-lime);
   border-color: var(--mypage-lime);
-  box-shadow: 0 0 10px rgba(223, 255, 0, .4);
+  box-shadow: 0 0 12px rgba(223, 255, 0, 0.5);
 }
 
 .order-step strong {
@@ -251,7 +294,7 @@ body.mypage-page-body .app-frame.mypage {
 .order-step em {
   font-style: normal;
   font-size: 10px;
-  color: rgba(255, 255, 255, .4);
+  color: rgba(234, 240, 250, 0.35);
 }
 
 .order-step.is-complete strong,
@@ -259,8 +302,11 @@ body.mypage-page-body .app-frame.mypage {
   color: var(--mypage-white);
 }
 
+/* --------------------------------------------------------------------------
+   MENU ROWS (구매내역 / 배송추적 / 위시리스트 / 개인정보 / 고객센터)
+   -------------------------------------------------------------------------- */
 .mypage-menu {
-  margin: 28px 20px 0;
+  margin: 20px 20px 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -270,22 +316,39 @@ body.mypage-page-body .app-frame.mypage {
   display: flex;
   align-items: center;
   padding: 16px 18px;
-  background: var(--mypage-panel-muted);
+  background: var(--mypage-panel);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
   border: 1px solid var(--mypage-line);
-  border-radius: 12px;
+  border-radius: 14px;
   gap: 14px;
-  transition: background .2s ease;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2), 0 0 0 0.5px rgba(255,255,255,0.04) inset;
+  transition: background 200ms ease, border-color 200ms ease, transform 180ms ease;
+}
+
+.menu-row:hover {
+  background: var(--mypage-panel-hover);
+  border-color: rgba(108, 171, 221, 0.32);
+  transform: translateY(-1px);
 }
 
 .menu-row:active {
-  background: var(--mypage-panel);
+  transform: scale(0.97);
+  background: var(--mypage-panel-dark);
 }
 
 .menu-icon {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(108, 171, 221, 0.1);
+  border: 1px solid rgba(108, 171, 221, 0.2);
   color: var(--mypage-sky);
+  font-size: 15px;
+  flex-shrink: 0;
 }
 
 .menu-label {
@@ -293,19 +356,65 @@ body.mypage-page-body .app-frame.mypage {
   font-size: 14px;
   font-weight: 700;
   text-align: left;
+  color: var(--mypage-white);
 }
 
 .menu-arrow {
-  color: var(--mypage-muted);
-  font-size: 14px;
+  color: var(--mypage-sky);
+  font-size: 16px;
+  opacity: 0.7;
+  transition: opacity 150ms ease, transform 150ms ease;
 }
 
-/* SPA(index.html) 진입 시 메인 프레임 내 중복 방지 스타일 정의 */
-.mobile-app:has(.mypage-page-content)>.bottom-nav {
+.menu-row:hover .menu-arrow {
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+/* --------------------------------------------------------------------------
+   ACCOUNT BUTTON CONTAINER (로그아웃)
+   -------------------------------------------------------------------------- */
+.account-btn-container {
+  margin: 20px 20px 0;
+}
+
+.account-btn-container .account-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  border: 1px solid rgba(255, 80, 80, 0.25);
+  background: rgba(255, 80, 80, 0.08);
+  color: rgba(255, 153, 153, 0.9);
+  transition: background 200ms ease, border-color 200ms ease, transform 180ms ease;
+}
+
+.account-btn-container .account-btn:hover {
+  background: rgba(255, 80, 80, 0.16);
+  border-color: rgba(255, 80, 80, 0.4);
+  transform: translateY(-1px);
+}
+
+.account-btn-container .account-btn:active {
+  transform: scale(0.97);
+}
+
+/* --------------------------------------------------------------------------
+   SPA 진입 시 중복 Bottom Nav 방지
+   -------------------------------------------------------------------------- */
+.mobile-app:has(.mypage-page-content) > .bottom-nav {
   display: none !important;
 }
 
-/* 마이페이지 자체 고정 하단 네비게이션 전용 스타일 정의 */
+/* --------------------------------------------------------------------------
+   BOTTOM NAVIGATION (마이페이지 자체 하단 Nav)
+   -------------------------------------------------------------------------- */
 .app-frame.mypage .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -317,8 +426,10 @@ body.mypage-page-body .app-frame.mypage {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   align-items: center;
-  background: #4C5C69;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(13, 22, 48, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--mypage-line);
   z-index: 100;
 }
 
@@ -329,17 +440,18 @@ body.mypage-page-body .app-frame.mypage {
   justify-content: center;
   gap: 4px;
   height: 100%;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--mypage-muted);
   background: transparent;
   border: none;
+  transition: color 150ms ease;
 }
 
 .app-frame.mypage .bottom-nav__icon {
   width: 20px;
   height: 20px;
   object-fit: contain;
-  opacity: 0.55;
-  transition: opacity 0.2s ease;
+  opacity: 0.45;
+  transition: opacity 200ms ease;
 }
 
 .app-frame.mypage .bottom-nav__label {
@@ -349,9 +461,11 @@ body.mypage-page-body .app-frame.mypage {
 }
 
 .app-frame.mypage .bottom-nav__item.is-active {
-  color: var(--mypage-white);
+  color: var(--mypage-lime);
 }
 
 .app-frame.mypage .bottom-nav__item.is-active .bottom-nav__icon {
   opacity: 1;
+  filter: brightness(0) saturate(100%) invert(100%) sepia(100%)
+          saturate(1000%) hue-rotate(40deg) brightness(110%);
 }
