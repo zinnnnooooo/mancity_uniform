@@ -1197,6 +1197,30 @@ function initMainMobileInteractions() {
       tab.classList.add('is-active');
     });
   });
+
+  // Retro Collection click redirection to Uniform List page
+  document.querySelectorAll('.retro-collection').forEach((retro) => {
+    if (retro.dataset.clickBound) return;
+    retro.dataset.clickBound = 'true';
+    retro.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (typeof loadUniformListPage === 'function') {
+        loadUniformListPage();
+      }
+    });
+  });
+
+  // Mobile quick nav '구단 소개' click redirection to Club Intro page
+  document.querySelectorAll('.mq-btn--intro').forEach((btn) => {
+    if (btn.dataset.clickBound) return;
+    btn.dataset.clickBound = 'true';
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (typeof loadClubPage === 'function') {
+        loadClubPage();
+      }
+    });
+  });
 }
 
 document.querySelectorAll('.bottom-nav').forEach((nav) => {
