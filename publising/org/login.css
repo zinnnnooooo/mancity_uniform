@@ -345,70 +345,89 @@
 }
 
 /* --------------------------------------------------------------------------
-   TOP TOAST NOTIFICATION (로그인 성공 알림)
-   Mobile Preview 콘테이너 내부 최상단에 표시 (position: absolute)
+   LOGIN SUCCESS POPUP (로그인 성공 중앙 팝업 및 오버레이)
+   Mobile Preview 콘테이너 내부 정중앙에 표시 (position: absolute)
    -------------------------------------------------------------------------- */
-.login-top-toast {
+.login-success-overlay {
   position: absolute;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%) translateY(-120%);
-  z-index: 9999;
-  width: calc(100% - 32px);
-  max-width: 396px;
-  background: #10193B;
-  border: 1px solid rgba(223, 255, 0, 0.18);
-  border-radius: 14px;
-  padding: 14px 18px;
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.45),
-    0 0 0 0.5px rgba(223, 255, 0, 0.08) inset;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  pointer-events: none;
-  /* 초기 상태: 위로 숨김 (overflow:hidden에 의해 클립됨) */
-  transition: transform 300ms cubic-bezier(0.34, 1.2, 0.64, 1);
-}
-
-/* 등장 상태 */
-.login-top-toast.is-visible {
-  transform: translateX(-50%) translateY(0);
-}
-
-/* 퇴장 상태 */
-.login-top-toast.is-hiding {
-  transform: translateX(-50%) translateY(-120%);
-  transition: transform 280ms cubic-bezier(0.4, 0, 0.6, 1);
-}
-
-.login-top-toast__icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgba(223, 255, 0, 0.12);
-  border: 1px solid rgba(223, 255, 0, 0.3);
+  inset: 0;
+  background: rgba(13, 22, 48, 0.45); /* 약한 Dark Overlay */
+  backdrop-filter: blur(6px);         /* 뒤쪽 로그인 화면 blur */
+  -webkit-backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  font-size: 13px;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: auto; /* 터치/클릭 방지 */
 }
 
-.login-top-toast__text {
-  font-size: 13.5px;
+/* 등장 상태 */
+.login-success-overlay.is-visible {
+  opacity: 1;
+}
+
+/* 퇴장 상태 */
+.login-success-overlay.is-hiding {
+  opacity: 0;
+  transition: opacity 280ms ease;
+}
+
+.login-success-popup {
+  width: calc(100% - 64px);
+  max-width: 320px;
+  background: #10193B; /* Deep Navy */
+  border: 1px solid rgba(223, 255, 0, 0.15); /* 약한 Neon Yellow 포인트 */
+  border-radius: 20px;
+  padding: 30px 24px;
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.6),
+    0 0 0 0.5px rgba(223, 255, 0, 0.08) inset;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  transform: scale(0.9);
+  transition: transform 300ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  /* 팝업 자체에는 blur 금지 */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.login-success-overlay.is-visible .login-success-popup {
+  transform: scale(1);
+}
+
+.login-success-overlay.is-hiding .login-success-popup {
+  transform: scale(0.9);
+}
+
+.login-success-popup__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(223, 255, 0, 0.1);
+  border: 1px solid rgba(223, 255, 0, 0.25);
+  color: #DFFF00; /* Neon Yellow */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: 0 0 16px rgba(223, 255, 0, 0.15);
+}
+
+.login-success-popup__text {
+  font-size: 15px;
   font-weight: 700;
   color: #FFFFFF;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   line-height: 1.4;
+  margin: 0;
 }
 
-.login-top-toast__sub {
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(234, 240, 250, 0.55);
-  margin-top: 2px;
-}
 
 /* --------------------------------------------------------------------------
    LOADING OVERLAY

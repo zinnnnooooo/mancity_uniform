@@ -609,7 +609,7 @@ async function _runSocialLogin(provider, onLoginSuccess) {
       );
     }
 
-    _showTopToast(userData, onLoginSuccess);
+    _showSuccessPopup(userData, onLoginSuccess);
 
     // 장바구니 Badge 갱신
     if (typeof window.updateCartBadgeCount === 'function') {
@@ -629,56 +629,57 @@ async function _runSocialLogin(provider, onLoginSuccess) {
 
 
 /**
- * 로그인 성공 후 Top Toast 알림 표시 및 자동 종료 처리
+ * 로그인 성공 후 중앙 성공 팝업 표시 및 자동 종료 처리
  * @param {Object} userData
  * @param {Function} onLoginSuccess
  */
-function _showTopToast(userData, onLoginSuccess) {
-  // 기존 토스트 제거 (중복 방지)
-  const existing = document.getElementById('loginTopToast');
+function _showSuccessPopup(userData, onLoginSuccess) {
+  // 기존 오버레이 제거 (중복 방지)
+  const existing = document.getElementById('loginSuccessOverlay');
   if (existing) existing.remove();
 
-  // 토스트 엘리먼트 생성
-  const toast = document.createElement('div');
-  toast.id = 'loginTopToast';
-  toast.className = 'login-top-toast';
-  toast.setAttribute('role', 'status');
-  toast.setAttribute('aria-live', 'polite');
-  toast.innerHTML = `
-    <div class="login-top-toast__icon" aria-hidden="true">✓</div>
-    <div>
-      <p class="login-top-toast__text">로그인에 성공했습니다.</p>
+  // 오버레이 및 팝업 엘리먼트 생성
+  const overlay = document.createElement('div');
+  overlay.id = 'loginSuccessOverlay';
+  overlay.className = 'login-success-overlay';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.innerHTML = `
+    <div class="login-success-popup">
+      <div class="login-success-popup__icon" aria-hidden="true">✓</div>
+      <p class="login-success-popup__text">로그인에 성공했습니다.</p>
     </div>
   `;
 
   // Mobile Preview 컨테이너에 추가 (position:absolute 기준점)
   const mobilePreview = document.querySelector('.mobile-preview');
   const mountTarget = mobilePreview || document.body;
-  mountTarget.appendChild(toast);
+  mountTarget.appendChild(overlay);
 
-  // 슬라이드 인 (다음 프레임에서 is-visible 추가)
+  // 다음 프레임에서 애니메이션 적용 (is-visible)
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      toast.classList.add('is-visible');
+      overlay.classList.add('is-visible');
     });
   });
 
-  // 1.8초 후 슬라이드 아웃 → onLoginSuccess 호출
-  const hideDelay = 1800;
+  // 2.2초 후 팝업 닫고 Main으로 이동
+  const hideDelay = 2200;
   const animDuration = 300;
 
   setTimeout(() => {
-    toast.classList.remove('is-visible');
-    toast.classList.add('is-hiding');
+    overlay.classList.remove('is-visible');
+    overlay.classList.add('is-hiding');
 
     setTimeout(() => {
-      toast.remove();
+      overlay.remove();
       if (typeof onLoginSuccess === 'function') {
         onLoginSuccess(userData);
       }
     }, animDuration);
   }, hideDelay);
 }
+
 
 
 // --------------------------------------------------------------------------
