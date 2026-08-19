@@ -23,7 +23,7 @@ window.ENV = {
   FIREBASE_MEASUREMENT_ID: "G-EJH9CC0ZMW",
 
   // ── Kakao ────────────────────────────────────────────────
-  KAKAO_JAVASCRIPT_KEY: "YOUR_KAKAO_JAVASCRIPT_KEY",
+  KAKAO_JAVASCRIPT_KEY: "9a69535ba0855ef8112e6d0c5a4b15bd",
   KAKAO_REDIRECT_URI: "YOUR_KAKAO_REDIRECT_URI",
 
   // ── Apple ────────────────────────────────────────────────

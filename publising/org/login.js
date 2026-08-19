@@ -242,13 +242,6 @@ async function handleGoogleLogin() {
 /**
  * Kakao 로그인 처리
  *
- * Kakao.Auth.authorize()를 사용해 실제 카카오 로그인/동의 화면으로 이동합니다.
- * 인증 완료 후 KAKAO_REDIRECT_URI로 리다이렉트되며,
- * 해당 콜백 페이지에서 code를 받아 처리해야 합니다.
- *
- * ※ 이 함수는 호출 시 페이지를 이동(리다이렉트)시킵니다.
- *    Promise를 반환하지만 리다이렉트 이후 이 페이지는 종료됩니다.
- *
  * TODO (서버 필요): 리다이렉트 URI에서 code를 받아
  *   카카오 토큰 발급 → 사용자 정보 조회 → AuthManager.setUser() 호출.
  *   순수 프론트엔드에서는 code를 클라이언트 Secret 없이 교환할 수 없으므로
@@ -264,13 +257,9 @@ async function handleKakaoLogin() {
 
   // 환경변수 확인
   const jsKey      = (window.ENV && window.ENV.KAKAO_JAVASCRIPT_KEY) || '';
-  const redirectUri = (window.ENV && window.ENV.KAKAO_REDIRECT_URI)   || '';
 
   if (!jsKey || jsKey.includes('YOUR_KAKAO_JAVASCRIPT_KEY')) {
     throw new Error('CONFIG:env.js의 KAKAO_JAVASCRIPT_KEY를 카카오 개발자 콘솔에서 발급받은 JavaScript 키로 교체하세요.');
-  }
-  if (!redirectUri || redirectUri.includes('YOUR_KAKAO_REDIRECT_URI')) {
-    throw new Error('CONFIG:env.js의 KAKAO_REDIRECT_URI를 카카오 개발자 콘솔에 등록한 Redirect URI로 교체하세요.');
   }
 
   // Kakao SDK 초기화 (중복 초기화 방지)
@@ -278,16 +267,49 @@ async function handleKakaoLogin() {
     Kakao.init(jsKey);
   }
 
-  // 실제 카카오 로그인/동의 화면으로 리다이렉트
-  // ※ 이 이후 코드는 실행되지 않습니다 (페이지 이동)
-  Kakao.Auth.authorize({
-    redirectUri,
-    scope: 'profile_nickname,account_email,profile_image',
+  return new Promise((resolve, reject) => {
+    // 팝업 창을 열어 로그인 및 필수 동의 항목 진행
+    Kakao.Auth.login({
+      scope: 'profile_nickname,account_email,profile_image',
+      success: function (authObj) {
+        console.log('[Kakao 로그인] 인증 성공, 액세스 토큰 획득:', authObj.access_token);
+        
+        // 카카오 API를 호출하여 로그인된 사용자 정보 획득
+        Kakao.API.request({
+          url: '/v2/user/me',
+          success: function (res) {
+            console.log('[Kakao 로그인] 사용자 정보 로드 완료:', res);
+            const kakaoAccount = res.kakao_account || {};
+            const profile = kakaoAccount.profile || {};
+            
+            resolve({
+              uid:          'kakao_' + res.id,
+              provider:     'kakao',
+              name:         profile.nickname || 'Kakao 사용자',
+              email:        kakaoAccount.email || null,
+              profileImage: profile.profile_image_url || null,
+              authToken:    authObj.access_token
+            });
+          },
+          fail: function (apiErr) {
+            console.error('[Kakao 로그인] API 호출 에러:', apiErr);
+            reject(new Error('kakao_사용자 정보를 가져오는 중 오류가 발생했습니다.'));
+          }
+        });
+      },
+      fail: function (loginErr) {
+        console.error('[Kakao 로그인] 팝업 오류:', loginErr);
+        // 사용자가 창을 닫았거나 에러 발생 시
+        if (loginErr.error === 'window_closed') {
+          reject(new Error('cancelled'));
+        } else {
+          reject(new Error('kakao_' + (loginErr.error_description || loginErr.error || '로그인에 실패했습니다.')));
+        }
+      }
+    });
   });
-
-  // 리다이렉트 중 — Promise는 resolve/reject되지 않음
-  return new Promise(() => {});
 }
+
 
 
 /**
