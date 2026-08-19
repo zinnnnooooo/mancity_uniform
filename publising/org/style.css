@@ -614,13 +614,54 @@ img {
     height: calc(100vh - 80px);
     margin: 40px 0;
     border-radius: 32px;
-    overflow: hidden;
+    overflow: visible; /* 섀도우 베젤 및 물리 버튼 노출을 위해 visible로 변경 */
+    position: relative;
+    
+    /* 실제 스마트폰 디바이스 프레임 섀도우 아트워크 */
+    box-shadow: 
+      0 0 0 12px #0a1024, /* 12px 얇은 디바이스 베젤 */
+      0 0 0 13px rgba(108, 171, 221, 0.22), /* 은은한 Sky Blue 베젤 외곽 하이라이트 */
+      0 20px 50px rgba(0, 0, 0, 0.55), /* 바깥쪽 drop shadow */
+      inset 0 0 12px rgba(0, 0, 0, 0.7); /* 안쪽 inner shadow */
+  }
+
+  /* 좌측 볼륨 버튼 (눈에 띄지 않는 은은한 디테일) */
+  .mobile-preview::before {
+    content: "";
+    position: absolute;
+    left: -16px;
+    top: 130px;
+    width: 3px;
+    height: 80px;
+    background: linear-gradient(to bottom, 
+      #0d1530 0%, #0d1530 40%, 
+      transparent 40%, transparent 60%, 
+      #0d1530 60%, #0d1530 100%
+    );
+    border-radius: 3px 0 0 3px;
+    box-shadow: -1px 0 2px rgba(108, 171, 221, 0.15);
+    z-index: -1;
+  }
+
+  /* 우측 전원 버튼 (눈에 띄지 않는 은은한 디테일) */
+  .mobile-preview::after {
+    content: "";
+    position: absolute;
+    right: -16px;
+    top: 180px;
+    width: 3px;
+    height: 48px;
+    background: #0d1530;
+    border-radius: 0 3px 3px 0;
+    box-shadow: 1px 0 2px rgba(108, 171, 221, 0.15);
+    z-index: -1;
   }
 
   .mobile-preview .mobile-app {
     border-radius: 32px;
-    overflow: hidden;
+    overflow: hidden; /* 내부 스크롤 및 화면 클리핑은 여기서 계속 제어 */
   }
+
 
   .hero__eyebrow {
     font-size: 13px;
