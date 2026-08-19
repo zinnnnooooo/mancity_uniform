@@ -503,17 +503,30 @@
   flex-shrink: 0;
 }
 
-/* 마이페이지 버튼 — Neon Yellow 강조 */
-.loggedin-action-btn--mypage {
+/* 확인 버튼 — Neon Yellow 강조 */
+.loggedin-action-btn--confirm {
   background: var(--yellow, #DFFF00);
   color: #0B1426;
   border-color: var(--yellow, #DFFF00);
   box-shadow: 0 2px 12px rgba(223, 255, 0, 0.3);
 }
 
-.loggedin-action-btn--mypage:hover {
+.loggedin-action-btn--confirm:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(223, 255, 0, 0.45);
+}
+
+/* 마이페이지 버튼 — 투명도 포함한 보조 버튼 */
+.loggedin-action-btn--mypage {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--white, #FFFFFF);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.loggedin-action-btn--mypage:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--white, #FFFFFF);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 /* 로그아웃 버튼 */

@@ -616,9 +616,7 @@ async function _runSocialLogin(provider, onLoginSuccess) {
       );
     }
 
-    if (typeof onLoginSuccess === 'function') {
-      onLoginSuccess(userData);
-    }
+    _handleLoginSuccessTransition(userData, onLoginSuccess);
 
     // 장바구니 Badge 갱신
     if (typeof window.updateCartBadgeCount === 'function') {
@@ -633,6 +631,44 @@ async function _runSocialLogin(provider, onLoginSuccess) {
   } finally {
     _isProcessing = false;
     _setLoadingState(false, provider, socialBtns);
+  }
+}
+
+
+/**
+ * 로그인 성공 후 팝업 대기 및 자동 종료 처리
+ * @param {Object} userData 
+ * @param {Function} onLoginSuccess 
+ */
+function _handleLoginSuccessTransition(userData, onLoginSuccess) {
+  if (typeof onLoginSuccess !== 'function') return;
+
+  let redirected = false;
+
+  // 1.5초 후 자동 종료 타이머
+  const autoCloseTimer = setTimeout(() => {
+    if (!redirected) {
+      redirected = true;
+      onLoginSuccess(userData);
+    }
+  }, 1500);
+
+  // 확인 버튼 및 오버레이 클릭 시 즉시 종료 처리
+  const confirmBtn = loginPageEl ? loginPageEl.querySelector('#btnConfirmLogin') : null;
+  const handleConfirm = (e) => {
+    if (e) e.preventDefault();
+    clearTimeout(autoCloseTimer);
+    if (!redirected) {
+      redirected = true;
+      onLoginSuccess(userData);
+    }
+  };
+
+  if (confirmBtn) {
+    // 기존 리스너 누적 방지를 위해 버튼 클론 및 이벤트 바인딩
+    const newConfirmBtn = confirmBtn.cloneNode(true);
+    confirmBtn.replaceWith(newConfirmBtn);
+    newConfirmBtn.addEventListener('click', handleConfirm);
   }
 }
 
