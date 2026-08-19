@@ -2,11 +2,106 @@
 // UNI:CITY — login.js
 // 소셜 로그인 UI & 상태 관리
 //
-// ★ 실제 SDK 연동은 TODO 주석 위치에 구현하세요.
-//   임의 API Key / 인증 토큰은 이 파일에 없습니다.
+// ★ Google 로그인: Firebase Authentication (signInWithPopup + GoogleAuthProvider)
+//   Kakao / Apple: 기존 스타브유지
 // ==========================================================================
 
 'use strict';
+
+// --------------------------------------------------------------------------
+// 0. Firebase 초기화 — window.ENV 값을 사용 (`env.js`가 먼저 로드되어 있어야 동작)
+// --------------------------------------------------------------------------
+
+/** Firebase 앱 싱글턴 인스턴스 */
+let _firebaseApp = null;
+let _firebaseAuth = null;
+
+/**
+ * Firebase를 초기화하고 auth 인스턴스를 반환합니다.
+ * 이미 초기화되어 있으면 기존 인스턴스를 리턴합니다.
+ * @returns {firebase.auth.Auth|null}
+ */
+function _getFirebaseAuth() {
+  if (_firebaseAuth) return _firebaseAuth;
+
+  if (typeof firebase === 'undefined') {
+    console.error('[Firebase] firebase SDK가 로드되지 않았습니다. index.html의 스크립트 순서를 확인하세요.');
+    return null;
+  }
+
+  const env = window.ENV;
+  if (!env || !env.FIREBASE_API_KEY) {
+    console.error('[Firebase] window.ENV 또는 FIREBASE_API_KEY가 없습니다. env.js를 확인하세요.');
+    return null;
+  }
+
+  try {
+    // 이미 초기화된 앱이 있으면 재사용
+    const existingApps = firebase.apps;
+    if (existingApps && existingApps.length > 0) {
+      _firebaseApp = existingApps[0];
+    } else {
+      _firebaseApp = firebase.initializeApp({
+        apiKey:            env.FIREBASE_API_KEY,
+        authDomain:        env.FIREBASE_AUTH_DOMAIN,
+        projectId:         env.FIREBASE_PROJECT_ID,
+        storageBucket:     env.FIREBASE_STORAGE_BUCKET,
+        messagingSenderId: env.FIREBASE_MESSAGING_SENDER_ID,
+        appId:             env.FIREBASE_APP_ID,
+        measurementId:     env.FIREBASE_MEASUREMENT_ID,
+      });
+    }
+    _firebaseAuth = firebase.auth();
+    console.log('[Firebase] 초기화 성공 ✔');
+    return _firebaseAuth;
+  } catch (err) {
+    console.error('[Firebase] 초기화 실패:', err);
+    return null;
+  }
+}
+
+// --------------------------------------------------------------------------
+// Firebase onAuthStateChanged — 새로고침 후 로그인 상태 유지
+// 로그인 페이지가 마운트되었을 때 호출됨
+// --------------------------------------------------------------------------
+
+/**
+ * Firebase 인증 상태를 구독하여 localStorage와 동기화합니다.
+ * 로그인 페이지를 initLoginPage()로 열었을 때만 리스너를 등록합니다.
+ * @param {Function} onAlreadySignedIn - Firebase 사용자가 이미 로그인된 상태일 때 콜백
+ */
+function _setupAuthStateObserver(onAlreadySignedIn) {
+  const auth = _getFirebaseAuth();
+  if (!auth) return;
+
+  auth.onAuthStateChanged((firebaseUser) => {
+    if (firebaseUser) {
+      // Firebase에 로그인된 사용자가 있음
+      const existingUser = AuthManager.getUser();
+      if (!existingUser || !existingUser.isLoggedIn) {
+        // localStorage에 없는 경우 동기화
+        const userData = {
+          uid:          firebaseUser.uid,
+          provider:     'google',
+          name:         firebaseUser.displayName || 'Google 사용자',
+          email:        firebaseUser.email || null,
+          profileImage: firebaseUser.photoURL || null,
+        };
+        AuthManager.setUser(userData);
+      }
+
+      if (typeof onAlreadySignedIn === 'function') {
+        onAlreadySignedIn(AuthManager.getUser());
+      }
+    } else {
+      // Firebase에 로그인된 사용자가 없음 — Google 로그인 사용자는 localStorage도 정리
+      const existingUser = AuthManager.getUser();
+      if (existingUser && existingUser.provider === 'google') {
+        AuthManager.clearUser();
+      }
+    }
+  });
+}
 
 // --------------------------------------------------------------------------
 // 1. AUTH MANAGER — localStorage 기반 사용자 상태 관리
@@ -79,81 +174,68 @@ window.AuthManager = AuthManager;
 // --------------------------------------------------------------------------
 
 /**
- * Google 로그인 처리
+ * Google 로그인 처리 — Firebase Authentication (signInWithPopup + GoogleAuthProvider)
+ * window.ENV의 Firebase 설정값만 사용합니다. GOOGLE_CLIENT_ID는 사용하지 않습니다.
  * @returns {Promise<Object>} 사용자 정보 객체
- *
- * TODO: 실제 Google OAuth 2.0 또는 Firebase Auth SDK를 연동하세요.
- *       - 방법 A (Firebase):  firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
- *       - 방법 B (Google API): window.google.accounts.id.initialize(...)
  */
 async function handleGoogleLogin() {
-  // GIS SDK 로드 여부 확인
-  if (typeof google === 'undefined' || !google.accounts || !google.accounts.oauth2) {
-    throw new Error('network_Google Identity Services SDK가 로드되지 않았습니다. 인터넷 연결을 확인해주세요.');
+  const auth = _getFirebaseAuth();
+  if (!auth) {
+    throw new Error('network_Firebase Auth를 초기화할 수 없습니다. 인터넷 연결 및 env.js를 확인해주세요.');
   }
 
-  // 클라이언트 ID 확인
-  const clientId = (window.ENV && window.ENV.GOOGLE_CLIENT_ID) || '';
-  if (!clientId || clientId.includes('YOUR_GOOGLE_CLIENT_ID')) {
-    throw new Error('TODO: env.js 파일에 실제 Google 클라이언트 ID를 입력해주세요.\n(env.js → window.ENV.GOOGLE_CLIENT_ID)');
+  const provider = new firebase.auth.GoogleAuthProvider();
+  // 항상 계정 선택 화면을 표시
+  provider.setCustomParameters({ prompt: 'select_account' });
+
+  try {
+    const result = await auth.signInWithPopup(provider);
+    const firebaseUser = result.user;
+
+    console.log('[Google 로그인] Firebase 인증 성공:', firebaseUser.uid);
+
+    return {
+      uid:          firebaseUser.uid,
+      provider:     'google',
+      name:         firebaseUser.displayName || 'Google 사용자',
+      email:        firebaseUser.email || null,
+      profileImage: firebaseUser.photoURL || null,
+    };
+
+  } catch (err) {
+    // Firebase 에러 코드와 메시지를 콘솔에 정확히 출력
+    console.error('[Google 로그인] Firebase 오류 코드:', err.code);
+    console.error('[Google 로그인] Firebase 오류 메시지:', err.message);
+
+    const code = err.code || '';
+
+    // 팝업 닫기 / 취소
+    if (
+      code === 'auth/popup-closed-by-user' ||
+      code === 'auth/cancelled-popup-request' ||
+      code === 'auth/user-cancelled'
+    ) {
+      throw new Error('cancelled');
+    }
+
+    // 승인되지 않은 도메인
+    if (code === 'auth/unauthorized-domain') {
+      throw new Error('unauthorized-domain_이 도메인은 Firebase에 승인되지 않았습니다. Firebase 콘솔 → Authentication → 승인된 도메인에 등록해주세요.');
+    }
+
+    // 팝업 차단
+    if (code === 'auth/popup-blocked') {
+      throw new Error('popup-blocked_팝업이 차단되었습니다. 브라우저에서 팝업을 허용한 후 다시 시도해주세요.');
+    }
+
+    // 네트워크 오류
+    if (code === 'auth/network-request-failed') {
+      throw new Error('network_네트워크 오류가 발생했습니다.');
+    }
+
+    // 기타 Firebase 오류
+    throw new Error(`firebase_${code}: ${err.message}`);
   }
-
-  return new Promise((resolve, reject) => {
-    let settled = false;
-
-    const client = google.accounts.oauth2.initTokenClient({
-      client_id: clientId,
-      scope: 'openid email profile',
-      callback: async (tokenResponse) => {
-        if (settled) return;
-        settled = true;
-
-        // 사용자가 팝업을 닫거나 취소한 경우
-        if (tokenResponse.error) {
-          const errMsg =
-            tokenResponse.error === 'access_denied'
-              ? 'cancelled'
-              : tokenResponse.error;
-          reject(new Error(errMsg));
-          return;
-        }
-
-        try {
-          // userinfo API로 실제 프로필 정보 요청
-          const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-            headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
-          });
-
-          if (!res.ok) {
-            throw new Error(`userinfo 요청 실패: ${res.status}`);
-          }
-
-          const profile = await res.json();
-
-          resolve({
-            uid: `google_${profile.sub}`,
-            provider: 'google',
-            name: profile.name || profile.email || 'Google 사용자',
-            email: profile.email || null,
-            profileImage: profile.picture || null,
-            authToken: tokenResponse.access_token,
-          });
-
-        } catch (fetchErr) {
-          reject(new Error(`fetch_${fetchErr.message}`));
-        }
-      },
-
-      // 에러 콜백 (일부 브라우저에서 팝업 차단 등)
-      error_callback: (err) => {
-        if (settled) return;
-        settled = true;
-        reject(new Error(err.type || 'popup-closed'));
-      },
-    });
-
-    client.requestAccessToken({ prompt: 'select_account' });
-  });
 }
 
 
@@ -353,6 +435,21 @@ function getLoginErrorMessage(err, provider) {
     return '이미 다른 방법으로 가입된 이메일입니다. 다른 로그인 방법을 시도해보세요.';
   }
 
+  // 팝업 차단
+  if (msg.startsWith('popup-blocked_')) {
+    return msg.replace('popup-blocked_', '');
+  }
+
+  // 승인되지 않은 도메인
+  if (msg.startsWith('unauthorized-domain_')) {
+    return msg.replace('unauthorized-domain_', '');
+  }
+
+  // Firebase 기타 오류
+  if (msg.startsWith('firebase_')) {
+    return `${providerName} 인증 오류가 발생했습니다.`;
+  }
+
   return `${providerName} 로그인 중 오류가 발생했습니다.`;
 }
 
@@ -405,6 +502,18 @@ function initLoginPage(options = {}) {
     });
   }
 
+  // ── Firebase 인증 상태 구독 (새로고침 후 로그인 유지) ─────────────────────
+  // Firebase에 이미 로그인된 Google 사용자가 있으면 자동으로 성공 콜백 호출
+  _setupAuthStateObserver((autoUser) => {
+    _renderViewState();
+    if (typeof onLoginSuccess === 'function') {
+      onLoginSuccess(autoUser);
+    }
+    if (typeof window.updateCartBadgeCount === 'function') {
+      window.updateCartBadgeCount();
+    }
+  });
+
   // ── 로그인 후 마이페이지 이동 ────────────────────────────────────────────
   const myPageBtn = loginPageEl.querySelector('#btnGoMyPage');
   if (myPageBtn) {
@@ -415,10 +524,21 @@ function initLoginPage(options = {}) {
     });
   }
 
-  // ── 로그아웃 ────────────────────────────────────────────────────────────
+  // ── 로그아웃: Firebase signOut() + localStorage 정리 ────────────────────
   const logoutBtn = loginPageEl.querySelector('#btnLogout');
   if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
+    logoutBtn.addEventListener('click', async () => {
+      // Firebase signOut (Google 로그인 사용자)
+      const auth = _getFirebaseAuth();
+      if (auth) {
+        try {
+          await auth.signOut();
+          console.log('[Firebase] 로그아웃 성공');
+        } catch (signOutErr) {
+          console.error('[Firebase] 로그아웃 실패:', signOutErr);
+        }
+      }
+      // localStorage 정리
       AuthManager.clearUser();
       _renderViewState();
       if (typeof onLogout === 'function') {

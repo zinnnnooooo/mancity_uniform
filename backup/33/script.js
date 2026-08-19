@@ -50,22 +50,10 @@ function renderAccountButton(containerId) {
 
   const btn = document.getElementById(`${containerId}Btn`);
   if (btn) {
-    btn.addEventListener('click', async (e) => {
+    btn.addEventListener('click', (e) => {
       e.preventDefault();
       if (isLoggedIn) {
-        // 로그아웃 처리: Firebase signOut (Google 사용자) + localStorage 정리
-        const currentUser = (typeof AuthManager !== 'undefined') ? AuthManager.getUser() : null;
-        const isGoogleUser = currentUser && currentUser.provider === 'google';
-
-        if (isGoogleUser && typeof firebase !== 'undefined') {
-          try {
-            await firebase.auth().signOut();
-            console.log('[Firebase] 햄버거 메뉴 로그아웃 성공');
-          } catch (err) {
-            console.error('[Firebase] 햄버거 메뉴 로그아웃 실패:', err);
-          }
-        }
-
+        // 로그아웃 처리
         if (typeof AuthManager !== 'undefined') {
           AuthManager.clearUser();
         } else {
@@ -822,79 +810,15 @@ async function _loadLoginGate() {
 }
 
 /**
- * 최초 진입 시 Firebase 인증 상태를 확인하고 필요하면 게이트를 표시합니다.
- * Firebase onAuthStateChanged로 실제 인증 여부를 확인합니다.
+ * 최초 진입 시 로그인 상태를 확인하고 필요하면 게이트를 표시합니다.
  * script.js 초기화 구간에서 호출됩니다.
  */
 function initAuthGate() {
-  // Firebase SDK가 로드되어 있고 ENV가 준비된 경우: Firebase 인증 상태 우선 확인
-  if (typeof firebase !== 'undefined' && window.ENV && window.ENV.FIREBASE_API_KEY) {
-    try {
-      // Firebase 앱 초기화 (이미 초기화된 경우 재사용)
-      let fbApp;
-      if (firebase.apps && firebase.apps.length > 0) {
-        fbApp = firebase.apps[0];
-      } else {
-        fbApp = firebase.initializeApp({
-          apiKey:            window.ENV.FIREBASE_API_KEY,
-          authDomain:        window.ENV.FIREBASE_AUTH_DOMAIN,
-          projectId:         window.ENV.FIREBASE_PROJECT_ID,
-          storageBucket:     window.ENV.FIREBASE_STORAGE_BUCKET,
-          messagingSenderId: window.ENV.FIREBASE_MESSAGING_SENDER_ID,
-          appId:             window.ENV.FIREBASE_APP_ID,
-          measurementId:     window.ENV.FIREBASE_MEASUREMENT_ID,
-        });
-      }
-
-      const auth = firebase.auth();
-      let gateChecked = false;
-
-      auth.onAuthStateChanged((firebaseUser) => {
-        if (gateChecked) return; // 최초 1회만 처리
-        gateChecked = true;
-
-        if (firebaseUser) {
-          // Firebase에 로그인된 사용자가 있음 → localStorage 동기화 후 게이트 없이 진입
-          const existing = (typeof AuthManager !== 'undefined') ? AuthManager.getUser() : null;
-          if (!existing || !existing.isLoggedIn) {
-            if (typeof AuthManager !== 'undefined') {
-              AuthManager.setUser({
-                uid:          firebaseUser.uid,
-                provider:     'google',
-                name:         firebaseUser.displayName || 'Google 사용자',
-                email:        firebaseUser.email || null,
-                profileImage: firebaseUser.photoURL || null,
-              });
-            }
-          }
-          // 로그인 상태 → 게이트 없이 홈 화면 표시 (기본 홈 콘텐츠가 이미 로드됨)
-          console.log('[AuthGate] Firebase 로그인 확인 — 게이트 생략');
-        } else {
-          // Firebase에 로그인 없음 → 로그인 게이트 표시
-          if (typeof AuthManager !== 'undefined') {
-            const localUser = AuthManager.getUser();
-            if (localUser && localUser.provider === 'google') {
-              // localStorage에 Google 사용자가 있는데 Firebase에 없으면 정리
-              AuthManager.clearUser();
-            }
-          }
-          _loadLoginGate();
-        }
-      });
-    } catch (err) {
-      console.error('[AuthGate] Firebase 초기화 오류:', err);
-      // Firebase 오류 시 기존 localStorage 방식으로 fallback
-      const isLoggedIn = (typeof AuthManager !== 'undefined') ? AuthManager.isLoggedIn() : false;
-      if (!isLoggedIn) {
-        _loadLoginGate();
-      }
-    }
-  } else {
-    // Firebase SDK 미로드 시: localStorage 기반 fallback
-    const isLoggedIn = (typeof AuthManager !== 'undefined') ? AuthManager.isLoggedIn() : false;
-    if (!isLoggedIn) {
-      _loadLoginGate();
-    }
+  const isLoggedIn = (typeof AuthManager !== 'undefined')
+    ? AuthManager.isLoggedIn()
+    : false;
+  if (!isLoggedIn) {
+    _loadLoginGate();
   }
 }
 
