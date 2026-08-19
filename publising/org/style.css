@@ -416,13 +416,20 @@ img {
   flex-direction: column;
   gap: 4px;
   cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
 }
 
 .product-card__image {
   width: 100%;
   aspect-ratio: 1 / 1;
   margin-bottom: 4px;
+  transition: box-shadow 0.25s ease, background-color 0.25s ease;
 }
+
 
 .product-card__season {
   font-size: 10px;
@@ -1152,13 +1159,27 @@ img {
 .product-card {
   background: rgba(255, 255, 255, 0.02);
   cursor: pointer;
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.product-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px);
 }
 
 .product-card__image {
   position: relative;
   border-radius: 4px;
   background: radial-gradient(circle at 50% 40%, rgba(108, 171, 221, 0.28), rgba(16, 25, 59, 0.1) 70%);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
 }
+
+.product-card:hover .product-card__image {
+  box-shadow: 
+    0 6px 20px rgba(108, 171, 221, 0.25),
+    0 0 0 1px rgba(108, 171, 221, 0.35);
+}
+
 
 .product-card:nth-child(1) .product-card__image {
   background: radial-gradient(circle at 50% 38%, rgba(108, 171, 221, 0.38), rgba(16, 25, 59, 0.05) 72%);

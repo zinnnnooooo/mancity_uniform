@@ -190,6 +190,12 @@
 .product-card {
   display: flex;
   flex-direction: column;
+  transition: transform 0.25s ease;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
 }
 
 .product-media {
@@ -202,7 +208,20 @@
   justify-content: center;
   background: radial-gradient(ellipse at 50% 30%, var(--kit-glow, #223247), transparent 65%),
     linear-gradient(160deg, #101c2c 0%, #060b12 100%);
+  border: 1px solid transparent;
+  transition: background 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  box-sizing: border-box;
 }
+
+.product-card:hover .product-media {
+  background: radial-gradient(ellipse at 50% 30%, var(--kit-glow, #2d3f57), transparent 65%),
+    linear-gradient(160deg, #1a293c 0%, #0c131e 100%);
+  border-color: rgba(108, 171, 221, 0.45);
+  box-shadow: 
+    0 6px 20px rgba(108, 171, 221, 0.25),
+    0 0 0 1px rgba(108, 171, 221, 0.2) inset;
+}
+
 
 .product-jersey {
   width: 56%;

@@ -436,11 +436,21 @@
   background: transparent;
   border-radius: 10px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.pd-action-bar__cart:hover {
+  background: rgba(108, 171, 221, 0.08);
+  border-color: rgba(108, 171, 221, 0.6);
+  box-shadow: 
+    0 6px 16px rgba(108, 171, 221, 0.15),
+    0 0 0 0.5px rgba(108, 171, 221, 0.1) inset;
+  transform: translateY(-2px);
 }
 
 .pd-action-bar__cart:active {
   background: rgba(108, 171, 221, 0.15);
+  transform: translateY(0);
 }
 
 .pd-action-bar__buy {
@@ -450,16 +460,26 @@
   font-weight: 900;
   background: #DFFF00 !important;
   color: #0c1826 !important;
-  border: none;
+  border: 1px solid transparent;
   border-radius: 10px;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(223, 255, 0, 0.25);
-  transition: transform 0.1s ease;
+  transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.pd-action-bar__buy:hover {
+  background: #E8FF33 !important;
+  border-color: rgba(108, 171, 221, 0.35);
+  box-shadow: 
+    0 6px 16px rgba(223, 255, 0, 0.35),
+    0 0 10px rgba(108, 171, 221, 0.2);
+  transform: translateY(-2px);
 }
 
 .pd-action-bar__buy:active {
-  transform: scale(0.98);
+  transform: translateY(0) scale(0.98);
 }
+
 
 /* ---------- 하단 장바구니 담기 완료 팝업 (곡률 적용) ---------- */
 .cart-modal-backdrop {

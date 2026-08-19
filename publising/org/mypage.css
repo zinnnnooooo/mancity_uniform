@@ -167,7 +167,7 @@ body.mypage-page-body .app-frame.mypage {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  transition: background 200ms ease, border-color 200ms ease, transform 180ms ease;
+  transition: background 250ms ease, border-color 250ms ease, transform 250ms ease, box-shadow 250ms ease;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(255,255,255,0.04) inset;
 }
 
@@ -175,12 +175,16 @@ body.mypage-page-body .app-frame.mypage {
   background: var(--mypage-panel-hover);
   border-color: rgba(108, 171, 221, 0.35);
   transform: translateY(-2px);
+  box-shadow: 
+    0 6px 20px rgba(108, 171, 221, 0.25),
+    0 0 0 0.5px rgba(108, 171, 221, 0.1) inset;
 }
 
 .summary-card:active {
-  transform: scale(0.97);
+  transform: translateY(0) scale(0.97);
   background: var(--mypage-panel-dark);
 }
+
 
 .summary-card strong {
   font-size: 24px;
@@ -323,19 +327,23 @@ body.mypage-page-body .app-frame.mypage {
   border-radius: 14px;
   gap: 14px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2), 0 0 0 0.5px rgba(255,255,255,0.04) inset;
-  transition: background 200ms ease, border-color 200ms ease, transform 180ms ease;
+  transition: background 250ms ease, border-color 250ms ease, transform 250ms ease, box-shadow 250ms ease;
 }
 
 .menu-row:hover {
   background: var(--mypage-panel-hover);
-  border-color: rgba(108, 171, 221, 0.32);
-  transform: translateY(-1px);
+  border-color: rgba(108, 171, 221, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 20px rgba(108, 171, 221, 0.25),
+    0 0 0 0.5px rgba(108, 171, 221, 0.1) inset;
 }
 
 .menu-row:active {
-  transform: scale(0.97);
+  transform: translateY(0) scale(0.97);
   background: var(--mypage-panel-dark);
 }
+
 
 .menu-icon {
   display: flex;
