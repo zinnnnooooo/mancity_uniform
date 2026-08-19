@@ -83,14 +83,32 @@ body.checkout-page-body .app-frame {
   font-weight: 700;
   padding: 4px 10px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+}
+
+.co-addr-tab:hover {
+  transform: translateY(-2px);
+}
+
+.co-addr-tab:not(.is-active):hover {
+  background: rgba(108, 171, 221, 0.12);
+  border-color: rgba(108, 171, 221, 0.55);
+  box-shadow: 
+    0 4px 12px rgba(108, 171, 221, 0.15),
+    0 0 0 0.5px rgba(108, 171, 221, 0.1) inset;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.co-addr-tab:active {
+  transform: translateY(0);
 }
 
 .co-addr-tab.is-active {
-  background: rgba(108, 171, 221, 0.2);
-  border-color: #6CABDD;
-  color: #6CABDD;
+  background: rgba(108, 171, 221, 0.2) !important;
+  border-color: #6CABDD !important;
+  color: #6CABDD !important;
 }
+
 
 .co-card {
   padding: 16px 18px;
@@ -200,10 +218,20 @@ body.checkout-page-body .app-frame {
   border-radius: 8px;
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.2s ease;
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.co-search-addr-btn:hover {
+  background: rgba(29, 46, 96, 0.85);
+  border-color: rgba(108, 171, 221, 0.6);
+  box-shadow: 
+    0 4px 12px rgba(108, 171, 221, 0.2),
+    0 0 0 0.5px rgba(108, 171, 221, 0.1) inset;
+  transform: translateY(-2px);
 }
 
 .co-search-addr-btn:active {
+  transform: translateY(0);
   background: #253b75;
 }
 
@@ -214,15 +242,26 @@ body.checkout-page-body .app-frame {
   color: #10193B;
   font-size: 13px;
   font-weight: 800;
-  border: none;
+  border: 1px solid transparent;
   border-radius: 8px;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.co-submit-addr-btn:hover {
+  background-color: #8cc4ee;
+  border-color: rgba(108, 171, 221, 0.45);
+  box-shadow: 
+    0 6px 16px rgba(108, 171, 221, 0.3),
+    0 0 10px rgba(108, 171, 221, 0.2);
+  transform: translateY(-2px);
 }
 
 .co-submit-addr-btn:active {
+  transform: translateY(0);
   opacity: 0.85;
 }
+
 
 /* 드롭다운 공통 */
 .co-dropdown {
@@ -517,14 +556,23 @@ body.checkout-page-body .app-frame {
   border-radius: 8px;
   font-size: 14px;
   font-weight: 800;
-  border: none;
+  border: 1px solid transparent;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(223, 255, 0, 0.25);
-  transition: transform 0.1s ease;
+  transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.co-opt-modal__submit-btn:hover {
+  background: #E8FF33 !important;
+  border-color: rgba(108, 171, 221, 0.35);
+  box-shadow: 
+    0 6px 16px rgba(223, 255, 0, 0.35),
+    0 0 10px rgba(108, 171, 221, 0.2);
+  transform: translateY(-2px);
 }
 
 .co-opt-modal__submit-btn:active {
-  transform: scale(0.98);
+  transform: translateY(0) scale(0.98);
 }
 
 /* ---------- 결제 수단 그리드 ---------- */
@@ -547,14 +595,31 @@ body.checkout-page-body .app-frame {
   justify-content: center;
   gap: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+}
+
+.co-pay-btn:hover {
+  transform: translateY(-2px);
+}
+
+.co-pay-btn:not(.is-active):hover {
+  background: rgba(22, 34, 74, 0.85);
+  border-color: rgba(108, 171, 221, 0.45);
+  box-shadow: 
+    0 4px 12px rgba(108, 171, 221, 0.15),
+    0 0 0 0.5px rgba(108, 171, 221, 0.1) inset;
+}
+
+.co-pay-btn:active {
+  transform: translateY(0);
 }
 
 .co-pay-btn.is-active {
-  border-color: #6CABDD;
-  background: rgba(108, 171, 221, 0.15);
-  color: #fff;
+  border-color: #6CABDD !important;
+  background: rgba(108, 171, 221, 0.15) !important;
+  color: #fff !important;
 }
+
 
 /* ---------- 결제 금액 요약 패널 ---------- */
 .co-summary-panel {
@@ -686,15 +751,25 @@ body.checkout-page-body .app-frame {
   border-radius: 8px;
   font-size: 15px;
   font-weight: 900;
-  border: none;
+  border: 1px solid transparent;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(223, 255, 0, 0.25);
-  transition: transform 0.1s ease;
+  transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.co-cta-btn:hover {
+  background: #E8FF33 !important;
+  border-color: rgba(108, 171, 221, 0.35);
+  box-shadow: 
+    0 6px 16px rgba(223, 255, 0, 0.35),
+    0 0 10px rgba(108, 171, 221, 0.2);
+  transform: translateY(-2px);
 }
 
 .co-cta-btn:active {
-  transform: scale(0.98);
+  transform: translateY(0) scale(0.98);
 }
+
 
 /* ---------- 모달 공통 오버레이 ---------- */
 .co-modal {

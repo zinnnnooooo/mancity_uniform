@@ -216,19 +216,32 @@
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .pd-size-btn:hover {
-  border-color: rgba(108, 171, 221, 0.5);
+  transform: translateY(-2px);
+}
+
+.pd-size-btn:not(.is-active):hover {
+  background: rgba(108, 171, 221, 0.12);
+  border-color: rgba(108, 171, 221, 0.55);
+  box-shadow: 
+    0 4px 12px rgba(108, 171, 221, 0.15),
+    0 0 0 0.5px rgba(108, 171, 221, 0.1) inset;
+}
+
+.pd-size-btn:active {
+  transform: translateY(0);
 }
 
 .pd-size-btn.is-active {
-  background: var(--color-sky-blue);
-  border-color: var(--color-sky-blue);
-  color: var(--color-white);
-  box-shadow: 0 0 14px rgba(108, 171, 221, 0.35);
+  background: var(--color-sky-blue) !important;
+  border-color: var(--color-sky-blue) !important;
+  color: var(--color-white) !important;
+  box-shadow: 0 0 14px rgba(108, 171, 221, 0.35) !important;
 }
+
 
 /* 드롭다운 (마킹 / 패치 - 곡률 적용) */
 .pd-dropdown {
@@ -251,12 +264,26 @@
   justify-content: space-between;
   cursor: pointer;
   box-sizing: border-box;
-  transition: border-color 0.2s ease;
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.pd-dropdown:not(.is-open) .pd-dropdown__trigger:hover {
+  background: rgba(22, 42, 66, 0.85);
+  border-color: rgba(108, 171, 221, 0.45);
+  box-shadow: 
+    0 4px 12px rgba(108, 171, 221, 0.15),
+    0 0 0 0.5px rgba(108, 171, 221, 0.1) inset;
+  transform: translateY(-2px);
+}
+
+.pd-dropdown__trigger:active {
+  transform: translateY(0);
 }
 
 .pd-dropdown.is-open .pd-dropdown__trigger {
   border-color: var(--color-sky-blue);
 }
+
 
 .pd-dropdown__icon {
   width: 18px;
@@ -300,9 +327,10 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
   justify-content: space-between;
   box-sizing: border-box;
-  transition: background 0.15s ease;
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
 .pd-dropdown__item:hover,
@@ -311,6 +339,7 @@
   color: var(--color-white);
   font-weight: 700;
 }
+
 
 /* 수량 스텝퍼 (곡률 적용) */
 .pd-qty-stepper {

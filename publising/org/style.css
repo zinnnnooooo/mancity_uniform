@@ -1147,7 +1147,23 @@ img {
   border: 1px solid var(--hairline);
   color: var(--muted);
   font-weight: 600;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.filter-tab:hover {
+  transform: translateY(-2px);
+}
+
+.filter-tab:not(.is-active):hover {
+  background: rgba(108, 171, 221, 0.08);
+  border-color: rgba(108, 171, 221, 0.45);
+  box-shadow: 
+    0 4px 12px rgba(108, 171, 221, 0.15),
+    0 0 0 0.5px rgba(108, 171, 221, 0.1) inset;
+}
+
+.filter-tab:active {
+  transform: translateY(0);
 }
 
 .filter-tab.is-active {
@@ -1155,6 +1171,7 @@ img {
   border-color: var(--sky);
   color: var(--navy-deep);
 }
+
 
 .product-card {
   background: rgba(255, 255, 255, 0.02);

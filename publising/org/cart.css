@@ -116,12 +116,23 @@ body.cart-page-body .app-frame {
   font-weight: 700;
   border: 1px solid rgba(108, 171, 221, 0.2);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cart-delete-btn:hover {
+  background: rgba(22, 34, 74, 0.85);
+  border-color: rgba(108, 171, 221, 0.55);
+  box-shadow: 
+    0 4px 12px rgba(108, 171, 221, 0.15),
+    0 0 0 0.5px rgba(108, 171, 221, 0.1) inset;
+  transform: translateY(-2px);
 }
 
 .cart-delete-btn:active {
+  transform: translateY(0);
   opacity: 0.8;
 }
+
 
 /* ---------- 장바구니 상품 리스트 ---------- */
 .cart-list {
@@ -350,12 +361,21 @@ body.cart-page-body .app-frame {
   border-radius: 8px;
   font-size: 15px;
   font-weight: 800;
-  border: none;
+  border: 1px solid transparent;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(223, 255, 0, 0.25);
-  transition: opacity 0.2s ease, transform 0.1s ease;
+  transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cart-cta-btn:hover {
+  background: #E8FF33 !important;
+  border-color: rgba(108, 171, 221, 0.35);
+  box-shadow: 
+    0 6px 16px rgba(223, 255, 0, 0.35),
+    0 0 10px rgba(108, 171, 221, 0.2);
+  transform: translateY(-2px);
 }
 
 .cart-cta-btn:active {
-  transform: scale(0.98);
+  transform: translateY(0) scale(0.98);
 }
