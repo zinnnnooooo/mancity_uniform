@@ -29,6 +29,71 @@ function _deactivateLoginUI() {
 }
 
 /**
+ * 로그아웃 확인 팝업창을 모바일 프리뷰에 표시합니다.
+ * @param {Function} onConfirm 예 버튼을 눌렀을 때 실행될 콜백 함수
+ */
+function showLogoutConfirmPopup(onConfirm) {
+  if (typeof onConfirm !== 'function') return;
+
+  // 기존 팝업 제거 (중복 방지)
+  const existing = document.getElementById('logoutConfirmOverlay');
+  if (existing) existing.remove();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'logoutConfirmOverlay';
+  overlay.className = 'logout-confirm-overlay';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.innerHTML = `
+    <div class="logout-confirm-popup">
+      <p class="logout-confirm-popup__text">정말 로그아웃 하시겠습니까?</p>
+      <div class="logout-confirm-popup__buttons">
+        <button type="button" class="logout-confirm-btn logout-confirm-btn--no" id="logoutNoBtn">아니오</button>
+        <button type="button" class="logout-confirm-btn logout-confirm-btn--yes" id="logoutYesBtn">예</button>
+      </div>
+    </div>
+  `;
+
+  const mobilePreview = document.querySelector('.mobile-preview');
+  const mountTarget = mobilePreview || document.body;
+  mountTarget.appendChild(overlay);
+
+  // 애니메이션 프레임 적용
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      overlay.classList.add('is-visible');
+    });
+  });
+
+  const closePopup = () => {
+    overlay.classList.remove('is-visible');
+    overlay.classList.add('is-hiding');
+    setTimeout(() => {
+      overlay.remove();
+    }, 280);
+  };
+
+  // 아니오 버튼 바인딩
+  const noBtn = overlay.querySelector('#logoutNoBtn');
+  if (noBtn) {
+    noBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      closePopup();
+    });
+  }
+
+  // 예 버튼 바인딩
+  const yesBtn = overlay.querySelector('#logoutYesBtn');
+  if (yesBtn) {
+    yesBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      closePopup();
+      onConfirm();
+    });
+  }
+}
+
+/**
  * 로그인/로그아웃 버튼 렌더링 및 상태 동기화
  * @param {string} containerId
  */
@@ -53,39 +118,42 @@ function renderAccountButton(containerId) {
     btn.addEventListener('click', async (e) => {
       e.preventDefault();
       if (isLoggedIn) {
-        // 로그아웃 처리: Firebase signOut (Google 사용자) + localStorage 정리
-        const currentUser = (typeof AuthManager !== 'undefined') ? AuthManager.getUser() : null;
-        const isGoogleUser = currentUser && currentUser.provider === 'google';
+        // 즉시 로그아웃 하지 않고 확인 팝업 띄움
+        showLogoutConfirmPopup(async () => {
+          // 로그아웃 처리: Firebase signOut (Google 사용자) + localStorage 정리
+          const currentUser = (typeof AuthManager !== 'undefined') ? AuthManager.getUser() : null;
+          const isGoogleUser = currentUser && currentUser.provider === 'google';
 
-        if (isGoogleUser && typeof firebase !== 'undefined') {
-          try {
-            await firebase.auth().signOut();
-            console.log('[Firebase] 햄버거 메뉴 로그아웃 성공');
-          } catch (err) {
-            console.error('[Firebase] 햄버거 메뉴 로그아웃 실패:', err);
+          if (isGoogleUser && typeof firebase !== 'undefined') {
+            try {
+              await firebase.auth().signOut();
+              console.log('[Firebase] 햄버거 메뉴 로그아웃 성공');
+            } catch (err) {
+              console.error('[Firebase] 햄버거 메뉴 로그아웃 실패:', err);
+            }
           }
-        }
 
-        if (typeof AuthManager !== 'undefined') {
-          AuthManager.clearUser();
-        } else {
-          localStorage.removeItem('unicity_user');
-        }
+          if (typeof AuthManager !== 'undefined') {
+            AuthManager.clearUser();
+          } else {
+            localStorage.removeItem('unicity_user');
+          }
 
-        // 장바구니 Badge 갱신
-        if (typeof updateCartBadgeCount === 'function') {
-          updateCartBadgeCount();
-        }
+          // 장바구니 Badge 갱신
+          if (typeof updateCartBadgeCount === 'function') {
+            updateCartBadgeCount();
+          }
 
-        // 햄버거 메뉴 닫기
-        if (typeof closeMobileMenu === 'function') {
-          closeMobileMenu();
-        }
+          // 햄버거 메뉴 닫기
+          if (typeof closeMobileMenu === 'function') {
+            closeMobileMenu();
+          }
 
-        // 로그인 페이지 로드 (자동으로 UI 클래스가 추가되어 숨겨짐)
-        if (typeof loadLoginPage === 'function') {
-          loadLoginPage();
-        }
+          // 로그인 페이지 로드 (자동으로 UI 클래스가 추가되어 숨겨짐)
+          if (typeof loadLoginPage === 'function') {
+            loadLoginPage();
+          }
+        });
       } else {
         // 로그인 처리 (로그인 화면으로 이동)
         if (typeof closeMobileMenu === 'function') {
@@ -98,6 +166,7 @@ function renderAccountButton(containerId) {
     });
   }
 }
+
 
 /**
  * 상단 왼쪽 햄버거/뒤로가기 버튼 갱신
