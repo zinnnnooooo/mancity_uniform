@@ -502,6 +502,19 @@ function initLoginPage(options = {}) {
     });
   }
 
+  // ── 오버레이 클릭 (비회원 둘러보기와 동일 동작) ───────────────────────────
+  const overlay = loginPageEl.querySelector('#loginOverlay');
+  if (overlay) {
+    overlay.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (guestBtn) {
+        guestBtn.click();
+      } else if (typeof onGuest === 'function') {
+        onGuest();
+      }
+    });
+  }
+
   // ── Firebase 인증 상태 구독 (새로고침 후 로그인 유지) ─────────────────────
   // Firebase에 이미 로그인된 Google 사용자가 있으면 자동으로 성공 콜백 호출
   _setupAuthStateObserver((autoUser) => {
