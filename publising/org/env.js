@@ -24,7 +24,7 @@ window.ENV = {
 
   // ── Kakao ────────────────────────────────────────────────
   KAKAO_JAVASCRIPT_KEY: "9a69535ba0855ef8112e6d0c5a4b15bd",
-  KAKAO_REDIRECT_URI: "YOUR_KAKAO_REDIRECT_URI",
+  KAKAO_REDIRECT_URI: "https://mancity-uniform-6xku.vercel.app/publising/org/kakao_callback.html",
 
   // ── Apple ────────────────────────────────────────────────
   APPLE_CLIENT_ID: "YOUR_APPLE_CLIENT_ID",
