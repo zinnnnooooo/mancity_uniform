@@ -378,7 +378,8 @@ body.mypage-page-body .app-frame.mypage {
 .mypage-page-content .account-btn-container {
   margin: 28px 20px 0;   /* 고객센터 버튼과 간격 확보 */
   padding: 0;
-  justify-content: stretch;
+  width: auto;           /* style.css의 width: 100% 덮어쓰기 */
+  display: block;        /* style.css의 display: flex 덮어쓰기 */
 }
 
 .mypage-page-content .account-btn-container .account-btn {
