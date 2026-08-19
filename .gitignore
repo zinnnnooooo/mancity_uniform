@@ -1,16 +1,16 @@
 # 의존성
 node_modules/
 
-# 환경 변수
+# 환경 변수 (서버용 secret — 절대 커밋 금지)
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# 로컬 환경 변수 (Google Client ID 등 API 키 보관 — 절대 커밋 금지)
-env.js
-publising/org/env.js
+# NOTE: publising/org/env.js 는 Firebase Web Config(클라이언트 공개값)를 포함하므로
+#       .gitignore에서 제외하여 Vercel 배포에 포함시킵니다.
+#       Kakao JS Key / Apple Client ID 등 미발급 값은 'YOUR_...' 플레이스홀더로 유지합니다.
 
 # 빌드 결과물
 dist/
