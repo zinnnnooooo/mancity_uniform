@@ -519,6 +519,10 @@ function initLoginPage(options = {}) {
   // Firebase에 이미 로그인된 Google 사용자가 있으면 자동으로 성공 콜백 호출
   _setupAuthStateObserver((autoUser) => {
     _renderViewState();
+    if (_isProcessing) {
+      console.log('[AuthObserver] 활성 로그인 진행 중 - 즉시 리다이렉션 방지');
+      return;
+    }
     if (typeof onLoginSuccess === 'function') {
       onLoginSuccess(autoUser);
     }
