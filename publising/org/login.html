@@ -139,38 +139,40 @@
 
     <!-- ========================= LOGGED-IN VIEW ========================= -->
     <div class="loggedin-view" id="loggedinView" hidden>
+      <div class="login-success-popup">
 
-      <!-- 프로필 카드 -->
-      <div class="login-profile-card">
-        <div class="login-profile__avatar" id="loginProfileAvatar" aria-hidden="true">
-          <!-- 프로필 이미지 or 이니셜 -->
-          <span class="login-profile__initial" id="loginProfileInitial">C</span>
+        <!-- 프로필 카드 -->
+        <div class="login-profile-card">
+          <div class="login-profile__avatar" id="loginProfileAvatar" aria-hidden="true">
+            <!-- 프로필 이미지 or 이니셜 -->
+            <span class="login-profile__initial" id="loginProfileInitial">C</span>
+          </div>
+
+          <div class="login-profile__info">
+            <p class="login-profile__name" id="loginProfileName">CITY FAN</p>
+            <p class="login-profile__email" id="loginProfileEmail">—</p>
+            <span class="login-profile__badge" id="loginProfileBadge">
+              <!-- provider 뱃지: google / kakao / apple -->
+            </span>
+          </div>
         </div>
 
-        <div class="login-profile__info">
-          <p class="login-profile__name" id="loginProfileName">CITY FAN</p>
-          <p class="login-profile__email" id="loginProfileEmail">—</p>
-          <span class="login-profile__badge" id="loginProfileBadge">
-            <!-- provider 뱃지: google / kakao / apple -->
-          </span>
+        <!-- 로그인 후 액션 버튼들 -->
+        <div class="loggedin-actions">
+          <button class="loggedin-action-btn loggedin-action-btn--confirm" id="btnConfirmLogin" type="button">
+            확인
+          </button>
+          <button class="loggedin-action-btn loggedin-action-btn--mypage" id="btnGoMyPage" type="button">
+            <span class="loggedin-action-btn__icon" aria-hidden="true">👤</span>
+            마이페이지로 이동
+          </button>
+          <button class="loggedin-action-btn loggedin-action-btn--logout" id="btnLogout" type="button">
+            <span class="loggedin-action-btn__icon" aria-hidden="true">→</span>
+            로그아웃
+          </button>
         </div>
-      </div>
 
-      <!-- 로그인 후 액션 버튼들 -->
-      <div class="loggedin-actions">
-        <button class="loggedin-action-btn loggedin-action-btn--confirm" id="btnConfirmLogin" type="button">
-          확인
-        </button>
-        <button class="loggedin-action-btn loggedin-action-btn--mypage" id="btnGoMyPage" type="button">
-          <span class="loggedin-action-btn__icon" aria-hidden="true">👤</span>
-          마이페이지로 이동
-        </button>
-        <button class="loggedin-action-btn loggedin-action-btn--logout" id="btnLogout" type="button">
-          <span class="loggedin-action-btn__icon" aria-hidden="true">→</span>
-          로그아웃
-        </button>
       </div>
-
     </div><!-- /#loggedinView -->
 
 

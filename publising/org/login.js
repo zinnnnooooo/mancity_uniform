@@ -645,13 +645,13 @@ function _handleLoginSuccessTransition(userData, onLoginSuccess) {
 
   let redirected = false;
 
-  // 1.5초 후 자동 종료 타이머
+  // 2.0초 후 자동 종료 타이머
   const autoCloseTimer = setTimeout(() => {
     if (!redirected) {
       redirected = true;
       onLoginSuccess(userData);
     }
-  }, 1500);
+  }, 2000);
 
   // 확인 버튼 및 오버레이 클릭 시 즉시 종료 처리
   const confirmBtn = loginPageEl ? loginPageEl.querySelector('#btnConfirmLogin') : null;
