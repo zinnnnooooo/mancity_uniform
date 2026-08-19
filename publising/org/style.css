@@ -2076,17 +2076,27 @@ img {
   -webkit-backdrop-filter: blur(16px) saturate(140%);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   user-select: none;
   box-sizing: border-box;
 }
 
+.mq-btn:hover {
+  background: rgba(40, 60, 120, 0.55);
+  border-color: rgba(108, 171, 221, 0.45);
+  box-shadow: 
+    0 6px 20px rgba(108, 171, 221, 0.2),
+    0 0 0 0.5px rgba(108, 171, 221, 0.1) inset;
+  transform: translateY(-2px);
+}
+
 .mq-btn:active {
-  transform: scale(0.97);
+  transform: translateY(0) scale(0.97);
   background: rgba(28, 44, 91, 0.65);
   border-color: rgba(108, 171, 221, 0.35);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
 
 /* --------------------------------------------------------------------------
    LOGOUT CONFIRM POPUP (로그아웃 확인 중앙 팝업 및 오버레이)
