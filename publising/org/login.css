@@ -24,15 +24,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 40px 20px 32px;
   gap: 0;
   min-height: 100%;
+  box-sizing: border-box;
 }
 
 /* --------------------------------------------------------------------------
    BRAND AREA
    -------------------------------------------------------------------------- */
 .login-brand {
+  position: relative;
+  z-index: 100;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -80,9 +84,13 @@
    LOGIN CARD (Liquid Glass)
    -------------------------------------------------------------------------- */
 .login-card {
-  width: calc(100% - 40px);
+  position: relative;
+  z-index: 100;
+  width: 100%;
   max-width: 360px;
-  background: #1C2C5B;
+  background: rgba(28, 44, 91, 0.55);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
   border: 1px solid rgba(108, 171, 221, 0.22);
   border-radius: 20px;
   padding: 28px 24px 24px;
@@ -93,11 +101,6 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 100;
 }
 
 .login-overlay {
@@ -316,6 +319,8 @@
    PRIVACY NOTE
    -------------------------------------------------------------------------- */
 .login-privacy {
+  position: relative;
+  z-index: 100;
   margin-top: 20px;
   font-size: 11px;
   color: rgba(234, 240, 250, 0.35);
@@ -343,12 +348,18 @@
    LOGGED-IN VIEW
    -------------------------------------------------------------------------- */
 .loggedin-view {
+  position: fixed;
+  inset: 0;
+  background: rgba(16, 25, 59, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 200;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 48px 20px 32px;
+  justify-content: center;
+  padding: 20px;
   gap: 24px;
-  min-height: 100%;
 }
 
 .loggedin-view[hidden] {

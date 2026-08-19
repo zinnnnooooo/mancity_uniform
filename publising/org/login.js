@@ -653,7 +653,7 @@ function _renderViewState() {
 
   if (user && user.isLoggedIn) {
     // 로그인 후 뷰
-    if (loginView)    loginView.hidden = true;
+    if (loginView)    loginView.hidden = false;
     if (loggedinView) loggedinView.hidden = false;
     _renderProfileCard(user);
   } else {
