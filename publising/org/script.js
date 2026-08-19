@@ -1242,7 +1242,32 @@ function initMainMobileInteractions() {
       }
     });
   });
+
+  // Mobile quick nav '유니폼 구매하기' click redirection to Uniform List page
+  document.querySelectorAll('.mq-btn--shop').forEach((btn) => {
+    if (btn.dataset.clickBound) return;
+    btn.dataset.clickBound = 'true';
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (typeof loadUniformListPage === 'function') {
+        loadUniformListPage();
+      }
+    });
+  });
+
+  // Mobile quick nav '장바구니' click redirection to Cart page
+  document.querySelectorAll('.mq-btn--cart').forEach((btn) => {
+    if (btn.dataset.clickBound) return;
+    btn.dataset.clickBound = 'true';
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (typeof loadCartPage === 'function') {
+        loadCartPage();
+      }
+    });
+  });
 }
+
 
 document.querySelectorAll('.bottom-nav').forEach((nav) => {
   nav.addEventListener('click', (e) => {

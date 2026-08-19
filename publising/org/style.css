@@ -2052,7 +2052,8 @@ img {
 }
 
 .mobile-quick-nav {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 12px;
   padding: 0 16px 20px 16px;
   width: 100%;
