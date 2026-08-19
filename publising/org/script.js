@@ -910,6 +910,31 @@ function _revealMobileApp() {
  * script.js 초기화 구간에서 호출됩니다.
  */
 function initAuthGate() {
+  // ── Kakao Redirect Callback 처리 ──
+  if (typeof URLSearchParams !== 'undefined') {
+    const params = new URLSearchParams(window.location.search);
+    const kakaoCode = params.get('code');
+    if (kakaoCode && typeof AuthManager !== 'undefined') {
+      // URL에서 ?code= 제거 (깔끔한 브라우저 히스토리 관리)
+      const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+      window.history.replaceState({ path: cleanUrl }, '', cleanUrl);
+
+      // 카카오 로그인 상태 세팅 (uid prefix 설정)
+      AuthManager.setUser({
+        uid: 'kakao_temp_user_' + Date.now(),
+        provider: 'kakao',
+        name: 'Kakao 사용자',
+        email: 'kakao_user@example.com',
+        profileImage: null
+      });
+      console.log('[Kakao 리다이렉트] 인가 코드 감지 -> 로그인 상태로 세팅 ✔');
+
+      // 로그인 상태이므로 게이트 없이 즉시 메인 노출
+      _revealMobileApp();
+      return;
+    }
+  }
+
   // Firebase SDK가 로드되어 있고 ENV가 준비된 경우: Firebase 인증 상태 우선 확인
   if (typeof firebase !== 'undefined' && window.ENV && window.ENV.FIREBASE_API_KEY) {
     try {
