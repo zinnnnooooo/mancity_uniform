@@ -373,12 +373,15 @@ body.mypage-page-body .app-frame.mypage {
 
 /* --------------------------------------------------------------------------
    ACCOUNT BUTTON CONTAINER (로그아웃)
+   style.css .account-btn-container padding/justify 덮어쓰기
    -------------------------------------------------------------------------- */
-.account-btn-container {
-  margin: 20px 20px 0;
+.mypage-page-content .account-btn-container {
+  margin: 8px 20px 0;
+  padding: 0;
+  justify-content: stretch;
 }
 
-.account-btn-container .account-btn {
+.mypage-page-content .account-btn-container .account-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -395,13 +398,13 @@ body.mypage-page-body .app-frame.mypage {
   transition: background 200ms ease, border-color 200ms ease, transform 180ms ease;
 }
 
-.account-btn-container .account-btn:hover {
+.mypage-page-content .account-btn-container .account-btn:hover {
   background: rgba(255, 80, 80, 0.16);
   border-color: rgba(255, 80, 80, 0.4);
   transform: translateY(-1px);
 }
 
-.account-btn-container .account-btn:active {
+.mypage-page-content .account-btn-container .account-btn:active {
   transform: scale(0.97);
 }
 
