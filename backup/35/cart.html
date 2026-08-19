@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>UNI:CITY | 장바구니</title>
+  <link rel="stylesheet" href="common.css" />
+  <link rel="stylesheet" href="cart.css" />
+</head>
+
+<body class="cart-page-body">
+  <div class="app-frame">
+    <div class="cart-page-content">
+
+      <!-- ===== 상단바 ===== -->
+      <div class="topbar">
+        <button class="icon-btn" id="btnBack" aria-label="뒤로가기">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+        <span class="topbar__logo">UNI:CITY</span>
+        <div class="topbar__side topbar__side--right">
+          <button class="icon-btn" id="btnCart" aria-label="장바구니">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+              <path d="M3 6h18" />
+              <path d="M16 10a4 4 0 0 1-8 0" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== 전체 선택 / 선택 삭제 ===== -->
+      <div class="cart-select-row">
+        <label class="cart-checkbox">
+          <input type="checkbox" id="checkAll" />
+          <span class="cart-checkbox__box"></span>
+          <span class="cart-checkbox__label">전체 선택</span>
+        </label>
+        <button type="button" class="cart-delete-btn" id="btnDeleteSelected">선택 삭제</button>
+      </div>
+
+      <!-- ===== 장바구니 상품 리스트 ===== -->
+      <div class="cart-list" id="cartList">
+        <!-- 상품 카드는 js에서 렌더링 -->
+      </div>
+
+      <!-- ===== 결제 예정 금액 ===== -->
+      <section class="cart-summary">
+        <h2 class="cart-summary__title">결제 예정 금액</h2>
+
+        <div class="cart-summary__row">
+          <span>상품 금액</span>
+          <span id="sumProduct">0원</span>
+        </div>
+        <div class="cart-summary__row">
+          <span>마킹 추가 비용</span>
+          <span id="sumMarking">+0원</span>
+        </div>
+        <div class="cart-summary__row">
+          <span>패치 추가 비용</span>
+          <span id="sumPatch">+0원</span>
+        </div>
+        <div class="cart-summary__row">
+          <span>배송비</span>
+          <span id="sumShipping" class="cart-summary__shipping">무료 (20만원 이상 구매 시 무료 배송)</span>
+        </div>
+
+        <hr class="divider cart-summary__divider" />
+
+        <div class="cart-summary__row cart-summary__row--total">
+          <span>총 결제 금액</span>
+          <span id="sumTotal">0원</span>
+        </div>
+      </section>
+
+      <div class="cart-bottom-spacer"></div>
+
+      <!-- ===== 하단 고정 CTA ===== -->
+      <div class="cart-cta-bar">
+        <button type="button" class="btn btn--primary cart-cta-btn" id="btnCheckout">총 0개 상품 구매하기</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="products_data.js"></script>
+  <script src="common.js"></script>
+  <script src="cart.js"></script>
+</body>
+
+</html>

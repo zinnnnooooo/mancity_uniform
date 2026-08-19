@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UNI:CITY | 마이페이지</title>
+  <link rel="stylesheet" href="common.css" />
+  <link rel="stylesheet" href="mypage.css" />
+</head>
+
+<body class="mypage-page-body">
+  <div class="app-frame mypage">
+    <div class="mypage-page-content">
+
+      <header class="mypage-topbar">
+        <button type="button" class="topbar-btn" id="backBtn" aria-label="뒤로가기">←</button>
+        <a href="uni_list.html" class="mypage-logo" aria-label="UNI:CITY 홈">UNI:CITY</a>
+        <a href="cart.html" class="topbar-btn cart-link" aria-label="장바구니">♧</a>
+      </header>
+
+      <main>
+        <section class="profile-section">
+          <div class="profile-image-wrap">
+            <img src="img/profile.jpg" alt="사용자 프로필 이미지" class="profile-image" />
+          </div>
+          <h1>CTID9320</h1>
+          <p>맨시티 팬</p>
+        </section>
+
+        <section class="summary-grid" aria-label="마이페이지 요약">
+          <button class="summary-card" type="button" data-action="orders">
+            <strong>12</strong>
+            <span>주문 내역</span>
+          </button>
+
+          <button class="summary-card" type="button" data-action="wishlist">
+            <strong>4</strong>
+            <span>위시리스트</span>
+          </button>
+        </section>
+
+        <section class="order-status-section" aria-label="주문 배송 현황">
+          <div class="section-title-wrap">
+            <h2>주문 / 배송 현황</h2>
+            <button type="button" class="btn-more" id="orderDetailBtn">상세보기 ›</button>
+          </div>
+
+          <div class="order-progress">
+            <div class="order-step is-complete">
+              <span class="step-dot"></span>
+              <strong>결제완료</strong>
+              <em>1건</em>
+            </div>
+            <div class="order-step is-current">
+              <span class="step-dot"></span>
+              <strong>상품준비</strong>
+              <em>1건</em>
+            </div>
+            <div class="order-step">
+              <span class="step-dot"></span>
+              <strong>배송중</strong>
+              <em>0건</em>
+            </div>
+            <div class="order-step">
+              <span class="step-dot"></span>
+              <strong>배송완료</strong>
+              <em>10건</em>
+            </div>
+          </div>
+        </section>
+
+        <section class="mypage-menu" aria-label="마이페이지 메뉴">
+          <button class="menu-row" type="button" data-target="orders">
+            <span class="menu-icon">▤</span>
+            <span class="menu-label">구매내역</span>
+            <span class="menu-arrow">›</span>
+          </button>
+
+          <a class="menu-row" href="delivery_info.html">
+            <span class="menu-icon">▱</span>
+            <span class="menu-label">배송추적</span>
+            <span class="menu-arrow">›</span>
+          </a>
+
+          <button class="menu-row" type="button" data-target="wishlist">
+            <span class="menu-icon">♡</span>
+            <span class="menu-label">위시리스트</span>
+            <span class="menu-arrow">›</span>
+          </button>
+
+          <button class="menu-row" type="button" data-target="profile">
+            <span class="menu-icon">♙</span>
+            <span class="menu-label">개인정보 수정</span>
+            <span class="menu-arrow">›</span>
+          </button>
+
+          <button class="menu-row" type="button" data-target="support">
+            <span class="menu-icon">?</span>
+            <span class="menu-label">고객센터</span>
+            <span class="menu-arrow">›</span>
+        </section>
+        <div class="account-btn-container" id="mypageAccountContainer"></div>
+      </main>
+
+    </div>
+
+    <footer class="bottom-nav" aria-label="하단 네비게이션">
+      <button class="bottom-nav__item" type="button" aria-label="홈">
+        <img src="../../img/home.svg" class="bottom-nav__icon" alt="" aria-hidden="true">
+        <span class="bottom-nav__label">Home</span>
+      </button>
+      <button class="bottom-nav__item" type="button" aria-label="장바구니">
+        <img src="../../img/poket.svg" class="bottom-nav__icon" alt="" aria-hidden="true">
+        <span class="bottom-nav__label">Cart</span>
+      </button>
+      <button class="bottom-nav__item" type="button" aria-label="찜">
+        <img src="../../img/wish.svg" class="bottom-nav__icon" alt="" aria-hidden="true">
+        <span class="bottom-nav__label">Wishlist</span>
+      </button>
+      <button class="bottom-nav__item is-active" type="button" aria-label="마이페이지">
+        <img src="../../img/my.svg" class="bottom-nav__icon" alt="" aria-hidden="true">
+        <span class="bottom-nav__label">My Page</span>
+      </button>
+    </footer>
+  </div>
+
+  <script src="products_data.js"></script>
+  <script src="common.js"></script>
+  <script src="mypage.js"></script>
+</body>
+
+</html>

@@ -697,16 +697,11 @@ async function loadLoginPage() {
       // login.js initLoginPage() 호출
       if (typeof initLoginPage === 'function') {
         initLoginPage({
-          // 로그인 성공 → Nav UI 복구 후 Main(Home)으로 이동
+          // 로그인 성공 → Nav UI 복구 후 마이페이지로 이동
           onLoginSuccess: (userData) => {
             _deactivateLoginUI();
-            if (mobilePageContent) {
-              mobilePageContent.innerHTML = homeContent;
-              mobilePageContent.dataset.page = 'home';
-              if (appMain) appMain.scrollTop = 0;
-              syncBottomNav('home');
-              updateHeaderMenuButton('home');
-              updateCartBadgeCount();
+            if (typeof loadMyPage === 'function') {
+              setTimeout(() => loadMyPage(), 800);
             }
           },
           // 로그아웃 → 로그인 게이트로 복귀
@@ -1200,30 +1195,6 @@ function initMainMobileInteractions() {
       if (!tab) return;
       filter.querySelectorAll('.filter-tab').forEach((t) => t.classList.remove('is-active'));
       tab.classList.add('is-active');
-    });
-  });
-
-  // Retro Collection click redirection to Uniform List page
-  document.querySelectorAll('.retro-collection').forEach((retro) => {
-    if (retro.dataset.clickBound) return;
-    retro.dataset.clickBound = 'true';
-    retro.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (typeof loadUniformListPage === 'function') {
-        loadUniformListPage();
-      }
-    });
-  });
-
-  // Mobile quick nav '구단 소개' click redirection to Club Intro page
-  document.querySelectorAll('.mq-btn--intro').forEach((btn) => {
-    if (btn.dataset.clickBound) return;
-    btn.dataset.clickBound = 'true';
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (typeof loadClubPage === 'function') {
-        loadClubPage();
-      }
     });
   });
 }

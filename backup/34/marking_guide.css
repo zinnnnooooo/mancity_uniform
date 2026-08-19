@@ -1,0 +1,419 @@
+/* ============================================================
+   marking_guide.css — 마킹 & 패치 가이드 화면 전용 스타일
+   ============================================================ */
+
+/* ---------- 히어로 ---------- */
+.mg-hero {
+  position: relative;
+  height: 520px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(11, 18, 26, 0.35) 0%, rgba(11, 18, 26, 0.55) 55%, var(--color-bg) 100%),
+    linear-gradient(160deg, #5A6A78 0%, #45525E 45%, #333F49 100%);
+}
+
+.mg-hero__deco {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.14);
+  pointer-events: none;
+  user-select: none;
+}
+
+.mg-hero__deco-name {
+  margin-top: 78px;
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  transform: rotate(-6deg);
+}
+
+.mg-hero__deco-number {
+  margin-top: 4px;
+  font-size: 220px;
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+}
+
+.mg-hero__content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 32px;
+}
+
+.mg-hero__title {
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+}
+
+.mg-hero__title-line {
+  display: block;
+  color: var(--color-white);
+}
+
+.mg-hero__title-line--accent {
+  color: var(--color-lime);
+}
+
+.mg-hero__subcopy {
+  margin-top: 14px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.6;
+}
+
+.mg-hero__arrow {
+  margin-top: 26px;
+  color: rgba(255, 255, 255, 0.75);
+  animation: mg-bounce 1.8s ease-in-out infinite;
+}
+
+.mg-hero__arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+@keyframes mg-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* ---------- 공통 섹션 padding ---------- */
+.mg-section {
+  padding: 40px 20px;
+}
+
+.mg-section__title {
+  margin-top: 16px;
+}
+
+.mg-section__desc {
+  margin-top: 14px;
+}
+
+/* ---------- 선수 리스트 ---------- */
+.player-list {
+  margin-top: 24px;
+  border-top: 1px solid var(--color-divider);
+}
+
+.player-list__item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 18px 2px;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.player-list__name {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.player-list__number {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--color-sky-blue);
+}
+
+/* ---------- 안내 캡션 ---------- */
+.mg-caption {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--color-text-faint);
+  line-height: 1.6;
+}
+
+.mg-caption__icon {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  margin-top: 2px;
+}
+
+/* ---------- 마킹 예시 이미지 ---------- */
+.marking-example {
+  position: relative;
+  margin-top: 20px;
+  height: 340px;
+  border-radius: 14px;
+  overflow: hidden;
+  background:
+    linear-gradient(200deg, #64778A 0%, #4B5C6B 55%, #333F49 100%);
+  border: 1px solid var(--color-divider);
+}
+
+.marking-example__deco {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.55);
+  pointer-events: none;
+  user-select: none;
+}
+
+.marking-example__name {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  transform: rotate(-4deg);
+}
+
+.marking-example__number {
+  margin-top: 6px;
+  font-size: 130px;
+  font-weight: 800;
+  line-height: 0.85;
+}
+
+.marking-example__badge {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  background: rgba(11, 18, 26, 0.55);
+  color: var(--color-sky-blue);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+
+/* ---------- 패치 카드 ---------- */
+.patch-card-list {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.patch-card {
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-divider);
+}
+
+.patch-card__image {
+  position: relative;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.patch-card__image--pl {
+  background: linear-gradient(135deg, #8CB8E0 0%, #6CABDD 45%, #4E86B8 100%);
+}
+
+.patch-card__image--ucl {
+  background: linear-gradient(135deg, #9FC6E8 0%, #6CABDD 50%, #3E6E96 100%);
+}
+
+.patch-card__image--fifa {
+  background: linear-gradient(135deg, #86B4DE 0%, #6CABDD 45%, #345E82 100%);
+}
+
+.patch-card__crest {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(11, 18, 26, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  color: var(--color-white);
+}
+
+.patch-card__crest svg {
+  width: 38px;
+  height: 38px;
+}
+
+.patch-card__crest--pl {
+  color: #E8B84B;
+}
+
+.patch-card__body {
+  padding: 20px;
+}
+
+.patch-card__title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--color-white);
+}
+
+.patch-card__desc {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.patch-card__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.patch-card__tag svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* ---------- 주문 전 확인사항 ---------- */
+.mg-notice-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-white);
+}
+
+.mg-notice-title svg {
+  width: 22px;
+  height: 22px;
+  color: var(--color-sky-blue);
+}
+
+.notice-panel {
+  margin-top: 20px;
+  padding: 4px 18px;
+  border-radius: 14px;
+  background: var(--color-bg-elevated);
+}
+
+.notice-item {
+  display: flex;
+  gap: 14px;
+  padding: 20px 0;
+}
+
+.notice-item__num {
+  flex: 0 0 26px;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: rgba(11, 18, 26, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-white);
+}
+
+.notice-item__title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-white);
+}
+
+.notice-item__desc {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+}
+
+.notice-panel__divider {
+  margin: 0;
+}
+
+.notice-item--warning .notice-item__num--warning {
+  background: transparent;
+  border: 1.5px solid var(--color-warning);
+  color: var(--color-warning);
+}
+
+.notice-item__title--warning {
+  color: var(--color-warning);
+}
+
+.mg-highlight {
+  color: var(--color-warning);
+  font-weight: 800;
+}
+
+/* ---------- 하단 CTA ---------- */
+.mg-cta {
+  position: relative;
+  padding: 56px 24px 64px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.mg-cta__watermark {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.04);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.mg-cta__title {
+  position: relative;
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+}
+
+.mg-cta__title span {
+  display: block;
+}
+
+.mg-cta__desc {
+  position: relative;
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.mg-cta__btn {
+  position: relative;
+  margin-top: 22px;
+}
+
+.mg-cta__btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}

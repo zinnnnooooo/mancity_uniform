@@ -502,27 +502,10 @@ function initLoginPage(options = {}) {
     });
   }
 
-  // ── 오버레이 클릭 (비회원 둘러보기와 동일 동작) ───────────────────────────
-  const overlay = loginPageEl.querySelector('#loginOverlay');
-  if (overlay) {
-    overlay.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (guestBtn) {
-        guestBtn.click();
-      } else if (typeof onGuest === 'function') {
-        onGuest();
-      }
-    });
-  }
-
   // ── Firebase 인증 상태 구독 (새로고침 후 로그인 유지) ─────────────────────
   // Firebase에 이미 로그인된 Google 사용자가 있으면 자동으로 성공 콜백 호출
   _setupAuthStateObserver((autoUser) => {
     _renderViewState();
-    if (_isProcessing) {
-      console.log('[AuthObserver] 활성 로그인 진행 중 - 즉시 리다이렉션 방지');
-      return;
-    }
     if (typeof onLoginSuccess === 'function') {
       onLoginSuccess(autoUser);
     }
@@ -531,17 +514,12 @@ function initLoginPage(options = {}) {
     }
   });
 
-  // ── 로그인 후 Main(Home)으로 이동 — 확인 버튼과 동일하게 onLoginSuccess 콜백 위임 ──
+  // ── 로그인 후 마이페이지 이동 ────────────────────────────────────────────
   const myPageBtn = loginPageEl.querySelector('#btnGoMyPage');
   if (myPageBtn) {
     myPageBtn.addEventListener('click', () => {
-      // onLoginSuccess는 _handleLoginSuccessTransition에서 타이머와 함께 실행됨.
-      // 직접 클릭 시 확인 버튼(#btnConfirmLogin)과 동일하게 동작하도록 클릭 전파
-      const confirmBtn = loginPageEl.querySelector('#btnConfirmLogin');
-      if (confirmBtn) {
-        confirmBtn.click();
-      } else if (typeof onLoginSuccess === 'function') {
-        onLoginSuccess(AuthManager.getUser());
+      if (typeof window.loadMyPage === 'function') {
+        window.loadMyPage();
       }
     });
   }
@@ -625,7 +603,9 @@ async function _runSocialLogin(provider, onLoginSuccess) {
       );
     }
 
-    _handleLoginSuccessTransition(userData, onLoginSuccess);
+    if (typeof onLoginSuccess === 'function') {
+      onLoginSuccess(userData);
+    }
 
     // 장바구니 Badge 갱신
     if (typeof window.updateCartBadgeCount === 'function') {
@@ -640,44 +620,6 @@ async function _runSocialLogin(provider, onLoginSuccess) {
   } finally {
     _isProcessing = false;
     _setLoadingState(false, provider, socialBtns);
-  }
-}
-
-
-/**
- * 로그인 성공 후 팝업 대기 및 자동 종료 처리
- * @param {Object} userData 
- * @param {Function} onLoginSuccess 
- */
-function _handleLoginSuccessTransition(userData, onLoginSuccess) {
-  if (typeof onLoginSuccess !== 'function') return;
-
-  let redirected = false;
-
-  // 2.0초 후 자동 종료 타이머
-  const autoCloseTimer = setTimeout(() => {
-    if (!redirected) {
-      redirected = true;
-      onLoginSuccess(userData);
-    }
-  }, 2000);
-
-  // 확인 버튼 및 오버레이 클릭 시 즉시 종료 처리
-  const confirmBtn = loginPageEl ? loginPageEl.querySelector('#btnConfirmLogin') : null;
-  const handleConfirm = (e) => {
-    if (e) e.preventDefault();
-    clearTimeout(autoCloseTimer);
-    if (!redirected) {
-      redirected = true;
-      onLoginSuccess(userData);
-    }
-  };
-
-  if (confirmBtn) {
-    // 기존 리스너 누적 방지를 위해 버튼 클론 및 이벤트 바인딩
-    const newConfirmBtn = confirmBtn.cloneNode(true);
-    confirmBtn.replaceWith(newConfirmBtn);
-    newConfirmBtn.addEventListener('click', handleConfirm);
   }
 }
 
@@ -698,7 +640,7 @@ function _renderViewState() {
 
   if (user && user.isLoggedIn) {
     // 로그인 후 뷰
-    if (loginView)    loginView.hidden = false;
+    if (loginView)    loginView.hidden = true;
     if (loggedinView) loggedinView.hidden = false;
     _renderProfileCard(user);
   } else {
