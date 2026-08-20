@@ -642,6 +642,8 @@ function syncBottomNav(pageName) {
         item.classList.add('is-active');
       } else if (pageName === 'mypage' && text === 'my page') {
         item.classList.add('is-active');
+      } else if (pageName === 'wishlist' && text === 'wishlist') {
+        item.classList.add('is-active');
       }
     });
   });
@@ -806,6 +808,100 @@ async function loadLoginPage() {
   }
 }
 window.loadLoginPage = loadLoginPage;
+
+
+// --------------------------------------------------------------------------
+// loadWishlistPage — 위시리스트 페이지를 모바일 페이지 전환 구조로 불러옵니다.
+// --------------------------------------------------------------------------
+function loadWishlistPage() {
+  if (!mobilePageContent || !appMain) return;
+
+  mobilePageContent.classList.add('page-leave');
+
+  setTimeout(() => {
+    mobilePageContent.innerHTML = `
+      <div class="wishlist-page-content">
+        <header class="topbar" style="display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 16px; border-bottom: 1px solid rgba(255,255,255,0.08); background: #0c111c;">
+          <button class="icon-btn" id="btnBack" aria-label="뒤로가기" style="background: none; border: none; color: #fff; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; padding: 4px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px;">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <span class="topbar__logo" style="font-family: 'Archivo Black', sans-serif; font-weight: 800; font-size: 16px; color: #fff; letter-spacing: 0.5px;">UNI:CITY</span>
+          <div class="topbar__side topbar__side--right" style="width: 32px;"></div>
+        </header>
+        
+        <main style="padding: 24px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: calc(100% - 56px); box-sizing: border-box;">
+          <h2 style="font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 24px; margin-bottom: 12px; color: #fff; width: 100%; text-align: left; letter-spacing: -0.5px;">WISHLIST</h2>
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 80px; width: 100%;">
+            <span style="font-size: 40px; margin-bottom: 16px; color: rgba(255,255,255,0.2);">♡</span>
+            <p style="color: #888; font-size: 14px; text-align: center; line-height: 1.5; margin: 0;">위시리스트에 담긴 상품이 없습니다.<br>마음에 드는 상품을 찜해보세요!</p>
+          </div>
+        </main>
+      </div>
+    `;
+    
+    mobilePageContent.dataset.page = 'wishlist';
+    appMain.scrollTop = 0;
+    syncBottomNav('wishlist');
+    updateCartBadgeCount();
+    updateHeaderMenuButton('wishlist');
+
+    // 뒤로가기 버튼 리스너 바인딩
+    const backBtn = mobilePageContent.querySelector('#btnBack');
+    if (backBtn) {
+      backBtn.addEventListener('click', () => {
+        if (mobilePageContent) {
+          mobilePageContent.classList.add('page-leave');
+          setTimeout(() => {
+            mobilePageContent.innerHTML = homeContent;
+            mobilePageContent.dataset.page = 'home';
+            if (appMain) appMain.scrollTop = 0;
+            syncBottomNav('home');
+            updateHeaderMenuButton('home');
+            updateCartBadgeCount();
+
+            mobilePageContent.classList.remove('page-leave');
+            mobilePageContent.classList.add('page-enter');
+
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                mobilePageContent.classList.remove('page-enter');
+                mobilePageContent.classList.add('page-enter-active');
+
+                setTimeout(() => {
+                  mobilePageContent.classList.remove('page-enter-active');
+                }, 320);
+              });
+            });
+
+            if (typeof initMainMobileInteractions === 'function') {
+              initMainMobileInteractions();
+            }
+            if (typeof initMainParallax === 'function') {
+              initMainParallax();
+            }
+          }, 220);
+        }
+      });
+    }
+
+    mobilePageContent.classList.remove('page-leave');
+    mobilePageContent.classList.add('page-enter');
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        mobilePageContent.classList.remove('page-enter');
+        mobilePageContent.classList.add('page-enter-active');
+
+        setTimeout(() => {
+          mobilePageContent.classList.remove('page-enter-active');
+        }, 320);
+      });
+    });
+  }, 220);
+}
+window.loadWishlistPage = loadWishlistPage;
 
 
 // ==========================================================================
@@ -1399,6 +1495,10 @@ document.querySelectorAll('.bottom-nav').forEach((nav) => {
         } else {
           loadLoginPage();
         }
+      }
+    } else if (label && label.textContent.trim().toLowerCase() === 'wishlist') {
+      if (mobilePageContent && mobilePageContent.dataset.page !== 'wishlist') {
+        loadWishlistPage();
       }
     }
   });
