@@ -557,9 +557,8 @@ function initCheckoutPage() {
         }
 
         try {
-          const clientKey = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
+          const clientKey = 'test_ck_yZqmkKeP8gaaMl5MDRX4VbQRxB9l';
           const tossPayments = TossPayments(clientKey);
-          const payment = tossPayments.payment({ customerKey: TossPayments.ANONYMOUS });
 
           let orderName = '유니폼';
           if (orderItems.length > 0) {
@@ -574,12 +573,8 @@ function initCheckoutPage() {
           const successUrl = window.location.origin + basePath + '/success.html';
           const failUrl = window.location.origin + basePath + '/fail.html';
 
-          payment.requestPayment({
-            method: 'CARD', // 통합결제창 호출
-            amount: {
-              currency: 'KRW',
-              value: finalPrice,
-            },
+          tossPayments.requestPayment('카드', {
+            amount: finalPrice,
             orderId: randomOrderNo,
             orderName: orderName,
             successUrl: successUrl,
