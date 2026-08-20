@@ -1510,8 +1510,130 @@ updateCartBadgeCount();
 // 최초 진입 시 로그인 게이트 확인
 initAuthGate();
 
+// 데스크톱 검색 기능 연동
 document.querySelectorAll('.dc-search__form').forEach((form) => {
-  form.addEventListener('submit', (e) => e.preventDefault());
+  const input = form.querySelector('.dc-search__input');
+  if (!input) {
+    form.addEventListener('submit', (e) => e.preventDefault());
+    return;
+  }
+
+  // 추천 결과 목록 컨테이너 동적 생성
+  let resultsContainer = document.getElementById('dcSearchResults');
+  if (!resultsContainer) {
+    resultsContainer = document.createElement('ul');
+    resultsContainer.id = 'dcSearchResults';
+    resultsContainer.className = 'dc-search-results';
+    form.parentNode.appendChild(resultsContainer);
+  }
+
+  function getSearchResults(query) {
+    const cleanQuery = query.trim().toLowerCase().replace(/\s+/g, '');
+    if (!cleanQuery) return [];
+    
+    const products = window.PRODUCTS || [];
+    return products.filter(p => {
+      const name = (p.name || '').toLowerCase().replace(/\s+/g, '');
+      const season = (p.season || '').toLowerCase().replace(/\s+/g, '');
+      const type = (p.type || '').toLowerCase().replace(/\s+/g, '');
+      const collection = (p.collection || '').toLowerCase().replace(/\s+/g, '');
+      const id = (p.id || '').toLowerCase().replace(/\s+/g, '');
+      
+      return name.includes(cleanQuery) || 
+             season.includes(cleanQuery) || 
+             type.includes(cleanQuery) || 
+             collection.includes(cleanQuery) || 
+             id.includes(cleanQuery);
+    });
+  }
+
+  function renderResults(results) {
+    resultsContainer.innerHTML = '';
+    
+    if (results.length === 0) {
+      const li = document.createElement('li');
+      li.className = 'dc-search-results__empty';
+      li.textContent = '검색 결과가 없습니다.';
+      resultsContainer.appendChild(li);
+    } else {
+      results.forEach(product => {
+        const li = document.createElement('li');
+        li.className = 'dc-search-results__item';
+        li.dataset.productId = product.id;
+        
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = product.name || '유니폼';
+        
+        const seasonSpan = document.createElement('span');
+        seasonSpan.className = 'dc-search-results__season';
+        seasonSpan.textContent = product.season ? `${product.season} 시즌` : '';
+        
+        li.appendChild(nameSpan);
+        li.appendChild(seasonSpan);
+        resultsContainer.appendChild(li);
+      });
+    }
+    
+    resultsContainer.classList.add('is-visible');
+  }
+
+  function hideResults() {
+    resultsContainer.classList.remove('is-visible');
+  }
+
+  // 실시간 입력 이벤트
+  input.addEventListener('input', () => {
+    const val = input.value;
+    if (!val.trim()) {
+      hideResults();
+      return;
+    }
+    const results = getSearchResults(val);
+    renderResults(results);
+  });
+
+  // 포커스 획득 시 결과가 있으면 노출
+  input.addEventListener('focus', () => {
+    if (input.value.trim()) {
+      const results = getSearchResults(input.value);
+      renderResults(results);
+    }
+  });
+
+  // 추천 항목 클릭 시
+  resultsContainer.addEventListener('click', (e) => {
+    const item = e.target.closest('.dc-search-results__item');
+    if (!item) return;
+    
+    const productId = item.dataset.productId;
+    if (productId && typeof window.loadProductDetailPage === 'function') {
+      window.loadProductDetailPage(productId);
+      input.value = '';
+      hideResults();
+    }
+  });
+
+  // 폼 제출(Enter) 시
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const val = input.value;
+    const results = getSearchResults(val);
+    
+    if (results.length === 1) {
+      if (typeof window.loadProductDetailPage === 'function') {
+        window.loadProductDetailPage(results[0].id);
+        input.value = '';
+        hideResults();
+      }
+    }
+  });
+
+  // 외부 클릭 시 추천 영역 숨김
+  document.addEventListener('click', (e) => {
+    if (!form.contains(e.target) && !resultsContainer.contains(e.target)) {
+      hideResults();
+    }
+  });
 });
 
 // ==========================================================================

@@ -2245,3 +2245,78 @@ img {
   background: #E8FF33;
   box-shadow: 0 0 12px rgba(223, 255, 0, 0.35);
 }
+
+/* 데스크톱 검색 추천 목록 */
+.dc-search {
+  position: relative;
+}
+
+.dc-search-results {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  right: 0;
+  background: rgba(12, 17, 28, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  backdrop-filter: blur(16px);
+  max-height: 280px;
+  overflow-y: auto;
+  z-index: 1000;
+  padding: 8px 0;
+  margin: 0;
+  list-style: none;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.5),
+    0 1px 3px rgba(108, 171, 221, 0.1);
+  display: none;
+  animation: slideDownFade 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dc-search-results.is-visible {
+  display: block;
+}
+
+.dc-search-results__item {
+  padding: 12px 20px;
+  cursor: pointer;
+  color: var(--white, #ffffff);
+  font-size: 14px;
+  font-family: var(--font-body, inherit);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.dc-search-results__item:hover {
+  background: rgba(108, 171, 221, 0.12);
+  color: var(--sky, #6cabdd);
+}
+
+.dc-search-results__season {
+  font-size: 11px;
+  color: var(--sky, #6cabdd);
+  font-weight: 700;
+  background: rgba(108, 171, 221, 0.1);
+  padding: 2px 8px;
+  border-radius: 99px;
+}
+
+.dc-search-results__empty {
+  padding: 20px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 14px;
+  text-align: center;
+}
+
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
