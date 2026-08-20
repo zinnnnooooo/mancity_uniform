@@ -60,6 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof updateCartBadgeCount === 'function') {
     updateCartBadgeCount();
   }
+  if (typeof initHeaderAuthButton === 'function') {
+    initHeaderAuthButton();
+  }
 });
 
 /**
@@ -86,3 +89,109 @@ function updateCartBadgeCount() {
   }
 }
 window.updateCartBadgeCount = updateCartBadgeCount;
+
+/**
+ * 독립 페이지용 로그아웃 확인 팝업창 표시
+ */
+function showLogoutConfirmPopup(onConfirm) {
+  if (typeof onConfirm !== 'function') return;
+
+  const existing = document.getElementById('logoutConfirmOverlay');
+  if (existing) existing.remove();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'logoutConfirmOverlay';
+  overlay.className = 'logout-confirm-overlay';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.innerHTML = `
+    <div class="logout-confirm-popup">
+      <p class="logout-confirm-popup__text">정말 로그아웃 하시겠습니까?</p>
+      <div class="logout-confirm-popup__buttons">
+        <button type="button" class="logout-confirm-btn logout-confirm-btn--no" id="logoutNoBtn">아니오</button>
+        <button type="button" class="logout-confirm-btn logout-confirm-btn--yes" id="logoutYesBtn">예</button>
+      </div>
+    </div>
+  `;
+
+  const mountTarget = document.querySelector('.app-frame') || document.body;
+  mountTarget.appendChild(overlay);
+
+  requestAnimationFrame(() => {
+    overlay.classList.add('is-visible');
+  });
+
+  const closePopup = () => {
+    overlay.classList.remove('is-visible');
+    overlay.classList.add('is-hiding');
+    setTimeout(() => {
+      overlay.remove();
+    }, 280);
+  };
+
+  const noBtn = overlay.querySelector('#logoutNoBtn');
+  if (noBtn) {
+    noBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      closePopup();
+    });
+  }
+
+  const yesBtn = overlay.querySelector('#logoutYesBtn');
+  if (yesBtn) {
+    yesBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      closePopup();
+      onConfirm();
+    });
+  }
+}
+
+/**
+ * 독립 페이지용 헤더 로그인/로그아웃 버튼 초기화
+ */
+function initHeaderAuthButton() {
+  const headerAuthBtn = document.getElementById('headerAuthBtn');
+  if (!headerAuthBtn) return;
+
+  const updateButton = () => {
+    let isLoggedIn = false;
+    try {
+      const user = JSON.parse(localStorage.getItem('unicity_user'));
+      isLoggedIn = !!(user && user.isLoggedIn);
+    } catch (e) {
+      isLoggedIn = false;
+    }
+
+    if (isLoggedIn) {
+      headerAuthBtn.textContent = '로그아웃';
+      headerAuthBtn.style.color = '#FFFFFF';
+    } else {
+      headerAuthBtn.textContent = '로그인';
+      headerAuthBtn.style.color = '#6CABDD';
+    }
+  };
+
+  headerAuthBtn.addEventListener('click', () => {
+    let isLoggedIn = false;
+    try {
+      const user = JSON.parse(localStorage.getItem('unicity_user'));
+      isLoggedIn = !!(user && user.isLoggedIn);
+    } catch (e) {
+      isLoggedIn = false;
+    }
+
+    if (isLoggedIn) {
+      showLogoutConfirmPopup(() => {
+        // localStorage 정리 후 login.html로 이동
+        localStorage.removeItem('unicity_user');
+        updateButton();
+        window.location.href = 'login.html';
+      });
+    } else {
+      window.location.href = 'login.html';
+    }
+  });
+
+  updateButton();
+}

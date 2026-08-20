@@ -124,6 +124,11 @@ img {
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.05em;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 .app-header__menu,
@@ -716,6 +721,11 @@ img {
   font-size: 17px;
   letter-spacing: 0.06em;
   color: var(--white);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 .app-header__menu,
@@ -723,6 +733,29 @@ img {
   position: relative;
   overflow: visible;
   z-index: 1;
+}
+
+.app-header__auth-btn {
+  position: relative;
+  z-index: 2;
+  width: 60px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  color: #6CABDD; /* Sky Blue by default (Login) */
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 200ms ease;
+}
+
+.app-header__auth-btn--logout {
+  color: #FFFFFF; /* White for Logout */
 }
 
 .app-header__menu::before,

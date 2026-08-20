@@ -165,6 +165,71 @@ function renderAccountButton(containerId) {
       }
     });
   }
+  updateHeaderAuthButton();
+}
+
+function initHeaderAuthButton() {
+  const headerAuthBtn = document.getElementById('headerAuthBtn');
+  if (!headerAuthBtn) return;
+
+  headerAuthBtn.addEventListener('click', () => {
+    if (typeof _authGateActive !== 'undefined' && _authGateActive) return;
+
+    const isLoggedIn = (typeof AuthManager !== 'undefined') ? AuthManager.isLoggedIn() : false;
+    if (isLoggedIn) {
+      showLogoutConfirmPopup(async () => {
+        const currentUser = (typeof AuthManager !== 'undefined') ? AuthManager.getUser() : null;
+        const isGoogleUser = currentUser && currentUser.provider === 'google';
+
+        if (isGoogleUser && typeof firebase !== 'undefined') {
+          try {
+            await firebase.auth().signOut();
+            console.log('[Firebase] 헤더 로그아웃 성공');
+          } catch (err) {
+            console.error('[Firebase] 헤더 로그아웃 실패:', err);
+          }
+        }
+
+        if (typeof AuthManager !== 'undefined') {
+          AuthManager.clearUser();
+        } else {
+          localStorage.removeItem('unicity_user');
+        }
+
+        if (typeof updateCartBadgeCount === 'function') {
+          updateCartBadgeCount();
+        }
+
+        if (typeof loadLoginPage === 'function') {
+          loadLoginPage();
+        }
+
+        updateHeaderAuthButton();
+      });
+    } else {
+      if (typeof loadLoginPage === 'function') {
+        loadLoginPage();
+      }
+    }
+  });
+
+  updateHeaderAuthButton();
+}
+
+function updateHeaderAuthButton() {
+  const headerAuthBtn = document.getElementById('headerAuthBtn');
+  if (!headerAuthBtn) return;
+
+  const isLoggedIn = (typeof AuthManager !== 'undefined') ? AuthManager.isLoggedIn() : false;
+  if (isLoggedIn) {
+    headerAuthBtn.textContent = '로그아웃';
+    headerAuthBtn.classList.remove('app-header__auth-btn--login');
+    headerAuthBtn.classList.add('app-header__auth-btn--logout');
+  } else {
+    headerAuthBtn.textContent = '로그인';
+    headerAuthBtn.classList.remove('app-header__auth-btn--logout');
+    headerAuthBtn.classList.add('app-header__auth-btn--login');
+  }
 }
 
 
@@ -1522,6 +1587,9 @@ document.querySelectorAll('.bottom-nav').forEach((nav) => {
 
 // 초기 로드 시 Badge 갱신
 updateCartBadgeCount();
+
+// 헤더 로그인/로그아웃 버튼 초기화
+initHeaderAuthButton();
 
 // 최초 진입 시 로그인 게이트 확인
 initAuthGate();

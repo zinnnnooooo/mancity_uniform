@@ -445,3 +445,132 @@ ul, ol {
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
+
+/* ---------- 11. 독립 헤더 인증 버튼 ---------- */
+.topbar-auth-btn {
+  width: 60px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-weight: 700;
+  color: #6CABDD;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 200ms ease;
+}
+
+.topbar-spacer {
+  width: 60px !important;
+}
+
+/* ---------- 12. 공통 로그아웃 확인 팝업 (독립 페이지용) ---------- */
+.logout-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 22, 48, 0.45); /* 약한 Dark Overlay */
+  backdrop-filter: blur(6px);         /* 뒤쪽 화면 blur */
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000; /* 로그인 팝업보다 더 위에 표기가능하도록 높은 우선순위 설정 */
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: auto;
+}
+
+.logout-confirm-overlay.is-visible {
+  opacity: 1;
+}
+
+.logout-confirm-overlay.is-hiding {
+  opacity: 0;
+  transition: opacity 280ms ease;
+}
+
+.logout-confirm-popup {
+  width: calc(100% - 64px);
+  max-width: 320px;
+  background: #10193B; /* Deep Navy */
+  border: 1px solid rgba(223, 255, 0, 0.15);
+  border-radius: 20px;
+  padding: 30px 24px 24px;
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.6),
+    0 0 0 0.5px rgba(223, 255, 0, 0.08) inset;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+  transform: scale(0.9);
+  transition: transform 300ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  /* 팝업 자체에는 blur 금지 */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.logout-confirm-overlay.is-visible .logout-confirm-popup {
+  transform: scale(1);
+}
+
+.logout-confirm-overlay.is-hiding .logout-confirm-popup {
+  transform: scale(0.9);
+}
+
+.logout-confirm-popup__text {
+  font-size: 15px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.logout-confirm-popup__buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+}
+
+.logout-confirm-btn {
+  height: 44px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+/* 아니오 버튼: Dark Navy / Outline + White 텍스트 */
+.logout-confirm-btn--no {
+  background: #1C2C5B;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+}
+
+.logout-confirm-btn--no:hover {
+  background: #253974;
+}
+
+/* 예 버튼: Neon Yellow (#DFFF00) + Deep Navy (#10193B) 텍스트 */
+.logout-confirm-btn--yes {
+  background: #DFFF00;
+  border: none;
+  color: #10193B;
+}
+
+.logout-confirm-btn--yes:hover {
+  background: #E8FF33;
+  box-shadow: 0 0 12px rgba(223, 255, 0, 0.35);
+}
