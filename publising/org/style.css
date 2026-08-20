@@ -2249,6 +2249,7 @@ img {
 /* 데스크톱 검색 추천 목록 */
 .dc-search {
   position: relative;
+  z-index: 1010;
 }
 
 .dc-search-results {
@@ -2256,13 +2257,12 @@ img {
   top: calc(100% + 12px);
   left: 0;
   right: 0;
-  background: rgba(12, 17, 28, 0.95);
+  background: var(--navy-deep);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
-  backdrop-filter: blur(16px);
   max-height: 280px;
   overflow-y: auto;
-  z-index: 1000;
+  z-index: 1011;
   padding: 8px 0;
   margin: 0;
   list-style: none;
@@ -2284,8 +2284,9 @@ img {
   font-size: 14px;
   font-family: var(--font-body, inherit);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
   transition: background 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
