@@ -618,7 +618,7 @@ window.updateCartBadgeCount = updateCartBadgeCount;
 function syncBottomNav(pageName) {
   const bottomNavs = document.querySelectorAll('.bottom-nav');
   bottomNavs.forEach((nav) => {
-    if (pageName === 'checkout' || pageName === 'cart') {
+    if (pageName === 'checkout') {
       nav.style.display = 'none';
       return;
     }
@@ -998,6 +998,22 @@ async function _loadLoginGate() {
 function _revealMobileApp() {
   const style = document.getElementById('auth-checking-style');
   if (style) style.remove();
+
+  // URL 파라미터 기반 딥링킹 (독립 페이지에서 리다이렉트 시 대응)
+  const urlParams = new URLSearchParams(window.location.search);
+  const targetPage = urlParams.get('page');
+  if (targetPage === 'cart') {
+    if (typeof loadCartPage === 'function') loadCartPage();
+  } else if (targetPage === 'mypage') {
+    const isLoggedIn = (typeof AuthManager !== 'undefined') ? AuthManager.isLoggedIn() : false;
+    if (isLoggedIn) {
+      if (typeof loadMyPage === 'function') loadMyPage();
+    } else {
+      if (typeof loadLoginPage === 'function') loadLoginPage();
+    }
+  } else if (targetPage === 'wishlist') {
+    if (typeof loadWishlistPage === 'function') loadWishlistPage();
+  }
 }
 
 /**

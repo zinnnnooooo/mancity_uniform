@@ -12,10 +12,7 @@ body.cart-page-body .app-frame {
   min-height: 100vh;
 }
 
-/* SPA(index.html) 진입 시 메인 프레임 하단 네비게이션 숨김 */
-.mobile-app:has(.mobile-page-content[data-page="cart"]) .bottom-nav {
-  display: none !important;
-}
+
 
 .mobile-page-content[data-page="cart"] .topbar {
   display: none !important;
@@ -334,12 +331,12 @@ body.cart-page-body .app-frame {
 
 /* ---------- 하단 고정 CTA (Liquid Glass) ---------- */
 .cart-bottom-spacer {
-  height: 90px;
+  height: 152px;
 }
 
 .cart-cta-bar {
   position: fixed;
-  bottom: 0;
+  bottom: 62px;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;

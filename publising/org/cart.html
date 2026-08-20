@@ -86,6 +86,30 @@
       </div>
 
     </div>
+
+    <!-- ===================== BOTTOM NAVIGATION ===================== -->
+    <footer class="bottom-nav">
+      <button class="bottom-nav__item" type="button" aria-label="홈" data-nav="index.html">
+        <img src="../../img/home.svg" class="bottom-nav__icon" alt="" aria-hidden="true">
+        <span class="bottom-nav__label">Home</span>
+      </button>
+      <button class="bottom-nav__item is-active" type="button" aria-label="장바구니" data-nav="cart.html">
+        <span class="bottom-nav__icon-wrap">
+          <img src="../../img/poket.svg" class="bottom-nav__icon" alt="" aria-hidden="true">
+          <span class="cart-badge" id="cartBadge" aria-label="장바구니 상품 수"></span>
+        </span>
+        <span class="bottom-nav__label">Cart</span>
+      </button>
+      <button class="bottom-nav__item" type="button" aria-label="찜" data-nav="index.html?page=wishlist">
+        <img src="../../img/wish.svg" class="bottom-nav__icon" alt="" aria-hidden="true">
+        <span class="bottom-nav__label">Wishlist</span>
+      </button>
+      <button class="bottom-nav__item" type="button" aria-label="마이페이지" data-nav="mypage.html">
+        <img src="../../img/my.svg" class="bottom-nav__icon" alt="" aria-hidden="true">
+        <span class="bottom-nav__label">My Page</span>
+      </button>
+    </footer>
+
   </div>
 
   <script src="products_data.js"></script>

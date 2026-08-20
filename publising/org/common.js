@@ -57,4 +57,32 @@ function bindPlaceholderHandlers() {
 document.addEventListener('DOMContentLoaded', () => {
   bindNavHandlers();
   bindPlaceholderHandlers();
+  if (typeof updateCartBadgeCount === 'function') {
+    updateCartBadgeCount();
+  }
 });
+
+/**
+ * 장바구니 데이터를 읽어와 하단 뱃지 개수를 갱신하는 공통 함수
+ */
+function updateCartBadgeCount() {
+  const badgeEl = document.getElementById('cartBadge');
+  if (!badgeEl) return;
+
+  let cart = [];
+  try {
+    cart = JSON.parse(localStorage.getItem('unicity_cart')) || [];
+  } catch (e) {
+    cart = [];
+  }
+
+  const totalCount = cart.reduce((sum, item) => sum + (Number(item.qty) || 0), 0);
+
+  if (totalCount > 0) {
+    badgeEl.textContent = totalCount > 99 ? '99+' : String(totalCount);
+    badgeEl.classList.add('is-active');
+  } else {
+    badgeEl.classList.remove('is-active');
+  }
+}
+window.updateCartBadgeCount = updateCartBadgeCount;

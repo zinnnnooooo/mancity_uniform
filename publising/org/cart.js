@@ -153,6 +153,9 @@ function initCartPage() {
   function renderAll() {
     renderList();
     renderSummary();
+    if (typeof updateCartBadgeCount === 'function') {
+      updateCartBadgeCount();
+    }
   }
 
   cartListEl.onclick = function (e) {
