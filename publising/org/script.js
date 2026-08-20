@@ -1527,6 +1527,13 @@ document.querySelectorAll('.dc-search__form').forEach((form) => {
     form.parentNode.appendChild(resultsContainer);
   }
 
+  // 검색창 영역 클릭 시 즉시 입력 포커싱
+  form.addEventListener('click', (e) => {
+    if (e.target !== input && !e.target.closest('.dc-search__btn')) {
+      input.focus();
+    }
+  });
+
   function getSearchResults(query) {
     const cleanQuery = query.trim().toLowerCase().replace(/\s+/g, '');
     if (!cleanQuery) return [];
