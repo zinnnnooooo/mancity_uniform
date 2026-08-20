@@ -546,6 +546,52 @@ function initCheckoutPage() {
       const finalPrice = calculateSummary();
       const randomOrderNo = `MC${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
 
+      // 결제 수단 확인
+      const activePayBtn = paymentGridEl ? paymentGridEl.querySelector('.co-pay-btn.is-active') : null;
+      const payMethod = activePayBtn ? activePayBtn.dataset.pay : 'card';
+
+      if (payMethod === 'toss') {
+        if (typeof TossPayments === 'undefined') {
+          alert('토스페이먼츠 SDK가 로드되지 않았습니다. 페이지를 새로고침해 주세요.');
+          return;
+        }
+
+        try {
+          const clientKey = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
+          const tossPayments = TossPayments(clientKey);
+          const payment = tossPayments.payment({ customerKey: TossPayments.ANONYMOUS });
+
+          let orderName = '유니폼';
+          if (orderItems.length > 0) {
+            const firstItemName = orderItems[0].name || '유니폼';
+            orderName = orderItems.length > 1 ? `${firstItemName} 외 ${orderItems.length - 1}건` : firstItemName;
+          }
+
+          const basePath = window.location.pathname.endsWith('.html') 
+            ? window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'))
+            : window.location.pathname.replace(/\/$/, '');
+
+          const successUrl = window.location.origin + basePath + '/success.html';
+          const failUrl = window.location.origin + basePath + '/fail.html';
+
+          payment.requestPayment({
+            method: 'CARD', // 통합결제창 호출
+            amount: {
+              currency: 'KRW',
+              value: finalPrice,
+            },
+            orderId: randomOrderNo,
+            orderName: orderName,
+            successUrl: successUrl,
+            failUrl: failUrl,
+          });
+        } catch (error) {
+          console.error(error);
+          alert('결제 요청 중 오류가 발생했습니다: ' + error.message);
+        }
+        return;
+      }
+
       if (modalOrderNo) modalOrderNo.textContent = randomOrderNo;
       if (modalAddress) modalAddress.textContent = currentShippingAddress.main;
       if (modalPrice) modalPrice.textContent = formatPrice(finalPrice);
