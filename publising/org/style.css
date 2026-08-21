@@ -2471,9 +2471,49 @@ img {
 /* 모바일 카드 크기/간격 반응형 조절 (가로 잘림/텍스트 잘림 없도록 최적화) */
 .popular-uniform .product-grid {
   display: grid !important;
-  grid-template-columns: repeat(2, 1fr) !important;
-  gap: 14px !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 8px !important;
   margin-top: 20px !important;
+  overflow: hidden !important;
+}
+
+/* 모든 유니폼 이미지 영역 3:4 비율로 통일 */
+.popular-uniform .product-card__image {
+  width: 100% !important;
+  aspect-ratio: 3 / 4 !important;
+  overflow: hidden !important;
+}
+
+.popular-uniform .product-card__image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+}
+
+/* 좁아진 카드 폭에 따른 텍스트 잘림 방지 최적화 */
+.popular-uniform .product-card__season {
+  font-size: 9px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  margin-top: 6px !important;
+}
+
+.popular-uniform .product-card__name {
+  font-size: 11px !important;
+  line-height: 1.25 !important;
+  margin-top: 2px !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  height: 28px !important;
+}
+
+.popular-uniform .product-card__price {
+  font-size: 12px !important;
+  margin-top: 2px !important;
+  white-space: nowrap !important;
 }
 
 /* 모바일 카드 페이드 트랜지션 */
