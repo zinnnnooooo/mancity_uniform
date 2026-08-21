@@ -149,10 +149,26 @@ function renderAccountButton(containerId) {
             closeMobileMenu();
           }
 
-          // 로그인 페이지 로드 (자동으로 UI 클래스가 추가되어 숨겨짐)
-          if (typeof loadLoginPage === 'function') {
-            loadLoginPage();
+          // 로그아웃 후 비로그인 둘러보기 상태로 Main 페이지(Home)로 이동
+          if (mobilePageContent) {
+            mobilePageContent.innerHTML = homeContent;
+            mobilePageContent.dataset.page = 'home';
+            if (appMain) appMain.scrollTop = 0;
+            syncBottomNav('home');
+            updateHeaderMenuButton('home');
+            updateCartBadgeCount();
+            if (typeof initMainMobileInteractions === 'function') {
+              initMainMobileInteractions();
+            }
+            if (typeof initMainParallax === 'function') {
+              initMainParallax();
+            }
           }
+
+          // UI 버튼 동기화
+          updateHeaderAuthButton();
+          renderAccountButton('hamAccountContainer');
+          renderAccountButton('mypageAccountContainer');
         });
       } else {
         // 로그인 처리 (로그인 화면으로 이동)
@@ -200,11 +216,24 @@ function initHeaderAuthButton() {
           updateCartBadgeCount();
         }
 
-        if (typeof loadLoginPage === 'function') {
-          loadLoginPage();
+        // 로그아웃 후 비로그인 둘러보기 상태로 Main 페이지(Home)로 이동
+        if (mobilePageContent) {
+          mobilePageContent.innerHTML = homeContent;
+          mobilePageContent.dataset.page = 'home';
+          if (appMain) appMain.scrollTop = 0;
+          syncBottomNav('home');
+          updateHeaderMenuButton('home');
+          if (typeof initMainMobileInteractions === 'function') {
+            initMainMobileInteractions();
+          }
+          if (typeof initMainParallax === 'function') {
+            initMainParallax();
+          }
         }
 
         updateHeaderAuthButton();
+        renderAccountButton('hamAccountContainer');
+        renderAccountButton('mypageAccountContainer');
       });
     } else {
       if (typeof loadLoginPage === 'function') {
@@ -222,11 +251,11 @@ function updateHeaderAuthButton() {
 
   const isLoggedIn = (typeof AuthManager !== 'undefined') ? AuthManager.isLoggedIn() : false;
   if (isLoggedIn) {
-    headerAuthBtn.textContent = '로그아웃';
+    headerAuthBtn.innerHTML = '<img src="img/logout.svg" alt="로그아웃" style="width: 100%; height: 100%; object-fit: contain; object-position: right center; display: block;">';
     headerAuthBtn.classList.remove('app-header__auth-btn--login');
     headerAuthBtn.classList.add('app-header__auth-btn--logout');
   } else {
-    headerAuthBtn.textContent = '로그인';
+    headerAuthBtn.innerHTML = '<img src="img/login.svg" alt="로그인" style="width: 100%; height: 100%; object-fit: contain; object-position: right center; display: block;">';
     headerAuthBtn.classList.remove('app-header__auth-btn--logout');
     headerAuthBtn.classList.add('app-header__auth-btn--login');
   }
@@ -843,11 +872,37 @@ async function loadLoginPage() {
               syncBottomNav('home');
               updateHeaderMenuButton('home');
               updateCartBadgeCount();
+              if (typeof initMainMobileInteractions === 'function') {
+                initMainMobileInteractions();
+              }
+              if (typeof initMainParallax === 'function') {
+                initMainParallax();
+              }
             }
+            updateHeaderAuthButton();
+            renderAccountButton('hamAccountContainer');
+            renderAccountButton('mypageAccountContainer');
           },
-          // 로그아웃 → 로그인 게이트로 복귀
+          // 로그아웃 → 비로그인 둘러보기 상태로 Main(Home)으로 이동
           onLogout: () => {
-            if (typeof _loadLoginGate === 'function') _loadLoginGate();
+            _deactivateLoginUI();
+            if (mobilePageContent) {
+              mobilePageContent.innerHTML = homeContent;
+              mobilePageContent.dataset.page = 'home';
+              if (appMain) appMain.scrollTop = 0;
+              syncBottomNav('home');
+              updateHeaderMenuButton('home');
+              updateCartBadgeCount();
+              if (typeof initMainMobileInteractions === 'function') {
+                initMainMobileInteractions();
+              }
+              if (typeof initMainParallax === 'function') {
+                initMainParallax();
+              }
+            }
+            updateHeaderAuthButton();
+            renderAccountButton('hamAccountContainer');
+            renderAccountButton('mypageAccountContainer');
           },
           // 비회원 둘러보기 → Nav UI 복구 후 홈으로 이동
           onGuest: () => {
@@ -1070,12 +1125,7 @@ function _revealMobileApp() {
   if (targetPage === 'cart') {
     if (typeof loadCartPage === 'function') loadCartPage();
   } else if (targetPage === 'mypage') {
-    const isLoggedIn = (typeof AuthManager !== 'undefined') ? AuthManager.isLoggedIn() : false;
-    if (isLoggedIn) {
-      if (typeof loadMyPage === 'function') loadMyPage();
-    } else {
-      if (typeof loadLoginPage === 'function') loadLoginPage();
-    }
+    if (typeof loadMyPage === 'function') loadMyPage();
   } else if (targetPage === 'wishlist') {
     if (typeof loadWishlistPage === 'function') loadWishlistPage();
   }
@@ -1131,7 +1181,7 @@ function initAuthGate() {
           console.log('[AuthGate] Firebase 로그인 확인 — 게이트 생략');
           _revealMobileApp();
         } else {
-          // Firebase에 로그인 없음 → 로그인 게이트 표시
+          // Firebase에 로그인 없음
           if (typeof AuthManager !== 'undefined') {
             const localUser = AuthManager.getUser();
             if (localUser && localUser.provider === 'google') {
@@ -1139,28 +1189,18 @@ function initAuthGate() {
               AuthManager.clearUser();
             }
           }
-          // 비로그인: Login 화면으로 교체한 뒤 reveal (Main이 1프레임도 노출되지 않음)
-          _loadLoginGate().then(() => _revealMobileApp());
+          // 비로그인: 로그인 게이트 없이 바로 메인 화면 진입
+          _revealMobileApp();
         }
       });
     } catch (err) {
       console.error('[AuthGate] Firebase 초기화 오류:', err);
-      // Firebase 오류 시 기존 localStorage 방식으로 fallback
-      const isLoggedIn = (typeof AuthManager !== 'undefined') ? AuthManager.isLoggedIn() : false;
-      if (!isLoggedIn) {
-        _loadLoginGate().then(() => _revealMobileApp());
-      } else {
-        _revealMobileApp();
-      }
-    }
-  } else {
-    // Firebase SDK 미로드 시: localStorage 기반 fallback
-    const isLoggedIn = (typeof AuthManager !== 'undefined') ? AuthManager.isLoggedIn() : false;
-    if (!isLoggedIn) {
-      _loadLoginGate().then(() => _revealMobileApp());
-    } else {
+      // Firebase 오류 시에도 무조건 메인 화면 진입
       _revealMobileApp();
     }
+  } else {
+    // Firebase SDK 미로드 시에도 무조건 메인 화면 진입
+    _revealMobileApp();
   }
 }
 
@@ -1265,14 +1305,7 @@ async function initMobileMenu() {
           } else if (href.includes('marking_guide.html')) {
             if (typeof loadMarkingGuidePage === 'function') loadMarkingGuidePage();
           } else if (href.includes('mypage.html')) {
-            const isLoggedIn = (typeof AuthManager !== 'undefined')
-              ? AuthManager.isLoggedIn()
-              : false;
-            if (isLoggedIn) {
-              if (typeof loadMyPage === 'function') loadMyPage();
-            } else {
-              if (typeof loadLoginPage === 'function') loadLoginPage();
-            }
+            if (typeof loadMyPage === 'function') loadMyPage();
           } else {
             window.location.href = href;
           }
@@ -1567,15 +1600,7 @@ document.querySelectorAll('.bottom-nav').forEach((nav) => {
       }
     } else if (label && label.textContent.trim().toLowerCase() === 'my page') {
       if (mobilePageContent && mobilePageContent.dataset.page !== 'mypage') {
-        // 로그인 여부 확인 후 분기
-        const isLoggedIn = (typeof AuthManager !== 'undefined')
-          ? AuthManager.isLoggedIn()
-          : false;
-        if (isLoggedIn) {
-          loadMyPage();
-        } else {
-          loadLoginPage();
-        }
+        loadMyPage();
       }
     } else if (label && label.textContent.trim().toLowerCase() === 'wishlist') {
       if (mobilePageContent && mobilePageContent.dataset.page !== 'wishlist') {

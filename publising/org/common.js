@@ -164,11 +164,9 @@ function initHeaderAuthButton() {
     }
 
     if (isLoggedIn) {
-      headerAuthBtn.textContent = '로그아웃';
-      headerAuthBtn.style.color = '#FFFFFF';
+      headerAuthBtn.innerHTML = '<img src="img/logout.svg" alt="로그아웃" style="width: 100%; height: 100%; object-fit: contain; object-position: right center; display: block;">';
     } else {
-      headerAuthBtn.textContent = '로그인';
-      headerAuthBtn.style.color = '#6CABDD';
+      headerAuthBtn.innerHTML = '<img src="img/login.svg" alt="로그인" style="width: 100%; height: 100%; object-fit: contain; object-position: right center; display: block;">';
     }
   };
 
@@ -183,10 +181,10 @@ function initHeaderAuthButton() {
 
     if (isLoggedIn) {
       showLogoutConfirmPopup(() => {
-        // localStorage 정리 후 login.html로 이동
+        // localStorage 정리 후 index.html로 이동
         localStorage.removeItem('unicity_user');
         updateButton();
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
       });
     } else {
       window.location.href = 'login.html';
