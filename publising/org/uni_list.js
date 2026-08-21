@@ -78,7 +78,8 @@
 
   function renderGrid(el, products) {
     if (!el) return;
-    el.innerHTML = products.map(productCardHTML).join("");
+    const visibleProducts = products.filter(p => p.image);
+    el.innerHTML = visibleProducts.map(productCardHTML).join("");
   }
 
   /* ---- 탭 렌더 + 상태 ------------------------------------------------------- */
@@ -88,8 +89,8 @@
   let currentCollection = "special";
 
   const SUB_SEASONS = [
-    "26/27", "25/26", "24/25", "23/24", "22/23",
-    "21/22", "20/21", "기타 시즌"
+    "26/27", "25/26", "24/25", "23/24", "22/23"
+    // "21/22", "20/21", "기타 시즌"
   ];
 
   const SUB_TYPES = [
