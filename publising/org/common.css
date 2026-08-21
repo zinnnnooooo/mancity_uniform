@@ -574,3 +574,10 @@ ul, ol {
   background: #E8FF33;
   box-shadow: 0 0 12px rgba(223, 255, 0, 0.35);
 }
+
+.app-header__auth-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+}

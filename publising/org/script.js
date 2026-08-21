@@ -251,11 +251,11 @@ function updateHeaderAuthButton() {
 
   const isLoggedIn = (typeof AuthManager !== 'undefined') ? AuthManager.isLoggedIn() : false;
   if (isLoggedIn) {
-    headerAuthBtn.innerHTML = '<img src="img/logout.svg" alt="로그아웃" style="width: 100%; height: 100%; object-fit: contain; object-position: right center; display: block;">';
+    headerAuthBtn.innerHTML = '<img class="app-header__auth-icon" src="../../img/logout.svg" alt="">';
     headerAuthBtn.classList.remove('app-header__auth-btn--login');
     headerAuthBtn.classList.add('app-header__auth-btn--logout');
   } else {
-    headerAuthBtn.innerHTML = '<img src="img/login.svg" alt="로그인" style="width: 100%; height: 100%; object-fit: contain; object-position: right center; display: block;">';
+    headerAuthBtn.innerHTML = '<img class="app-header__auth-icon" src="../../img/login.svg" alt="">';
     headerAuthBtn.classList.remove('app-header__auth-btn--logout');
     headerAuthBtn.classList.add('app-header__auth-btn--login');
   }
