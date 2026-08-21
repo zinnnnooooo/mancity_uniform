@@ -314,14 +314,6 @@
             <section class="popular-uniform" aria-label="Popular Uniform">
               <h2 class="popular-uniform__title">인기 유니폼</h2>
 
-              <nav class="popular-uniform__filter" aria-label="유니폼 필터">
-                <button class="filter-tab is-active" type="button">전체</button>
-                <button class="filter-tab" type="button">홈</button>
-                <button class="filter-tab" type="button">어웨이</button>
-                <button class="filter-tab" type="button">서드</button>
-                <button class="filter-tab" type="button">에디션</button>
-              </nav>
-
               <ul class="product-grid">
                 <li class="product-card" data-product-id="uniform_21">
                   <div class="product-card__image">
@@ -351,11 +343,27 @@
                   <div class="product-card__image">
                     <img src="../../img/uniform_20.png" alt="홈 레트로 유니폼" onerror="this.style.display='none'">
                   </div>
-                  <p class="product-card__season">RETRO</p>
+                  <p class="product-card__season">88/89 SEASON</p>
                   <p class="product-card__name">홈 레트로 유니폼</p>
                   <p class="product-card__price">85,000원</p>
                 </li>
               </ul>
+              
+              <div class="popular-carousel-nav">
+                <button class="popular-carousel-btn popular-carousel-btn--prev" type="button" aria-label="이전 인기 유니폼">
+                  <span class="popular-carousel-btn__arrow">←</span>
+                </button>
+                <div class="popular-carousel-indicator" aria-hidden="true">
+                  <span class="popular-carousel-indicator__dot is-active"></span>
+                  <span class="popular-carousel-indicator__dot"></span>
+                  <span class="popular-carousel-indicator__dot"></span>
+                  <span class="popular-carousel-indicator__dot"></span>
+                  <span class="popular-carousel-indicator__dot"></span>
+                </div>
+                <button class="popular-carousel-btn popular-carousel-btn--next" type="button" aria-label="다음 인기 유니폼">
+                  <span class="popular-carousel-btn__arrow">→</span>
+                </button>
+              </div>
             </section>
 
             <section class="retro-collection" aria-label="Retro Collection">

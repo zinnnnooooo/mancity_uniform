@@ -2412,3 +2412,72 @@ img {
   filter: brightness(0.9) drop-shadow(0 0 3px rgba(223, 255, 0, 0.4));
   transition: transform 0.05s ease;
 }
+
+/* ==========================================================================
+   10. POPULAR UNIFORM CAROUSEL & GRID (Mobile)
+   ========================================================================== */
+.popular-carousel-nav {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.popular-carousel-btn {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: opacity 0.25s, transform 0.25s;
+}
+
+.popular-carousel-btn:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.popular-carousel-btn:active {
+  transform: scale(0.9);
+}
+
+.popular-carousel-indicator {
+  display: flex;
+  gap: 8px;
+}
+
+.popular-carousel-indicator__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--white);
+  opacity: 0.25;
+  transition: opacity 0.25s, transform 0.25s, background-color 0.25s;
+  cursor: pointer;
+}
+
+.popular-carousel-indicator__dot.is-active {
+  opacity: 1;
+  background: var(--sky);
+  transform: scale(1.2);
+}
+
+/* 모바일 카드 크기/간격 반응형 조절 (가로 잘림/텍스트 잘림 없도록 최적화) */
+.popular-uniform .product-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 14px !important;
+  margin-top: 20px !important;
+}
+
+/* 모바일 카드 페이드 트랜지션 */
+.popular-uniform .product-card {
+  transition: opacity 0.35s ease, transform 0.25s ease !important;
+  opacity: 1;
+}
