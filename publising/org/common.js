@@ -165,8 +165,12 @@ function initHeaderAuthButton() {
 
     if (isLoggedIn) {
       headerAuthBtn.innerHTML = '<img class="app-header__auth-icon" src="../../img/logout.svg" alt="">';
+      headerAuthBtn.classList.remove('app-header__auth-btn--login');
+      headerAuthBtn.classList.add('app-header__auth-btn--logout');
     } else {
       headerAuthBtn.innerHTML = '<img class="app-header__auth-icon" src="../../img/login.svg" alt="">';
+      headerAuthBtn.classList.remove('app-header__auth-btn--logout');
+      headerAuthBtn.classList.add('app-header__auth-btn--login');
     }
   };
 

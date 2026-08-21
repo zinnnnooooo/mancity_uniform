@@ -2379,4 +2379,36 @@ img {
   height: 20px;
   object-fit: contain;
   display: block;
+  transition: transform 0.25s ease, filter 0.25s ease;
+  will-change: transform, filter;
+}
+
+/* 비로그인 상태 (Sky Blue Glow) */
+@media (hover: hover) {
+  .app-header__auth-btn--login:hover .app-header__auth-icon,
+  .topbar-auth-btn:not(.app-header__auth-btn--logout):hover .app-header__auth-icon {
+    transform: scale(1.08);
+    filter: brightness(1.15) drop-shadow(0 0 5px rgba(108, 171, 221, 0.5));
+  }
+}
+
+.app-header__auth-btn--login:active .app-header__auth-icon,
+.topbar-auth-btn:not(.app-header__auth-btn--logout):active .app-header__auth-icon {
+  transform: scale(0.95);
+  filter: brightness(0.9) drop-shadow(0 0 3px rgba(108, 171, 221, 0.3));
+  transition: transform 0.05s ease;
+}
+
+/* 로그인 완료 상태 (Lime Glow) */
+@media (hover: hover) {
+  .app-header__auth-btn--logout:hover .app-header__auth-icon {
+    transform: scale(1.08);
+    filter: brightness(1.15) drop-shadow(0 0 5px rgba(223, 255, 0, 0.6));
+  }
+}
+
+.app-header__auth-btn--logout:active .app-header__auth-icon {
+  transform: scale(0.95);
+  filter: brightness(0.9) drop-shadow(0 0 3px rgba(223, 255, 0, 0.4));
+  transition: transform 0.05s ease;
 }
