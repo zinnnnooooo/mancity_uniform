@@ -35,87 +35,86 @@
         <span class="topbar-logo-badge" aria-hidden="true"></span>
         CITY STORE
       </a>
-      <button class="topbar-auth-btn" id="headerAuthBtn" type="button"><img class="app-header__auth-icon" src="../../img/login.svg" alt=""></button>
+      <button class="topbar-auth-btn" id="headerAuthBtn" type="button"><img class="app-header__auth-icon"
+          src="../../img/login.svg" alt=""></button>
     </header>
 
     <div class="uni-list-page-content">
 
-    <!-- ================= 히어로 ================= -->
-    <section class="hero">
-      <div class="hero-media">
-        <img src="../../img/uni_hero.png" alt="UNI:CITY Hero" class="hero-image" />
-        <div class="hero-gradient"></div>
-      </div>
-      <div class="hero-text-overlay">
-        <h1 class="hero-title-line1">26/27</h1>
-        <h1 class="hero-title-line2">SEASON</h1>
-        <p class="hero-desc">새로운 시즌 유니폼을 가장 먼저 만나보세요!</p>
-      </div>
-    </section>
+      <!-- ================= 히어로 ================= -->
+      <section class="hero">
+        <div class="hero-media">
+          <img src="../../img/uni_hero.png" alt="UNI:CITY Hero" class="hero-image" />
+          <div class="hero-gradient"></div>
+        </div>
+        <div class="hero-text-overlay">
+          <h1 class="hero-title-line1">26/27</h1>
+          <h1 class="hero-title-line2">SEASON</h1>
+          <p class="hero-desc">새로운 시즌 유니폼을 가장 먼저 만나보세요!</p>
+        </div>
+      </section>
 
-    <!-- ================= 26/27 시즌 신상품 ================= -->
-    <section class="new-arrivals">
-      <div class="product-grid" id="newArrivalsGrid"></div>
-    </section>
+      <!-- ================= 26/27 시즌 신상품 ================= -->
+      <section class="new-arrivals">
+        <div class="product-grid" id="newArrivalsGrid"></div>
+      </section>
 
-    <!-- ================= 시즌 / 유니폼 선택 탭 ================= -->
-    <section class="filter-section">
-      <div class="segmented-control" role="tablist" aria-label="필터 모드 선택">
-        <button type="button" class="segment-btn is-active" id="tabAll" role="tab" aria-selected="true">전체</button>
-        <button type="button" class="segment-btn" id="tabSeason" role="tab" aria-selected="false">시즌별</button>
-        <button type="button" class="segment-btn" id="tabType" role="tab" aria-selected="false">유형별</button>
-        <button type="button" class="segment-btn" id="tabCollection" role="tab" aria-selected="false">컬렉션</button>
-      </div>
-      <div class="sub-tabs-wrapper">
-        <button type="button" class="scroll-arrow-btn scroll-arrow-btn--left is-hidden" id="scrollLeftBtn" aria-label="이전 탭">
-          <svg viewBox="0 0 24 24" width="14" height="14">
-            <path d="M15 19 L8 12 L15 5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <div class="pill-row" id="subTabs" role="tablist" aria-label="상세 필터 선택"></div>
-        <button type="button" class="scroll-arrow-btn scroll-arrow-btn--right is-hidden" id="scrollRightBtn" aria-label="다음 탭">
-          <svg viewBox="0 0 24 24" width="14" height="14">
-            <path d="M9 5 L16 12 L9 19" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
-    </section>
+      <!-- ================= 시즌 / 유니폼 선택 탭 ================= -->
+      <section class="filter-section">
+        <div class="segmented-control" role="tablist" aria-label="필터 모드 선택">
+          <button type="button" class="segment-btn is-active" id="tabAll" role="tab" aria-selected="true">전체</button>
+          <button type="button" class="segment-btn" id="tabSeason" role="tab" aria-selected="false">시즌별</button>
+          <button type="button" class="segment-btn" id="tabType" role="tab" aria-selected="false">유형별</button>
+          <button type="button" class="segment-btn" id="tabCollection" role="tab" aria-selected="false">컬렉션</button>
+        </div>
+        <div class="sub-tabs-wrapper">
+          <button type="button" class="scroll-arrow-btn scroll-arrow-btn--left is-hidden" id="scrollLeftBtn"
+            aria-label="이전 탭">
+            <svg viewBox="0 0 24 24" width="14" height="14">
+              <path d="M15 19 L8 12 L15 5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+          <div class="pill-row" id="subTabs" role="tablist" aria-label="상세 필터 선택"></div>
+          <button type="button" class="scroll-arrow-btn scroll-arrow-btn--right is-hidden" id="scrollRightBtn"
+            aria-label="다음 탭">
+            <svg viewBox="0 0 24 24" width="14" height="14">
+              <path d="M9 5 L16 12 L9 19" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+      </section>
 
-    <!-- ================= 필터링 상품 그리드 ================= -->
-    <section class="product-list">
-      <div class="product-grid" id="productGrid"></div>
-    </section>
+      <!-- ================= 필터링 상품 그리드 ================= -->
+      <section class="product-list">
+        <div class="product-grid" id="productGrid"></div>
+      </section>
 
-    <!-- ================= SPECIAL & HERITAGE 배너 ================= -->
-    <section class="banner-heritage">
-      <a href="#" class="banner-link">
-        <span class="banner-bg" aria-hidden="true"></span>
-        <span class="banner-content">
-          <span class="banner-eyebrow">SPECIAL &amp;<br />HERITAGE</span>
-          <span class="banner-explore">EXPLORE</span>
-        </span>
-      </a>
-    </section>
+      <!-- ================= SPECIAL & HERITAGE 배너 ================= -->
+      <section class="banner-heritage">
+        <a href="#" class="banner-link">
+          <span class="banner-bg" aria-hidden="true"></span>
+          <span class="banner-content">
+            <span class="banner-eyebrow">SPECIAL &amp;<br />HERITAGE</span>
+            <span class="banner-explore">EXPLORE</span>
+          </span>
+        </a>
+      </section>
 
-    <!-- ================= 인기 유니폼 ================= -->
-    <section class="popular-section">
-      <h2 class="section-title">인기 유니폼</h2>
-      <div class="scroll-row" id="popularRow"></div>
-    </section>
-
-    <!-- ================= 푸터 ================= -->
-    <footer class="site-footer">
-      <p class="footer-logo">CITY STORE</p>
-      <p class="footer-sub">Official Merchandise Store</p>
-      <nav class="footer-links" aria-label="약관 및 안내">
-        <a href="#">이용약관</a>
-        <span class="footer-divider" aria-hidden="true">|</span>
-        <a href="#">개인정보처리방침</a>
-        <span class="footer-divider" aria-hidden="true">|</span>
-        <a href="#">고객센터</a>
-      </nav>
-      <p class="footer-copyright">© 2024 Manchester City FC Ltd. All rights reserved.</p>
-    </footer>
+      <!-- ================= 푸터 ================= -->
+      <footer class="site-footer">
+        <p class="footer-logo">CITY STORE</p>
+        <p class="footer-sub">Official Merchandise Store</p>
+        <nav class="footer-links" aria-label="약관 및 안내">
+          <a href="#">이용약관</a>
+          <span class="footer-divider" aria-hidden="true">|</span>
+          <a href="#">개인정보처리방침</a>
+          <span class="footer-divider" aria-hidden="true">|</span>
+          <a href="#">고객센터</a>
+        </nav>
+        <p class="footer-copyright">© 2024 Manchester City FC Ltd. All rights reserved.</p>
+      </footer>
 
     </div>
 

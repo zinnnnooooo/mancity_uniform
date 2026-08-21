@@ -576,35 +576,6 @@
   color: rgba(255, 255, 255, 0.75);
 }
 
-/* ---- 인기 유니폼 ------------------------------------------------------------ */
-.popular-section {
-  padding: 26px 0 30px;
-}
-
-.section-title {
-  padding: 0 20px;
-  font-size: 19px;
-  font-weight: 800;
-  color: var(--color-white);
-}
-
-.scroll-row {
-  margin-top: 16px;
-  display: flex;
-  gap: 14px;
-  overflow-x: auto;
-  padding: 0 20px 4px;
-  scrollbar-width: none;
-}
-
-.scroll-row::-webkit-scrollbar {
-  display: none;
-}
-
-.scroll-row .product-card {
-  flex: 0 0 auto;
-  width: 148px;
-}
 
 /* ---- 푸터 -------------------------------------------------------------- */
 .site-footer {
@@ -699,8 +670,4 @@
 .new-arrivals .product-price,
 .product-list .product-price {
   margin-top: 3px;
-}
-
-#popularRow a {
-  transition: opacity 0.35s ease;
 }

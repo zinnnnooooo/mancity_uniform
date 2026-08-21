@@ -34,10 +34,6 @@
     (p) => p.season.includes("26/27") && (p.type === "home" || p.type === "away" || p.type === "third" || p.type === "keeper")
   );
 
-  /* ---- 인기 유니폼 (탭과 무관, 가로 스크롤) -------------------------------- */
-  const POPULAR = PRODUCTS.filter(
-    (p) => p.name === "오아시스 콜라보 유니폼" || p.name === "레트로 유니폼" || p.name === "9320 스페셜 유니폼"
-  );
 
   const SEASONS = ["26/27", "25/26", "24/25", "23/24", "PAST"];
   const TYPES = [
@@ -299,7 +295,7 @@
       el.addEventListener("click", () => {
         if (currentMainTab === id) return;
         currentMainTab = id;
-        
+
         tabs.forEach((t) => {
           if (t.el) {
             t.el.classList.remove("is-active");
@@ -308,110 +304,11 @@
         });
         el.classList.add("is-active");
         el.setAttribute("aria-selected", "true");
-        
+
         renderSubTabs();
         renderProductGrid();
       });
     });
-  }
-
-  /* ---- 초기화 --------------------------------------------------------------- */
-  /* ---- 모바일 인기 유니폼 Auto Slider --------------------------------------- */
-  let popularPage = 0;
-  let popularTimer = null;
-
-  function initPopularSlider() {
-    const popularRow = document.getElementById("popularRow");
-    if (!popularRow) return;
-
-    if (popularTimer) {
-      clearInterval(popularTimer);
-    }
-
-    const getProductInfo = (id) => {
-      const p = PRODUCTS.find(prod => prod.id === id);
-      return p || null;
-    };
-
-    const popularPages = [
-      [getProductInfo("uniform_oasis"), getProductInfo("uniform_retro_9899"), getProductInfo("uniform_9320")].filter(Boolean),
-      [getProductInfo("uniform_31"), getProductInfo("uniform_35"), getProductInfo("uniform_30")].filter(Boolean),
-      [getProductInfo("uniform_10"), getProductInfo("uniform_20"), getProductInfo("uniform_9")].filter(Boolean)
-    ];
-
-    popularPage = 0;
-
-    popularTimer = setInterval(() => {
-      const cards = popularRow.querySelectorAll("a");
-      if (cards.length > 0) {
-        cards.forEach(card => {
-          card.style.opacity = "0";
-        });
-
-        setTimeout(() => {
-          popularPage = (popularPage + 1) % popularPages.length;
-          const nextProducts = popularPages[popularPage];
-
-          nextProducts.forEach((prod, idx) => {
-            const card = cards[idx];
-            if (!card) return;
-
-            card.setAttribute("href", `product_detail.html?id=${prod.id}`);
-            card.setAttribute("data-product-id", prod.id);
-
-            const img = card.querySelector(".product-image-img");
-            const jersey = card.querySelector(".product-jersey");
-            const media = card.querySelector(".product-media");
-            const season = card.querySelector(".product-season");
-            const name = card.querySelector(".product-name");
-            const price = card.querySelector(".product-price");
-
-            const kit = KIT[prod.kit] || KIT.home;
-            if (media) {
-              media.style.setProperty("--kit-color", kit.color);
-              media.style.setProperty("--kit-glow", kit.glow);
-            }
-
-            if (prod.image) {
-              if (jersey) {
-                media.innerHTML = `
-                  ${prod.badge ? `<span class="product-badge product-badge--${prod.badge === "BEST" ? "best" : "new"}">${prod.badge}</span>` : ""}
-                  <img src="${prod.image}" alt="${prod.name}" class="product-image-img" />
-                `;
-              } else if (img) {
-                img.src = prod.image;
-                img.alt = prod.name;
-                const badge = media.querySelector(".product-badge");
-                if (badge) {
-                  if (prod.badge) {
-                    badge.style.display = "inline-block";
-                    badge.className = `product-badge product-badge--${prod.badge === "BEST" ? "best" : "new"}`;
-                    badge.textContent = prod.badge;
-                  } else {
-                    badge.style.display = "none";
-                  }
-                } else if (prod.badge) {
-                  media.insertAdjacentHTML('afterbegin', `<span class="product-badge product-badge--${prod.badge === "BEST" ? "best" : "new"}">${prod.badge}</span>`);
-                }
-              }
-            } else {
-              media.innerHTML = `
-                ${prod.badge ? `<span class="product-badge product-badge--${prod.badge === "BEST" ? "best" : "new"}">${prod.badge}</span>` : ""}
-                <svg class="product-jersey" viewBox="0 0 100 100"><use href="#icon-jersey" /></svg>
-              `;
-            }
-
-            if (season) season.textContent = prod.season ? `${prod.season} SEASON` : "";
-            if (name) name.textContent = prod.name || "유니폼";
-            if (price) price.textContent = formatPrice(prod.price);
-          });
-
-          cards.forEach(card => {
-            card.style.opacity = "1";
-          });
-        }, 350);
-      }
-    }, 4000);
   }
 
   /* ---- 초기화 --------------------------------------------------------------- */
@@ -431,8 +328,6 @@
     initTabsScroll();
     renderSubTabs();
     renderProductGrid();
-    renderGrid(document.getElementById("popularRow"), POPULAR);
-    initPopularSlider();
 
     const tabs = [
       { id: "all", el: document.getElementById("tabAll") },
@@ -455,7 +350,7 @@
   window.initUniformListPage = initUniformListPage;
 
   // Global openProductDetail definition fallback
-  window.openProductDetail = window.openProductDetail || function(productId) {
+  window.openProductDetail = window.openProductDetail || function (productId) {
     if (typeof window.loadProductDetailPage === 'function') {
       window.loadProductDetailPage(productId);
     } else {
