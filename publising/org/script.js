@@ -2223,9 +2223,6 @@ function initMainParallax() {
     ]
   ];
 
-  const mCards = document.querySelectorAll('.popular-uniform .product-card');
-  const mDots = document.querySelectorAll('.popular-carousel-indicator__dot');
-
   let currentPage = 0;
   let sliderTimer = null;
   let isTransitioning = false;
@@ -2266,45 +2263,7 @@ function initMainParallax() {
       }, delay);
     });
 
-    mCards.forEach((card, idx) => {
-      const delay = idx * 70;
-      setTimeout(() => {
-        card.style.opacity = '0';
-
-        setTimeout(() => {
-          const data = productPages[pageIndex][idx];
-          const img = card.querySelector('img');
-          const season = card.querySelector('.product-card__season');
-          const name = card.querySelector('.product-card__name');
-          const price = card.querySelector('.product-card__price');
-
-          if (data && data.id) {
-            card.setAttribute('data-product-id', data.id);
-            card.dataset.productId = data.id;
-          }
-          if (img && data) {
-            img.style.display = 'block';
-            img.src = data.img;
-            img.alt = data.alt;
-          }
-          if (season && data) season.textContent = data.season;
-          if (name && data) name.textContent = data.name;
-          if (price && data) price.textContent = data.price;
-
-          card.style.opacity = '1';
-        }, 300);
-      }, delay);
-    });
-
     dots.forEach((dot, idx) => {
-      if (idx === pageIndex) {
-        dot.classList.add('is-active');
-      } else {
-        dot.classList.remove('is-active');
-      }
-    });
-
-    mDots.forEach((dot, idx) => {
       if (idx === pageIndex) {
         dot.classList.add('is-active');
       } else {
@@ -2341,17 +2300,6 @@ function initMainParallax() {
     });
   });
 
-  mDots.forEach((dot, idx) => {
-    dot.style.cursor = 'pointer';
-    dot.addEventListener('click', () => {
-      if (isTransitioning) return;
-      if (currentPage !== idx) {
-        showPage(idx);
-        resetTimer();
-      }
-    });
-  });
-
   const prevBtn = document.querySelector('.dc-carousel-btn--prev');
   const nextBtn = document.querySelector('.dc-carousel-btn--next');
 
@@ -2366,27 +2314,6 @@ function initMainParallax() {
 
   if (nextBtn) {
     nextBtn.addEventListener('click', () => {
-      if (isTransitioning) return;
-      const nextPage = (currentPage + 1) % productPages.length;
-      showPage(nextPage);
-      resetTimer();
-    });
-  }
-
-  const mPrevBtn = document.querySelector('.popular-carousel-btn--prev');
-  const mNextBtn = document.querySelector('.popular-carousel-btn--next');
-
-  if (mPrevBtn) {
-    mPrevBtn.addEventListener('click', () => {
-      if (isTransitioning) return;
-      const prevPage = (currentPage - 1 + productPages.length) % productPages.length;
-      showPage(prevPage);
-      resetTimer();
-    });
-  }
-
-  if (mNextBtn) {
-    mNextBtn.addEventListener('click', () => {
       if (isTransitioning) return;
       const nextPage = (currentPage + 1) % productPages.length;
       showPage(nextPage);
