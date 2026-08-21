@@ -86,7 +86,7 @@
   let currentMainTab = "all"; // "all" | "season" | "type" | "collection"
   let currentSeason = "26/27";
   let currentType = "home";
-  let currentCollection = "special";
+  let currentCollection = "retro";
 
   const SUB_SEASONS = [
     "26/27", "25/26", "24/25", "23/24", "22/23"
@@ -101,8 +101,8 @@
   ];
 
   const SUB_COLLECTIONS = [
-    { key: "special", label: "스페셜" },
-    { key: "retro", label: "레트로" }
+    { key: "retro", label: "레트로" },
+    { key: "special", label: "스페셜" }
   ];
 
   // Helper to match season string
@@ -122,6 +122,9 @@
 
   function renderProductGrid() {
     const allProducts = getAllBaseProducts();
+    const gridEl = document.getElementById("productGrid");
+    if (!gridEl) return;
+
     let filtered = [];
 
     if (currentMainTab === "all") {
@@ -143,15 +146,23 @@
     } else if (currentMainTab === "collection") {
       // 컬렉션: 스페셜 또는 레트로
       if (currentCollection === "special") {
-        filtered = allProducts.filter(
-          (p) => p.type === "special" || p.type === "specialB" || p.type === "edition"
-        );
+        filtered = [];
       } else if (currentCollection === "retro") {
-        filtered = allProducts.filter((p) => p.type === "retro");
+        filtered = allProducts.filter(
+          (p) => p.type === "retro" || p.type === "special" || p.type === "specialB" || p.type === "edition"
+        );
       }
     }
 
-    renderGrid(document.getElementById("productGrid"), filtered);
+    renderGrid(gridEl, filtered);
+
+    if (currentMainTab === "collection" && currentCollection === "special") {
+      gridEl.innerHTML = `
+        <div class="product-grid__empty" style="grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; min-height: 250px; color: var(--color-text-muted, rgba(255,255,255,0.4)); font-size: 14px; font-weight: 500; text-align: center; width: 100%;">
+          상품 준비중입니다.
+        </div>
+      `;
+    }
   }
 
   function renderSubTabs() {
