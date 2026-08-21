@@ -576,7 +576,7 @@ ul, ol {
 }
 
 .app-header__auth-icon {
-  width: 20px;
+  width: 60px;
   height: 20px;
   object-fit: contain;
   display: block;
