@@ -355,26 +355,6 @@ a { color: inherit; text-decoration: none; }
 }
 .delivery-cta button span { margin-left: 6px; }
 
-.bottom-nav {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 62px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  align-items: center;
-  background: rgba(65,84,99,.96);
-  border-top: 1px solid rgba(255,255,255,.08);
-}
-.bottom-nav a {
-  display: grid;
-  place-items: center;
-  height: 100%;
-  color: rgba(255,255,255,.5);
-  font-size: 20px;
-}
-.bottom-nav a.is-active { color: var(--delivery-blue); }
 
 @media (max-width: 360px) {
   .delivery-hero { height: 430px; }
