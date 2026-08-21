@@ -439,3 +439,365 @@ body.mypage-page-body .app-frame.mypage {
   background: rgba(255, 80, 80, 0.16);
   border-color: rgba(255, 80, 80, 0.4);
 }
+
+/* --------------------------------------------------------------------------
+   마이페이지 서브페이지 (구매내역, 배송추적, 개인정보 수정, 고객센터)
+   -------------------------------------------------------------------------- */
+.mypage-sub-page-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.mypage-title {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.topbar-btn.spacer {
+  width: 32px; /* 뒤로가기 버튼과 대칭 맞춤용 공백 */
+}
+
+.mypage-sub-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #DFFF00 transparent;
+}
+
+.mypage-sub-main::-webkit-scrollbar {
+  width: 5px;
+}
+
+.mypage-sub-main::-webkit-scrollbar-thumb {
+  background-color: #DFFF00;
+  border-radius: 4px;
+}
+
+/* 1. 구매내역 */
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.order-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.order-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.order-date {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.order-status-badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 99px;
+}
+
+.status-preparing {
+  background: rgba(108, 171, 221, 0.15);
+  color: #6CABDD;
+}
+
+.status-completed {
+  background: rgba(223, 255, 0, 0.15);
+  color: #DFFF00;
+}
+
+.order-card-body {
+  display: flex;
+  gap: 14px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.order-card-body:hover {
+  transform: scale(0.99);
+}
+
+.order-item-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.order-item-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.order-item-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.order-item-brand {
+  font-size: 10px;
+  font-weight: 700;
+  color: #6CABDD;
+  margin-bottom: 2px;
+}
+
+.order-item-name {
+  font-size: 13px;
+  color: #FFFFFF;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.order-item-price {
+  font-size: 13px;
+  font-weight: 700;
+  color: #DFFF00;
+}
+
+/* 2. 배송추적 */
+.shipping-tracker {
+  display: flex;
+  flex-direction: column;
+}
+
+.shipping-product-card {
+  display: flex;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+
+.shipping-product-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.shipping-product-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.shipping-courier {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.shipping-product-name {
+  font-size: 14px;
+  color: #FFFFFF;
+  margin: 2px 0 4px 0;
+}
+
+.shipping-product-status {
+  font-size: 12px;
+  font-weight: 700;
+  color: #6CABDD;
+}
+
+.shipping-timeline {
+  padding: 8px 4px;
+}
+
+/* 3. 개인정보 수정 */
+.profile-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.profile-image-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-image-wrap {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+.profile-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn-change-image {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-change-image:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+.profile-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-row label {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.05em;
+}
+
+.input-row input,
+.input-row select,
+.input-row textarea {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.input-row input:focus,
+.input-row select:focus,
+.input-row textarea:focus {
+  border-color: #6CABDD;
+}
+
+.btn-save-profile,
+.btn-submit-support {
+  background: #DFFF00;
+  color: #10193B;
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  width: 100%;
+}
+
+.btn-save-profile:hover,
+.btn-submit-support:hover {
+  opacity: 0.9;
+}
+
+/* 4. 고객센터 */
+.support-faq-section h3,
+.support-contact-section h3 {
+  font-size: 14px;
+  color: #6CABDD;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.support-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.support-faq-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.support-faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  background: transparent;
+  border: none;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.support-faq-question .faq-icon {
+  font-size: 16px;
+  color: #6CABDD;
+  transition: transform 0.2s ease;
+}
+
+.support-faq-item.is-active .support-faq-question .faq-icon {
+  transform: rotate(45deg);
+  color: #DFFF00;
+}
+
+.support-faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.support-faq-answer p {
+  padding: 14px 16px;
+  margin: 0;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+}
+
+.support-faq-item.is-active .support-faq-answer {
+  max-height: 200px;
+}
+
+.support-contact-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 24px;
+}

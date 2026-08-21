@@ -1,0 +1,49 @@
+<div class="mypage-sub-page-content" data-sub-page="orders">
+  <header class="mypage-topbar">
+    <button type="button" class="topbar-btn" id="subPageBackBtn" aria-label="뒤로가기">←</button>
+    <span class="mypage-title">구매내역</span>
+    <span class="topbar-btn spacer"></span>
+  </header>
+  
+  <main class="mypage-sub-main">
+    <div class="order-list">
+      
+      <!-- 주문 건 1 -->
+      <div class="order-card">
+        <div class="order-card-header">
+          <span class="order-date">2026.08.20</span>
+          <span class="order-status-badge status-preparing">상품준비중</span>
+        </div>
+        <div class="order-card-body" onclick="if(typeof window.loadProductDetailPage === 'function') { window.loadProductDetailPage('uniform_39'); } else if(typeof parent.loadProductDetailPage === 'function') { parent.loadProductDetailPage('uniform_39'); }">
+          <div class="order-item-img">
+            <img src="../../img/uniform_39.png" alt="">
+          </div>
+          <div class="order-item-info">
+            <span class="order-item-brand">MANCHESTER CITY</span>
+            <strong class="order-item-name">Manchester City 24-25 Home Replica Uniform (HAALAND 9)</strong>
+            <span class="order-item-price">167,000원</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 주문 건 2 -->
+      <div class="order-card">
+        <div class="order-card-header">
+          <span class="order-date">2026.08.05</span>
+          <span class="order-status-badge status-completed">배송완료</span>
+        </div>
+        <div class="order-card-body" onclick="if(typeof window.loadProductDetailPage === 'function') { window.loadProductDetailPage('uniform_40'); } else if(typeof parent.loadProductDetailPage === 'function') { parent.loadProductDetailPage('uniform_40'); }">
+          <div class="order-item-img">
+            <img src="../../img/uniform_40.png" alt="">
+          </div>
+          <div class="order-item-info">
+            <span class="order-item-brand">MANCHESTER CITY</span>
+            <strong class="order-item-name">Manchester City 24-25 Away Replica Uniform</strong>
+            <span class="order-item-price">112,000원</span>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </main>
+</div>

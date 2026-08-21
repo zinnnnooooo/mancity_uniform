@@ -1,0 +1,61 @@
+<div class="mypage-sub-page-content" data-sub-page="shipping">
+  <header class="mypage-topbar">
+    <button type="button" class="topbar-btn" id="subPageBackBtn" aria-label="뒤로가기">←</button>
+    <span class="mypage-title">배송추적</span>
+    <span class="topbar-btn spacer"></span>
+  </header>
+  
+  <main class="mypage-sub-main">
+    <div class="shipping-tracker">
+      
+      <!-- 배송 상품 정보 카드 -->
+      <div class="shipping-product-card">
+        <img src="../../img/uniform_31.png" alt="" class="shipping-product-img">
+        <div class="shipping-product-info">
+          <span class="shipping-courier">CJ대한통운 1234567890</span>
+          <strong class="shipping-product-name">Manchester City 26-27 Home Uniform</strong>
+          <span class="shipping-product-status">상품준비중</span>
+        </div>
+      </div>
+
+      <!-- 배송 프로세스 UI (기존 delivery_info.html 의 CSS 재사용) -->
+      <div class="shipping-timeline">
+        <ol class="process-list">
+          <li class="process-step is-complete">
+            <span class="process-dot"></span>
+            <div class="process-copy">
+              <span class="process-index">01</span>
+              <strong>ORDER (결제완료)</strong>
+              <p>2026.08.20 - 주문 결제가 완료되었습니다.</p>
+            </div>
+          </li>
+          <li class="process-step is-active">
+            <span class="process-dot"></span>
+            <div class="process-copy">
+              <span class="process-index">02</span>
+              <strong>PREPARING (상품준비)</strong>
+              <p>2026.08.21 - 마킹 부착 및 포장 공정이 진행 중입니다.</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <span class="process-dot"></span>
+            <div class="process-copy">
+              <span class="process-index">03</span>
+              <strong>SHIPPING (배송중)</strong>
+              <p>상품 검수 완료 후 택배사 출고 예정입니다.</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <span class="process-dot"></span>
+            <div class="process-copy">
+              <span class="process-index">04</span>
+              <strong>DELIVERED (배송완료)</strong>
+              <p>배송이 완료되면 등록된 연락처로 안내드립니다.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+      
+    </div>
+  </main>
+</div>

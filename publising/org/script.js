@@ -2362,3 +2362,113 @@ document.addEventListener('click', (e) => {
     window.openProductDetail(pid);
   }
 });
+
+// ==========================================================================
+// UNI:CITY — 마이페이지 서브페이지 로더 (구매내역, 배송추적, 개인정보 수정, 고객센터)
+// ==========================================================================
+async function loadMypageSubPage(subPageName, title) {
+  if (!mobilePageContent || !appMain) return;
+
+  try {
+    const response = await fetch(`./mypage_${subPageName}.html`);
+    const html = await response.text();
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const content = doc.querySelector('.mypage-sub-page-content');
+
+    if (!content) return;
+
+    // 배송추적의 경우 delivery_info.css 스타일 연동
+    if (subPageName === 'shipping') {
+      if (!document.getElementById('delivery-style')) {
+        const link = document.createElement('link');
+        link.id = 'delivery-style';
+        link.rel = 'stylesheet';
+        link.href = './delivery_info.css';
+        document.head.appendChild(link);
+      }
+    }
+
+    mobilePageContent.classList.add('page-leave');
+
+    setTimeout(() => {
+      mobilePageContent.innerHTML = content.outerHTML;
+      mobilePageContent.dataset.page = `mypage_${subPageName}`;
+      appMain.scrollTop = 0;
+      
+      syncBottomNav('mypage');
+      updateCartBadgeCount();
+
+      mobilePageContent.classList.remove('page-leave');
+      mobilePageContent.classList.add('page-enter');
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          mobilePageContent.classList.remove('page-enter');
+          mobilePageContent.classList.add('page-enter-active');
+
+          setTimeout(() => {
+            mobilePageContent.classList.remove('page-enter-active');
+          }, 320);
+        });
+      });
+
+      // 뒤로가기 버튼 리스너 바인딩
+      const backBtn = document.getElementById('subPageBackBtn');
+      if (backBtn) {
+        backBtn.addEventListener('click', () => {
+          loadMyPage();
+        });
+      }
+    }, 220);
+  } catch (err) {
+    console.error(`Error loading mypage subpage ${subPageName}:`, err);
+  }
+}
+
+// 프로필 이미지 변경 헬퍼
+window.handleProfileImageChange = function(input) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = document.getElementById('profilePreviewImage');
+      if (img) img.src = e.target.result;
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+};
+
+// 프로필 수정 submit 헬퍼
+window.handleProfileSubmit = function(event) {
+  event.preventDefault();
+  alert('개인정보가 성공적으로 수정되었습니다.');
+  loadMyPage();
+};
+
+// FAQ 아코디언 토글 헬퍼
+window.toggleFaqItem = function(button) {
+  const item = button.closest('.support-faq-item');
+  if (!item) return;
+  
+  const isActive = item.classList.contains('is-active');
+  
+  // 다른 아코디언은 닫기
+  document.querySelectorAll('.support-faq-item').forEach(el => {
+    el.classList.remove('is-active');
+  });
+  
+  if (!isActive) {
+    item.classList.add('is-active');
+  }
+};
+
+// 고객센터 문의 submit 헬퍼
+window.handleSupportSubmit = function(event) {
+  event.preventDefault();
+  alert('문의가 성공적으로 등록되었습니다.');
+  loadMyPage();
+};
+
+// 전역 노출
+window.loadMypageSubPage = loadMypageSubPage;

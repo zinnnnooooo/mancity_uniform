@@ -20,16 +20,13 @@ function initMyPage() {
   if (orderDetailBtn && !orderDetailBtn.dataset.listenerBound) {
     orderDetailBtn.dataset.listenerBound = 'true';
     orderDetailBtn.addEventListener('click', () => {
-      alert('주문 상세 페이지는 추후 연결됩니다.');
+      if (typeof window.loadMypageSubPage === 'function') {
+        window.loadMypageSubPage('shipping', '배송추적');
+      } else if (typeof parent.loadMypageSubPage === 'function') {
+        parent.loadMypageSubPage('shipping', '배송추적');
+      }
     });
   }
-
-  const placeholderActions = {
-    orders: '구매내역 페이지는 추후 연결됩니다.',
-    wishlist: '위시리스트 페이지는 추후 연결됩니다.',
-    profile: '개인정보 수정 페이지는 추후 연결됩니다.',
-    support: '고객센터 페이지는 추후 연결됩니다.'
-  };
 
   document.querySelectorAll('[data-target], [data-action]').forEach((element) => {
     if (element.dataset.listenerBound) return;
@@ -37,13 +34,36 @@ function initMyPage() {
     element.addEventListener('click', () => {
       const key = element.dataset.target || element.dataset.action;
 
-      if (key === 'shipping') {
-        window.location.href = 'delivery_info.html';
-        return;
-      }
-
-      if (placeholderActions[key]) {
-        alert(placeholderActions[key]);
+      if (key === 'orders') {
+        if (typeof window.loadMypageSubPage === 'function') {
+          window.loadMypageSubPage('orders', '구매내역');
+        } else if (typeof parent.loadMypageSubPage === 'function') {
+          parent.loadMypageSubPage('orders', '구매내역');
+        }
+      } else if (key === 'shipping') {
+        if (typeof window.loadMypageSubPage === 'function') {
+          window.loadMypageSubPage('shipping', '배송추적');
+        } else if (typeof parent.loadMypageSubPage === 'function') {
+          parent.loadMypageSubPage('shipping', '배송추적');
+        }
+      } else if (key === 'wishlist') {
+        if (typeof window.loadWishlistPage === 'function') {
+          window.loadWishlistPage();
+        } else if (typeof parent.loadWishlistPage === 'function') {
+          parent.loadWishlistPage();
+        }
+      } else if (key === 'profile') {
+        if (typeof window.loadMypageSubPage === 'function') {
+          window.loadMypageSubPage('profile', '개인정보 수정');
+        } else if (typeof parent.loadMypageSubPage === 'function') {
+          parent.loadMypageSubPage('profile', '개인정보 수정');
+        }
+      } else if (key === 'support') {
+        if (typeof window.loadMypageSubPage === 'function') {
+          window.loadMypageSubPage('support', '고객센터');
+        } else if (typeof parent.loadMypageSubPage === 'function') {
+          parent.loadMypageSubPage('support', '고객센터');
+        }
       }
     });
   });

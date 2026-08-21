@@ -1,0 +1,38 @@
+<div class="mypage-sub-page-content" data-sub-page="profile">
+  <header class="mypage-topbar">
+    <button type="button" class="topbar-btn" id="subPageBackBtn" aria-label="뒤로가기">←</button>
+    <span class="mypage-title">개인정보 수정</span>
+    <span class="topbar-btn spacer"></span>
+  </header>
+  
+  <main class="mypage-sub-main">
+    <form id="profileForm" class="profile-edit-form" onsubmit="if(typeof window.handleProfileSubmit === 'function') { window.handleProfileSubmit(event); } else { event.preventDefault(); alert('개인정보가 성공적으로 수정되었습니다.'); }">
+      <!-- 프로필 이미지 업로드 영역 -->
+      <div class="profile-image-section">
+        <div class="profile-image-wrap">
+          <img src="img/profile.jpg" alt="" class="profile-image" id="profilePreviewImage" />
+        </div>
+        <button type="button" class="btn-change-image" onclick="document.getElementById('profileImageInput').click();">이미지 변경</button>
+        <input type="file" id="profileImageInput" style="display:none;" accept="image/*" onchange="if(typeof window.handleProfileImageChange === 'function') { window.handleProfileImageChange(this); }">
+      </div>
+
+      <!-- 정보 입력 필드 그룹 -->
+      <div class="profile-input-group">
+        <div class="input-row">
+          <label for="profileName">이름</label>
+          <input type="text" id="profileName" value="CTID9320" required>
+        </div>
+        <div class="input-row">
+          <label for="profileEmail">이메일</label>
+          <input type="email" id="profileEmail" value="ctid@mancity.com" required>
+        </div>
+        <div class="input-row">
+          <label for="profilePhone">연락처</label>
+          <input type="tel" id="profilePhone" value="010-1894-0932" required>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-save-profile">수정 완료</button>
+    </form>
+  </main>
+</div>
