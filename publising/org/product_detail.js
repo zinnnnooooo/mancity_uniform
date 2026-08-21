@@ -172,6 +172,9 @@ window.initProductDetailPage = function (productId) {
       product.badge = found.badge;
       product.season = found.season;
       product.detailImages = found.detailImages || [];
+      if (product.id === 'uniform_31') {
+        product.detailImages = [];
+      }
       if (found.sizes) product.sizes = found.sizes;
       if (found.markingOptions) product.markingOptions = found.markingOptions;
       if (found.patchOptions) product.patchOptions = found.patchOptions;
