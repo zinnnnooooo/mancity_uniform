@@ -404,18 +404,38 @@ body.mypage-page-body .app-frame.mypage {
   letter-spacing: 0.02em;
   cursor: pointer;
   box-sizing: border-box;
-  border: 1px solid rgba(255, 80, 80, 0.25);
-  background: rgba(255, 80, 80, 0.08);
-  color: rgba(255, 153, 153, 0.9);
-  transition: background 200ms ease, border-color 200ms ease, transform 180ms ease;
+  transition: background 200ms ease, border-color 200ms ease, box-shadow 200ms ease, transform 180ms ease;
 }
 
 .mypage-page-content .account-btn-container .account-btn:hover {
-  background: rgba(255, 80, 80, 0.16);
-  border-color: rgba(255, 80, 80, 0.4);
   transform: translateY(-1px);
 }
 
 .mypage-page-content .account-btn-container .account-btn:active {
   transform: scale(0.97);
+}
+
+/* 로그인 버튼: Neon Yellow (#DFFF00) 계열 */
+.mypage-page-content .account-btn-container .account-btn.account-btn--login {
+  border: 1px solid rgba(223, 255, 0, 0.3);
+  background: rgba(223, 255, 0, 0.06);
+  color: #DFFF00;
+}
+
+.mypage-page-content .account-btn-container .account-btn.account-btn--login:hover {
+  background: rgba(223, 255, 0, 0.15);
+  border-color: rgba(223, 255, 0, 0.5);
+  box-shadow: 0 0 10px rgba(223, 255, 0, 0.25);
+}
+
+/* 로그아웃 버튼: 기존 Red 계열 스타일 유지 */
+.mypage-page-content .account-btn-container .account-btn.account-btn--logout {
+  border: 1px solid rgba(255, 80, 80, 0.25);
+  background: rgba(255, 80, 80, 0.08);
+  color: rgba(255, 153, 153, 0.9);
+}
+
+.mypage-page-content .account-btn-container .account-btn.account-btn--logout:hover {
+  background: rgba(255, 80, 80, 0.16);
+  border-color: rgba(255, 80, 80, 0.4);
 }
