@@ -187,7 +187,11 @@ function initClubPage() {
     if (!ctaBtn.dataset.bound) {
       ctaBtn.dataset.bound = 'true';
       ctaBtn.addEventListener("click", function () {
-        if (typeof navigateTo === 'function') {
+        if (typeof window.loadUniformListPage === 'function') {
+          window.loadUniformListPage();
+        } else if (typeof parent.loadUniformListPage === 'function') {
+          parent.loadUniformListPage();
+        } else if (typeof navigateTo === 'function') {
           navigateTo("uni_list.html");
         } else {
           window.location.href = "uni_list.html";
